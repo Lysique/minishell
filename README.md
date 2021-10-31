@@ -1,5 +1,6 @@
 
-# PROJECT FILE STRUCTURE  
+# PROJECT FILE STRUCTURE
+```
 minishell  
 ├── includes  
 │   └── minishell.h  
@@ -22,6 +23,6 @@ minishell
     ├── minishell.c  
     └── parser----------------->//STEP 2: parse tokens into valid command list  
         └── README.md  
-  
+ ```
 # Resources  
 [Shell architecture "Lexer->Parser->Expander->Executor"](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
