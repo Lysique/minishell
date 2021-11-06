@@ -10,8 +10,7 @@ minishell
 │       ├── includes  
 │       ├── libft-------------->// LIBFT library  
 │       ├── Makefile  
-│       ├── srcs  
-│       └── srcs_bonus  
+│       ├── srcs  ------------->// ft_printf + get_next_line
 ├── README.md  
 └── srcs  
     ├── executor ------------->//STEP 4: execute commandlist  
