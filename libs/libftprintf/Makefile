@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/20 09:55:38 by slathouw          #+#    #+#              #
-#    Updated: 2021/11/06 09:13:14 by slathouw         ###   ########.fr        #
+#    Updated: 2021/11/06 09:32:02 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,9 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 OBJDIR	= obj
 
-SOURCES = ft_printf.c ft_print_hex.c ft_print_int.c \
-			ft_print_char.c ft_print_str.c ft_field_parse.c
+SOURCES =   ft_printf.c ft_print_hex.c ft_print_int.c \
+			ft_print_char.c ft_print_str.c ft_field_parse.c \
+			get_next_line.c
 SRCDIR = srcs
 SRCS = ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS = ${addprefix $(OBJDIR)/, $(SOURCES:.c=.o)}
