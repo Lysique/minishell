@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2021/11/06 10:58:56 by slathouw         ###   ########.fr        #
+#    Updated: 2021/11/06 12:04:28 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ $(OBJDIR)/exec_%.o: $(EXECUTOR_DIR)/%.c
 	@${CC} ${CFLAGS} -I ${INCLUDES} -c $< -o $@
 
 clean:
-	@rm -f $(OBJS) $(PARSER_OBJS)
+	@rm -f $(OBJS) $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS)
 	@rm -rf $(OBJDIR)
 	@make clean -C $(LIBFT)
 	@echo "minishell objects removed..."
