@@ -78,7 +78,8 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 			redir_exec(fd_in, cmds, p, cmdline);
 		else
 		{
-			wait(NULL);
+			wait(&cmds->exitstatus);
+			printf("%d\n", WEXITSTATUS(cmds->exitstatus));
 			if (close(p[1]) == -1)
 				exit(EXIT_FAILURE);
 			fd_in = p[0];

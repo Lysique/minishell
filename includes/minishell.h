@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/14 13:51:01 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/21 16:08:54 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ int			ft_exit(t_cmds cmd);
 int			ft_echo(t_cmds cmd);
 int			ft_pwd(t_cmds cmd);
 int			ft_cd(t_cmds cmd);
+
+int			ft_srch(char *envp);
+int			ft_check(char s1, char *set);
 
 void		pipex(t_cmdline *cmdline);
 void		loop_pipe(t_cmdline *cmdline, int fd_in);
