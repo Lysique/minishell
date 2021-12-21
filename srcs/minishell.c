@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 09:59:19 by slathouw          #+#    #+#             */
-/*   Updated: 2021/11/09 15:26:19 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/14 13:49:41 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	main(int argc, char **argv, char **env)
 {
 	(void) argc;
 	(void) argv;
-	int	fd = open("Makefile", O_RDONLY);
+	execute_minishell(env);
+/*	int	fd = open("Makefile", O_RDONLY);
 	char *line = get_next_line(fd);
 	while (line)
 	{
@@ -26,5 +27,5 @@ int	main(int argc, char **argv, char **env)
 	}
 	ft_printf("%s\n", line);
 	close(fd);
-	return (0);
+*/	return (0);
 }

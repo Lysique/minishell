@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2021/11/06 12:04:28 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/13 16:34:50 by tamighi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,19 @@ CFLAGS	= -Wall -Wextra -Werror
 OBJDIR	= obj
 
 # ADD "SRCS" FILES HERE
-SOURCES	= minishell.c
+SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c
 SRCDIR 	= srcs
 SRCS 	= ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS	= ${addprefix $(OBJDIR)/srcs_, $(SOURCES:.c=.o)}
 
 # ADD "LEXER" FILES HERE 
-LEXER		= 
+LEXER		= lexer.c nb_tokens.c tokens_in_arr.c
 LEXER_DIR 	= srcs/lexer
 LEXER_SRCS = ${addprefix $(LEXER_DIR)/, $(LEXER)}
 LEXER_OBJS	= ${addprefix $(OBJDIR)/lexe_, $(LEXER:.c=.o)}
 
 # ADD "PARSER" FILES HERE
-PARSER		=  
+PARSER		= parser.c create_cmdline.c cmds_add_lstfile.c create_command.c
 PARSER_DIR 	= srcs/parser
 PARSER_SRCS = ${addprefix $(PARSER_DIR)/, $(PARSER)}
 PARSER_OBJS	= ${addprefix $(OBJDIR)/pars_, $(PARSER:.c=.o)}
@@ -46,7 +46,7 @@ EXPANDER_SRCS = ${addprefix $(EXPANDER_DIR)/, $(EXPANDER)}
 EXPANDER_OBJS	= ${addprefix $(OBJDIR)/expa_, $(EXPANDER:.c=.o)}
 
 # ADD "EXECUTOR" FILES HERE
-EXECUTOR		= 
+EXECUTOR		= ft_exit.c ft_echo.c ft_pwd.c ft_cd.c executor.c 
 EXECUTOR_DIR 	= srcs/executor
 EXECUTOR_SRCS = ${addprefix $(EXECUTOR_DIR)/, $(EXECUTOR)}
 EXECUTOR_OBJS	= ${addprefix $(OBJDIR)/exec_, $(EXECUTOR:.c=.o)}
@@ -61,7 +61,7 @@ all : 		${NAME}
 $(NAME) :	$(OBJS) $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS)
 	@make -C $(LIBFT)
 	@cp $(LIBFT)/libftprintf.a .
-	@${CC} ${CFLAGS} -I ${INCLUDES} ${OBJS} $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS) libftprintf.a -o ${NAME}
+	@${CC} ${CFLAGS} -I ${INCLUDES} -lreadline -I/Users/tamighi/.brew/opt/readline/include -L/Users/tamighi/.brew/opt/readline/lib ${OBJS} $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS) libftprintf.a -o ${NAME}
 	@echo "minishell binary created!"
 
 # SRCS object compilation
