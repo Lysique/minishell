@@ -14,16 +14,18 @@ int	ft_strcmp(char *s1, char *s2)
 	return (1);
 }
 
-int	check_if_builtin(t_cmds cmds, t_builtins *builtins)
+int	check_if_builtin(t_cmdline *cmdline, t_builtins *builtins)
 {
 	int	i;
+	t_cmds	cmds;
 
 	i = 0;
+	cmds = *cmdline->cmds;
 	while (builtins[i].builtin)
 	{
 		if (ft_strcmp(builtins[i].builtin, cmds.cmd))
 		{
-			builtins[i].fct(cmds);
+			builtins[i].fct(cmdline);
 			return (1);
 		}
 		i++;
@@ -54,8 +56,7 @@ void	redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline)
 		exit(EXIT_FAILURE);
 	act = ft_split((*cmds).command, ' ');
 	path = find_path(act[0], cmdline->env);
-	if (!check_if_builtin(*cmds, cmdline->builtins))
-		execve(path, act, NULL);
+	execve(path, act, NULL);
 	exit(EXIT_FAILURE);
 }
 
@@ -70,6 +71,11 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 	env = cmdline->env;
 	while ((*cmds).command != NULL)
 	{
+		if (check_if_builtin(cmdline, cmdline->builtins))
+		{
+			cmds++;
+			continue ;
+		}
 		pipe(p);
 		pid = fork();
 		if (pid == -1)
@@ -79,7 +85,6 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 		else
 		{
 			wait(&cmds->exitstatus);
-			printf("%d\n", WEXITSTATUS(cmds->exitstatus));
 			if (close(p[1]) == -1)
 				exit(EXIT_FAILURE);
 			fd_in = p[0];

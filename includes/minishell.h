@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/21 16:08:54 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:12:42 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ typedef struct s_cmds
 	int			pipeout;
 }				t_cmds;
 
+typedef struct s_cmdline
+{
+	char				**env;
+	struct s_builtins	*builtins;
+	t_cmds				*cmds;
+}			t_cmdline;
+
 typedef struct s_builtins
 {
 	char	*builtin;
-	int		(*fct)(t_cmds);
+	int		(*fct)(t_cmdline *cmdline);
 }				t_builtins;
-
-typedef struct s_cmdline
-{
-	char		**env;
-	t_builtins	*builtins;
-	t_cmds		*cmds;
-}			t_cmdline;
 
 /*FUNCTIONS*/
 
@@ -89,10 +89,10 @@ int			nb_cmds(char **arr);
 
 void		executor(t_cmdline *cmdline, char **env);
 
-int			ft_exit(t_cmds cmd);
-int			ft_echo(t_cmds cmd);
-int			ft_pwd(t_cmds cmd);
-int			ft_cd(t_cmds cmd);
+int			ft_exit(t_cmdline *cmdline);
+int			ft_echo(t_cmdline *cmdline);
+int			ft_pwd(t_cmdline *cmdline);
+int			ft_cd(t_cmdline *cmdline);
 
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);
@@ -100,7 +100,7 @@ int			ft_check(char s1, char *set);
 void		pipex(t_cmdline *cmdline);
 void		loop_pipe(t_cmdline *cmdline, int fd_in);
 void		redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline);
-int			check_if_builtin(t_cmds cmds, t_builtins *builtins);
+int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		**ft_split(char const *s, char c);
