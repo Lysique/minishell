@@ -23,6 +23,7 @@ int	check_if_builtin(t_cmds cmds, t_builtins *builtins)
 	{
 		if (ft_strcmp(builtins[i].builtin, cmds.cmd))
 		{
+			printf("%s, %s\n", builtins[i].builtin, cmds.cmd);
 			builtins[i].fct(cmds);
 			return (1);
 		}
@@ -69,11 +70,11 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 	env = cmdline->env;
 	while ((*cmds).command != NULL)
 	{
-	/*	if (check_if_builtin(*cmds, cmdline->builtins))
+		if (check_if_builtin(*cmds, cmdline->builtins))
 		{
 			cmds++;
 			continue ;
-		}*/
+		}
 		pipe(p);
 		pid = fork();
 		if (pid == -1)

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/22 12:49:52 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:02:33 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_cmds
 typedef struct s_builtins
 {
 	char	*builtin;
-	int		(*fct)(t_cmds);
+	int		(*fct)(t_cmdline *cmdline);
 }				t_builtins;
 
 typedef struct s_cmdline
@@ -90,10 +90,10 @@ int			nb_cmds(char **arr);
 void		executor(t_cmdline *cmdline, char **env);
 void		check_exit_status(t_cmds **cmds);
 
-int			ft_exit(t_cmds cmd);
-int			ft_echo(t_cmds cmd);
-int			ft_pwd(t_cmds cmd);
-int			ft_cd(t_cmds cmd);
+int			ft_exit(t_cmdline *cmdline);
+int			ft_echo(t_cmdline *cmdline);
+int			ft_pwd(t_cmdline *cmdline);
+int			ft_cd(t_cmdline *cmdline);
 
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);
