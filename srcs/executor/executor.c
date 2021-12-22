@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
+/*   Updated: 2021/12/22 15:08:05 by slathouw         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char	*builtin_name(char *builtin)
@@ -23,7 +35,7 @@ t_builtins	*builtins_init(void)
 {
 	t_builtins	*builtins;
 
-	builtins = ft_malloc(sizeof(t_builtins) * 4, 0);
+	builtins = ft_malloc(sizeof(t_builtins) * 5, 0);
 	builtins[0].builtin = builtin_name("exit");
 	builtins[0].fct = ft_exit;
 	builtins[1].builtin = builtin_name("echo");
@@ -32,7 +44,9 @@ t_builtins	*builtins_init(void)
 	builtins[2].fct = ft_pwd;
 	builtins[3].builtin = builtin_name("cd");
 	builtins[3].fct = ft_cd;
-	builtins[4].builtin = 0;
+	builtins[4].builtin = builtin_name("env");
+	builtins[4].fct = ft_env;
+	builtins[5].builtin = 0;
 	return (builtins);
 }
 

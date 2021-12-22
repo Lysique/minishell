@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/22 14:12:42 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/22 15:04:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			ft_exit(t_cmdline *cmdline);
 int			ft_echo(t_cmdline *cmdline);
 int			ft_pwd(t_cmdline *cmdline);
 int			ft_cd(t_cmdline *cmdline);
+int			ft_env(t_cmdline *cmdline);
 
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);

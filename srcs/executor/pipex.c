@@ -56,7 +56,7 @@ void	redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline)
 		exit(EXIT_FAILURE);
 	act = ft_split((*cmds).command, ' ');
 	path = find_path(act[0], cmdline->env);
-	execve(path, act, NULL);
+	execve(path, act, cmdline->env);
 	exit(EXIT_FAILURE);
 }
 
