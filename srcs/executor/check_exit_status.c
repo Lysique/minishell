@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   check_exit_status.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/22 13:12:04 by tamighi          ###   ########.fr       */
+/*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/22 13:49:35 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_echo(t_cmds cmd)
+void	check_exit_status(t_cmds **cmds)
 {
-	t_args	*tmp;
+	int	parentheses;
 
-	tmp = cmd.args;
-	while (tmp)
+	parentheses = (*cmds)->parentheses;
+	if ((WEXITSTATUS((*cmds)->exitstatus) == 1 && ((*cmds)->pipetype == 3))
+		|| (WEXITSTATUS((*cmds)->exitstatus) == 0 && ((*cmds)->pipetype == 2)))
 	{
-		printf("%s\n", tmp->content);
-		tmp = tmp->next;
-		if (tmp)
-			printf(" ");
+		(*cmds)++;
+		parentheses += (*cmds)->parentheses;
+		while (parentheses)
+		{
+			(*cmds)++;
+			parentheses += (*cmds)->parentheses;
+		}
 	}
-	printf("\n");
-	return (1);
 }

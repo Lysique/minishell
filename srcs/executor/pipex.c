@@ -54,8 +54,7 @@ void	redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline)
 		exit(EXIT_FAILURE);
 	act = ft_split((*cmds).command, ' ');
 	path = find_path(act[0], cmdline->env);
-	if (!check_if_builtin(*cmds, cmdline->builtins))
-		execve(path, act, NULL);
+	execve(path, act, NULL);
 	exit(EXIT_FAILURE);
 }
 
@@ -70,6 +69,11 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 	env = cmdline->env;
 	while ((*cmds).command != NULL)
 	{
+	/*	if (check_if_builtin(*cmds, cmdline->builtins))
+		{
+			cmds++;
+			continue ;
+		}*/
 		pipe(p);
 		pid = fork();
 		if (pid == -1)
@@ -79,7 +83,7 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 		else
 		{
 			wait(&cmds->exitstatus);
-			printf("%d\n", WEXITSTATUS(cmds->exitstatus));
+			check_exit_status(&cmds);
 			if (close(p[1]) == -1)
 				exit(EXIT_FAILURE);
 			fd_in = p[0];
