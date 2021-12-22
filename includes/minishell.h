@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/22 14:02:33 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:32:28 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ typedef struct s_cmds
 	int			pipeout;
 }				t_cmds;
 
+typedef struct s_cmdline
+{
+	char				**env;
+	struct s_builtins	*builtins;
+	t_cmds				*cmds;
+}			t_cmdline;
+
 typedef struct s_builtins
 {
 	char	*builtin;
 	int		(*fct)(t_cmdline *cmdline);
 }				t_builtins;
-
-typedef struct s_cmdline
-{
-	char		**env;
-	t_builtins	*builtins;
-	t_cmds		*cmds;
-}			t_cmdline;
 
 /*FUNCTIONS*/
 
@@ -101,7 +101,7 @@ int			ft_check(char s1, char *set);
 void		pipex(t_cmdline *cmdline);
 void		loop_pipe(t_cmdline *cmdline, int fd_in);
 void		redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline);
-int			check_if_builtin(t_cmds cmds, t_builtins *builtins);
+int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		**ft_split(char const *s, char c);

@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/22 16:29:51 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:20:15 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ char	*ft_pathjoin(char *pwd, char *cd)
 	return (new);
 }
 
-int	ft_cd(t_cmds cmd)
+int	ft_cd(t_cmdline *cmdline)
 {
 	char	*pwd;
+	t_cmds	cmd;
 
+	cmd = *cmdline->cmds;
 	if (!cmd.args)
 		return (1);
 	pwd = ft_malloc(500, 0);

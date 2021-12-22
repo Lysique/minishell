@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/22 13:27:53 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/22 14:32:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ int	ft_num_exit(char *str)
 	return (num);
 }
 
-int	ft_exit(t_cmds cmd)
+int	ft_exit(t_cmdline *cmdline)
 {
 	int	num;
+	t_cmds	cmd;
 
+	cmd = *cmdline->cmds;
 	if (cmd.args && is_number(cmd.args->content) && cmd.args->next)
 	{
 		printf("minishell: exit: too many arguments\n");
