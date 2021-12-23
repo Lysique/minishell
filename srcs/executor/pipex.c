@@ -65,10 +65,8 @@ void	loop_pipe(t_cmdline *cmdline, int fd_in)
 	pid_t	pid;
 	int		p[2];
 	t_cmds	*cmds;
-	char	**env;
 
 	cmds = cmdline->cmds;
-	env = cmdline->env;
 	while ((*cmds).command != NULL)
 	{
 		if (check_if_builtin(cmdline, cmdline->builtins))

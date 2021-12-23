@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 13:57:15 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/22 15:10:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:16:34 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ void	*ft_allocs(t_list *allocated, int size)
 {
 	t_list	*tmp;
 	t_list	*new;
-	int		i;
 
-	i = 0;
 	tmp = allocated;
 	while (tmp->next)
 		tmp = tmp->next;

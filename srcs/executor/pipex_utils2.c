@@ -69,7 +69,6 @@ char	*find_path(char *cmd, char **envp)
 	char	*path;
 	char	**tab;
 	char	*cmd1;
-	char	*str2;
 
 	i = 0;
 	while (ft_strchhr(envp[i]) == 0)
@@ -79,7 +78,6 @@ char	*find_path(char *cmd, char **envp)
 	if (!tab)
 		return (0);
 	free(path);
-	str2 = ft_strjoin(cmd, "");
 	if (find_path2(tab, cmd, &cmd1) == 0)
 		return (0);
 	free(tab);
@@ -89,13 +87,9 @@ char	*find_path(char *cmd, char **envp)
 int	count_sep(char *s, char c)
 {
 	int	i;
-	int	j;
-	int	k;
 	int	count;
 
 	i = 0;
-	j = 0;
-	k = 0;
 	count = 0;
 	while (s[i])
 	{

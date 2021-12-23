@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/22 14:15:39 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:22:37 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_echo(t_cmdline *cmdline)
 	tmp = cmd.args;
 	while (tmp)
 	{
-		printf("%s", tmp->content);
+		printf("%s", (char *) tmp->content);
 		tmp = tmp->next;
 		if (tmp)
 			printf(" ");

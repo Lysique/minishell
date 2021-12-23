@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/22 14:20:15 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:22:49 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_cd(t_cmdline *cmdline)
 	pwd = ft_pathjoin(pwd, cmd.args->content);
 	if (chdir(pwd) == -1)
 	{
-		printf("minishell: cd: %s: No such directory\n", cmd.args->content);
+		printf("minishell: cd: %s: No such directory\n", (char *) cmd.args->content);
 		return (-1);
 	}
 	return (1);

@@ -13,7 +13,6 @@ char	*next_word(char *s, char c)
 char	*ft_word(char const *s, char c)
 {
 	char	*str;
-	char	*str1;
 	int		i;
 	int		j;
 
@@ -26,7 +25,6 @@ char	*ft_word(char const *s, char c)
 	str = malloc (sizeof(char) * (j + 1));
 	if (!str)
 		return (NULL);
-	str1 = str;
 	while (i < j)
 	{
 		str[i] = s[i];

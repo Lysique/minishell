@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/13 16:47:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:17:24 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void print_cmdline(t_cmdline *cmdline, int nb)
 		printf("command = %s, args = ", cmdline->cmds[i].cmd);
 		while (cmdline->cmds[i].args)
 		{
-			printf("%s || ", cmdline->cmds[i].args->content);
+			printf("%s || ", (char *) cmdline->cmds[i].args->content);
 			cmdline->cmds[i].args = cmdline->cmds[i].args->next;
 		}
 		printf("\n");

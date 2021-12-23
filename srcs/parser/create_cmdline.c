@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmdline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 09:29:18 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/22 15:02:21 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:17:39 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ t_args	*arg_add(char *arg, t_cmds cmds)
 
 t_cmds	cmds_add_cmd(char ***arr, t_cmds cmds)
 {
-	int	i;
-
-	i = 0;
 	while (**arr)
 	{
 		if (***arr == '|' || ***arr == '&' || ***arr == '<' || ***arr == '>'
