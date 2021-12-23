@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/14 13:49:59 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:58:06 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	execute_minishell(char **env)
 	signal_management();
 	while (1)
 	{
-		line = readline("#minishell: ");
+		line = readline(BMAG "🤪 minishell 👉 " RESET);
+		if (!*line)
+			continue ;
 		add_history(line);
-		if (!line)
-			exit(0);
 		arr = lexer(line);
 		if (check_cmdline(arr))
 		{
@@ -33,7 +33,8 @@ void	execute_minishell(char **env)
 			continue ;
 		}
 		cmdline = parser(arr);
-		executor(cmdline, env);
+		cmdline->env = env_init(env);
+		executor(cmdline);
 		ft_malloc(-2, 0);
 	}
 }
