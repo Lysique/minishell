@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/22 15:04:42 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/23 10:59:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+# include <sys/wait.h>
 # include <unistd.h>       
 # include <stdio.h>
 # include <string.h>
@@ -24,6 +25,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include "../libs/libftprintf/includes/ft_printf_bonus.h"
+# include "print_colors.h"
 
 /*STRUCTS*/
 
@@ -87,13 +89,15 @@ int			nb_cmds(char **arr);
 
 	/*EXECUTOR*/
 
-void		executor(t_cmdline *cmdline, char **env);
+void		executor(t_cmdline *cmdline);
 
 int			ft_exit(t_cmdline *cmdline);
 int			ft_echo(t_cmdline *cmdline);
 int			ft_pwd(t_cmdline *cmdline);
 int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
+
+char		**env_init(char **envp);
 
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);
