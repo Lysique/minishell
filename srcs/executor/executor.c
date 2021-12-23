@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/22 15:08:05 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/23 10:44:25 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,12 @@ int	ft_check(char s1, char *set)
 	return (0);
 }
 
-void	executor(t_cmdline *cmdline, char **env)
+void	executor(t_cmdline *cmdline)
 {
 	t_builtins	*builtins;
 
 	builtins = builtins_init();
 	cmdline->builtins = builtins;
-	cmdline->env = env;
 	pipex(cmdline);
-	ft_printf("/\\ execution done \\\n");
+	ft_printf(BGRN "/\\ execution done \\\n" RESET);
 }
