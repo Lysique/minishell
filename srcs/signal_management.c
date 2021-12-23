@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/21 14:25:07 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/23 10:47:54 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ft_printf("\n#minishell: ");
+		ft_printf(BMAG "\n🤪 minishell 👉 " RESET);
 	}
 }
 
