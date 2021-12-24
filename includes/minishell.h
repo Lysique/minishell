@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/24 05:57:52 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/24 08:41:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_cmdline
 	char				**env;
 	struct s_builtins	*builtins;
 	t_cmds				*cmds;
-	t_array				*env_arr;
+	t_array				env_arr;
 }			t_cmdline;
 
 typedef struct s_builtins
@@ -98,8 +98,9 @@ int			ft_echo(t_cmdline *cmdline);
 int			ft_pwd(t_cmdline *cmdline);
 int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
+int			ft_export(t_cmdline *cmdline);
 
-char		**env_init(char **envp);
+void		env_init(char **envp, t_cmdline *cmdline);
 
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);
