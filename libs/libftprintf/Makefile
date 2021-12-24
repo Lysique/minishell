@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/20 09:55:38 by slathouw          #+#    #+#              #
-#    Updated: 2021/11/06 09:32:02 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/24 05:40:12 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,18 +24,29 @@ SRCDIR = srcs
 SRCS = ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS = ${addprefix $(OBJDIR)/, $(SOURCES:.c=.o)}
 
+#FT_ARRAY files 
+ARRSOURCES	= array.c int_array.c ft_realloc.c
+ARRDIR 	= srcs/ft_array
+ARRSRCS = ${addprefix $(ARRDIR)/, $(ARRSOURCES)}
+ARROBJS	= ${addprefix $(OBJDIR)/arr_, $(ARRSOURCES:.c=.o)}
+
 
 all : 		${NAME}
 
-$(NAME) :	$(OBJS)
+$(NAME) :	$(OBJS) ${ARROBJS}
 	@make -C $(LIBFT)
 	@cp libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS) ${ARROBJS}
 	@ranlib $(NAME)
 	@echo "Libftprintf.a created!"
 
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p obj
+	@${CC} ${CFLAGS} -I ${INCLUDES} -c $< -o $@
+
+#FT_ARRAY object compilation
+$(OBJDIR)/arr_%.o: $(ARRDIR)/%.c
 	@mkdir -p obj
 	@${CC} ${CFLAGS} -I ${INCLUDES} -c $< -o $@
 
