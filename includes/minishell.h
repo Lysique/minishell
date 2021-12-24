@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/23 10:59:14 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/24 05:57:52 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include "../libs/libftprintf/includes/ft_printf_bonus.h"
+# include "../libs/libftprintf/includes/ft_array.h"
 # include "print_colors.h"
 
 /*STRUCTS*/
@@ -56,6 +57,7 @@ typedef struct s_cmdline
 	char				**env;
 	struct s_builtins	*builtins;
 	t_cmds				*cmds;
+	t_array				*env_arr;
 }			t_cmdline;
 
 typedef struct s_builtins
