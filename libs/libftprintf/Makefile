@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/20 09:55:38 by slathouw          #+#    #+#              #
-#    Updated: 2021/12/24 05:40:12 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/24 08:19:07 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= libftprintf.a
 LIBFT 	= libft
 INCLUDES= includes
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 OBJDIR	= obj
 
 SOURCES =   ft_printf.c ft_print_hex.c ft_print_int.c \
@@ -34,7 +34,7 @@ ARROBJS	= ${addprefix $(OBJDIR)/arr_, $(ARRSOURCES:.c=.o)}
 all : 		${NAME}
 
 $(NAME) :	$(OBJS) ${ARROBJS}
-	@make -C $(LIBFT)
+	@make -sC $(LIBFT)
 	@cp libft/libft.a ./$(NAME)
 	@ar rc $(NAME) $(OBJS) ${ARROBJS}
 	@ranlib $(NAME)
@@ -53,12 +53,12 @@ $(OBJDIR)/arr_%.o: $(ARRDIR)/%.c
 clean:
 	@rm -f $(OBJS)
 	@rm -rf $(OBJDIR)
-	@make clean -C $(LIBFT)
+	@make clean -sC $(LIBFT)
 	@echo "libftprintf objects removed..."
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C $(LIBFT)
+	@make fclean -sC $(LIBFT)
 	@echo "libftprintf.a removed..."
 
 re :		fclean all
