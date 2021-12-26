@@ -1,103 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/26 11:05:39 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/26 13:10:58 by tamighi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	wait_and_next_cmd(t_cmdline *cmdline)
 {
-	int	i;
+	int		p;
 
-	i = 0;
-	while (s1[i])
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	check_if_builtin(t_cmdline *cmdline, t_builtins *builtins)
-{
-	int	i;
-	t_cmds	cmds;
-
-	i = 0;
-	cmds = *cmdline->cmds;
-	while (builtins[i].builtin)
-	{
-		if (ft_strcmp(builtins[i].builtin, cmds.cmd))
-		{
-			builtins[i].fct(cmdline);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-void	redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline)
-{
-	char	**act;
-	char	*path;
-	int		fd_out;
-
-	dup2(fd_in, 0);
-	if ((*(cmds + 1)).command != NULL)
-		dup2(p[1], 1);
-	else
-	{
-		fd_out = 1;
-		if (fd_out < 0)
-		{
-			perror("failed outfile");
-			exit(EXIT_FAILURE);
-		}
-		dup2(fd_out, 1);
-	}
-	if (close(p[0]) == -1)
+	wait(&cmdline->cmds->exitstatus);
+	check_exit_status(&cmdline->cmds);
+	if (close(cmdline->cmds->p[1]) == -1)
 		exit(EXIT_FAILURE);
-	act = ft_split((*cmds).command, ' ');
-	path = find_path(act[0], cmdline->env);
-	execve(path, act, NULL);
-	exit(EXIT_FAILURE);
-}
-
-void	loop_pipe(t_cmdline *cmdline, int fd_in)
-{
-	pid_t	pid;
-	int		p[2];
-	t_cmds	*cmds;
-	char	**env;
-
-	cmds = cmdline->cmds;
-	env = cmdline->env;
-	while ((*cmds).command != NULL)
-	{
-		if (check_if_builtin(cmdline, cmdline->builtins))
-		{
-			cmds++;
-			continue ;
-		}
-		pipe(p);
-		pid = fork();
-		if (pid == -1)
-			exit(EXIT_FAILURE);
-		else if (pid == 0)
-			redir_exec(fd_in, cmds, p, cmdline);
-		else
-		{
-			wait(&cmds->exitstatus);
-			check_exit_status(&cmds);
-			if (close(p[1]) == -1)
-				exit(EXIT_FAILURE);
-			fd_in = p[0];
-			cmds++;
-		}
-	}
+	p = cmdline->cmds->p[0];
+	cmdline->cmds++;
+	cmdline->cmds->fd_in = p;
 }
 
 void	pipex(t_cmdline *cmdline)
 {
-	int	fd_in;
+	pid_t	pid;
 
-	fd_in = 0;
-	loop_pipe(cmdline, fd_in);
+	cmdline->cmds->fd_in = 0;
+	while (cmdline->cmds->command != NULL)
+	{
+		if (is_cd_or_exit(cmdline))
+		{
+			cmdline->cmds++;
+			continue ;
+		}
+		pipe(cmdline->cmds->p);
+		pid = fork();
+		if (pid == -1)
+			exit(EXIT_FAILURE);
+		else if (pid == 0)
+		{
+			if (!check_if_builtin(cmdline, cmdline->builtins))
+				redir_exec(cmdline);
+			exit(0);
+		}
+		else
+			wait_and_next_cmd(cmdline);
+	}
 }

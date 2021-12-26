@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/22 14:32:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/26 13:20:00 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_num_exit(char *str)
 	long	num;
 	long	sign;
 	int		i;
-	
+
 	i = 0;
 	num = 0;
 	sign = 1;
@@ -46,8 +46,8 @@ int	ft_num_exit(char *str)
 		num += str[i] - '0';
 		if (num > 2147483647 || num * sign < -2147483648)
 		{
-			printf("exit\nminishell: exit: %s: numeric argument required\n", 
-					str);
+			printf("exit\nminishell: exit: %s: numeric argument required\n",
+				str);
 			ft_malloc(-2, 0);
 			exit(0);
 		}
@@ -58,7 +58,7 @@ int	ft_num_exit(char *str)
 
 int	ft_exit(t_cmdline *cmdline)
 {
-	int	num;
+	int		num;
 	t_cmds	cmd;
 
 	cmd = *cmdline->cmds;
@@ -69,18 +69,16 @@ int	ft_exit(t_cmdline *cmdline)
 	}
 	if (cmd.args && !is_number(cmd.args->content))
 	{
-		printf("exit\nminishell: exit: %s: numeric argument required\n", 
-				cmd.args->content);
+		printf("exit\nminishell: exit: %s: numeric argument required\n",
+			cmd.args->content);
 		ft_malloc(-2, 0);
 		exit(0);
 	}
 	printf("exit\n");
-	if (!cmd.args)
-	{
-		ft_malloc(-2, 0);
-		exit(0);
-	}
-	num = ft_num_exit(cmd.args->content);
+	if (cmd.args)
+		num = ft_num_exit(cmd.args->content);
+	else
+		num = 0;
 	ft_malloc(-2, 0);
 	exit(num);
 	return (1);

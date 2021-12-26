@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/26 11:03:50 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/26 13:10:34 by tamighi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 char	*builtin_name(char *builtin)
@@ -26,54 +38,19 @@ t_builtins	*builtins_init(void)
 	builtins = ft_malloc(sizeof(t_builtins) * 4, 0);
 	builtins[0].builtin = builtin_name("exit");
 	builtins[0].fct = ft_exit;
-	builtins[1].builtin = builtin_name("echo");
-	builtins[1].fct = ft_echo;
+	builtins[1].builtin = builtin_name("cd");
+	builtins[1].fct = ft_cd;
 	builtins[2].builtin = builtin_name("pwd");
 	builtins[2].fct = ft_pwd;
-	builtins[3].builtin = builtin_name("cd");
-	builtins[3].fct = ft_cd;
+	builtins[3].builtin = builtin_name("echo");
+	builtins[3].fct = ft_echo;
 	builtins[4].builtin = 0;
 	return (builtins);
 }
 
-int	ft_srch(char *envp)
-{
-	int		i;
-	int		j;
-	char	*path;
-
-	path = "PATH=";
-	i = 0;
-	j = 4;
-	while (i <= j)
-	{
-		if (envp[i] != path[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	ft_check(char s1, char *set)
-{
-	int	i;
-
-	i = 0;
-	while (set[i] != '\0')
-	{
-		if (s1 == set[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 void	executor(t_cmdline *cmdline, char **env)
 {
-	t_builtins	*builtins;
-
-	builtins = builtins_init();
-	cmdline->builtins = builtins;
+	cmdline->builtins = builtins_init();
 	cmdline->env = env;
 	pipex(cmdline);
 	ft_printf("/\\ execution done \\\n");
