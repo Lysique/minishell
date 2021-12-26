@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/22 14:32:28 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/26 13:15:07 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ typedef struct s_cmds
 	int			parentheses;
 	int			exitstatus;
 	int			pipetype;
-	int			pipein;
-	int			pipeout;
+	int			fd_out;
+	int			fd_in;
+	int			p[2];
 }				t_cmds;
 
 typedef struct s_cmdline
@@ -95,22 +96,13 @@ int			ft_echo(t_cmdline *cmdline);
 int			ft_pwd(t_cmdline *cmdline);
 int			ft_cd(t_cmdline *cmdline);
 
+void		pipex(t_cmdline *cmdline);
+void		redir_exec(t_cmdline *cmdline);
+int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
+int			is_cd_or_exit(t_cmdline *cmdline);
+char		**ft_split(char const *s, char c);
+char		*find_path(char *cmd, char **envp);
+
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);
-
-void		pipex(t_cmdline *cmdline);
-void		loop_pipe(t_cmdline *cmdline, int fd_in);
-void		redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline);
-int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
-int			ft_strcmp(char *s1, char *s2);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		**ft_split(char const *s, char c);
-char		*ft_splitfct(char const *s, char c);
-char		*ft_word(char const *s, char c);
-char		*next_word(char *s, char c);
-int			count_sep(char *s, char c);
-char		*find_path(char *cmd, char **envp);
-int			find_path2(char **tab, char *cmd, char **cmd1);
-char		*ft_strtrim(char const *s1, char const *set);
-int			ft_strchhr(char *envp);
 #endif

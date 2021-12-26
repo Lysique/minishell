@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2021/12/22 14:32:16 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/26 11:29:46 by tamighi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ EXPANDER_SRCS = ${addprefix $(EXPANDER_DIR)/, $(EXPANDER)}
 EXPANDER_OBJS	= ${addprefix $(OBJDIR)/expa_, $(EXPANDER:.c=.o)}
 
 # ADD "EXECUTOR" FILES HERE
-EXECUTOR		= pipex.c pipex_utils.c pipex_utils2.c ft_exit.c ft_echo.c ft_pwd.c ft_cd.c executor.c check_exit_status.c 
+EXECUTOR		= pipex.c utils.c redir_exec.c builtin_management.c ft_split.c find_path.c ft_exit.c ft_echo.c ft_pwd.c ft_cd.c executor.c check_exit_status.c 
 EXECUTOR_DIR 	= srcs/executor
 EXECUTOR_SRCS = ${addprefix $(EXECUTOR_DIR)/, $(EXECUTOR)}
 EXECUTOR_OBJS	= ${addprefix $(OBJDIR)/exec_, $(EXECUTOR:.c=.o)}
