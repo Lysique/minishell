@@ -1,29 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:09:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/26 13:03:37 by tamighi          ###   ########.fr       */
+/*   Created: 2021/12/26 11:27:27 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/26 11:28:00 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_cmdline *cmdline)
+int	ft_srch(char *envp)
 {
-	char	*line;
-	t_cmds	*cmds;
+	int		i;
+	int		j;
+	char	*path;
 
-	cmds = cmdline->cmds;
-	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
-		dup2(cmds->p[1], 1);
-	line = ft_malloc(500, 0);
-	line = getcwd(line, 500);
-	printf("%s\n", line);
-	if (close(cmdline->cmds->p[0]) == -1)
-		exit(EXIT_FAILURE);
+	path = "PATH=";
+	i = 0;
+	j = 4;
+	while (i <= j)
+	{
+		if (envp[i] != path[i])
+			return (0);
+		i++;
+	}
 	return (1);
+}
+
+int	ft_check(char s1, char *set)
+{
+	int	i;
+
+	i = 0;
+	while (set[i] != '\0')
+	{
+		if (s1 == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }

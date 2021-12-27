@@ -1,4 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_path.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/27 10:41:44 by slathouw         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	char	*res;
+	char	*rres;
+
+	i = 0;
+	j = 0;
+	while (s1[i])
+		i++;
+	while (s2[j])
+		j++;
+	res = malloc (i + j + 1);
+	if (!res)
+		return (res);
+	rres = res;
+	while (*s1)
+		*res++ = *s1++;
+	while (*s2)
+		*res++ = *s2++;
+	*res = '\0';
+	return (rres);
+}
 
 int	ft_strchhr(char *envp)
 {
@@ -82,25 +119,4 @@ char	*find_path(char *cmd, char **envp)
 		return (0);
 	free(tab);
 	return (cmd1);
-}
-
-int	count_sep(char *s, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (s[i] != c && s[i])
-		{
-			count++;
-			while (s[i] != c && s[i])
-				i++;
-		}
-		while (s[i] == c && s[i])
-			i++;
-	}
-	return (count);
 }

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   check_exit_status.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:09:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/26 13:03:37 by tamighi          ###   ########.fr       */
+/*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/22 13:49:35 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_cmdline *cmdline)
+void	check_exit_status(t_cmds **cmds)
 {
-	char	*line;
-	t_cmds	*cmds;
+	int	parentheses;
 
-	cmds = cmdline->cmds;
-	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
-		dup2(cmds->p[1], 1);
-	line = ft_malloc(500, 0);
-	line = getcwd(line, 500);
-	printf("%s\n", line);
-	if (close(cmdline->cmds->p[0]) == -1)
-		exit(EXIT_FAILURE);
-	return (1);
+	parentheses = (*cmds)->parentheses;
+	if ((WEXITSTATUS((*cmds)->exitstatus) == 1 && ((*cmds)->pipetype == 3))
+		|| (WEXITSTATUS((*cmds)->exitstatus) == 0 && ((*cmds)->pipetype == 2)))
+	{
+		(*cmds)++;
+		parentheses += (*cmds)->parentheses;
+		while (parentheses)
+		{
+			(*cmds)++;
+			parentheses += (*cmds)->parentheses;
+		}
+	}
 }

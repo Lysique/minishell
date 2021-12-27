@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/23 10:59:14 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/27 10:38:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ typedef struct s_cmds
 	int			parentheses;
 	int			exitstatus;
 	int			pipetype;
-	int			pipein;
-	int			pipeout;
+	int			fd_out;
+	int			fd_in;
+	int			p[2];
 }				t_cmds;
 
 typedef struct s_cmdline
@@ -90,6 +91,7 @@ int			nb_cmds(char **arr);
 	/*EXECUTOR*/
 
 void		executor(t_cmdline *cmdline);
+void		check_exit_status(t_cmds **cmds);
 
 int			ft_exit(t_cmdline *cmdline);
 int			ft_echo(t_cmdline *cmdline);
@@ -99,22 +101,13 @@ int			ft_env(t_cmdline *cmdline);
 
 char		**env_init(char **envp);
 
+void		pipex(t_cmdline *cmdline);
+void		redir_exec(t_cmdline *cmdline);
+int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
+int			is_cd_or_exit(t_cmdline *cmdline);
+char		**ft_split(char const *s, char c);
+char		*find_path(char *cmd, char **envp);
+
 int			ft_srch(char *envp);
 int			ft_check(char s1, char *set);
-
-void		pipex(t_cmdline *cmdline);
-void		loop_pipe(t_cmdline *cmdline, int fd_in);
-void		redir_exec(int fd_in, t_cmds *cmds, int *p, t_cmdline *cmdline);
-int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
-int			ft_strcmp(char *s1, char *s2);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		**ft_split(char const *s, char c);
-char		*ft_splitfct(char const *s, char c);
-char		*ft_word(char const *s, char c);
-char		*next_word(char *s, char c);
-int			count_sep(char *s, char c);
-char		*find_path(char *cmd, char **envp);
-int			find_path2(char **tab, char *cmd, char **cmd1);
-char		*ft_strtrim(char const *s1, char const *set);
-int			ft_strchhr(char *envp);
 #endif

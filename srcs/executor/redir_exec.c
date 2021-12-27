@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   redir_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:09:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/26 13:03:37 by tamighi          ###   ########.fr       */
+/*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
+/*   Updated: 2021/12/26 13:01:49 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_cmdline *cmdline)
+void	redir_exec(t_cmdline *cmdline)
 {
-	char	*line;
+	char	**act;
+	char	*path;
 	t_cmds	*cmds;
 
+	dup2(cmdline->cmds->fd_in, 0);
 	cmds = cmdline->cmds;
 	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
-		dup2(cmds->p[1], 1);
-	line = ft_malloc(500, 0);
-	line = getcwd(line, 500);
-	printf("%s\n", line);
+		dup2(cmdline->cmds->p[1], 1);
 	if (close(cmdline->cmds->p[0]) == -1)
 		exit(EXIT_FAILURE);
-	return (1);
+	act = ft_split(cmdline->cmds->command, ' ');
+	path = find_path(act[0], cmdline->env);
+	execve(path, act, cmdline->env);
+	exit(EXIT_FAILURE);
 }

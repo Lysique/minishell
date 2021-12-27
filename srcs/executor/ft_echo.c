@@ -3,29 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/23 10:22:37 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/27 10:42:13 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_putstr2(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		write(1, &s[i++], 1);
+}
+
 int	ft_echo(t_cmdline *cmdline)
 {
 	t_args	*tmp;
-	t_cmds	cmd;
+	t_cmds	*cmds;
 
-	cmd = *cmdline->cmds;
-	tmp = cmd.args;
+	cmds = cmdline->cmds;
+	tmp = cmds->args;
+	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
+		dup2(cmds->p[1], 1);
 	while (tmp)
 	{
-		printf("%s", (char *) tmp->content);
+		ft_putstr2(tmp->content);
 		tmp = tmp->next;
 		if (tmp)
-			printf(" ");
+			ft_putstr2(" ");
 	}
-	printf("\n");
+	ft_putstr2("\n");
+	if (close(cmdline->cmds->p[0]) == -1)
+		exit(EXIT_FAILURE);
 	return (1);
 }
