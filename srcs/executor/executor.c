@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 11:25:31 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/27 12:29:29 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,29 @@ char	*builtin_name(char *builtin)
 	return (new);
 }
 //TODO: FIX builtins to put them on STACK instead of HEAP
-t_builtins	*builtins_init(void)
-{
-	t_builtins	*builtins;
 
-	builtins = ft_malloc(sizeof(t_builtins) * 7, 0);
-	builtins[0].builtin = builtin_name("exit");
-	builtins[0].fct = ft_exit;
-	builtins[1].builtin = builtin_name("cd");
-	builtins[1].fct = ft_cd;
-	builtins[2].builtin = builtin_name("pwd");
-	builtins[2].fct = ft_pwd;
-	builtins[3].builtin = builtin_name("echo");
-	builtins[3].fct = ft_echo;
-	builtins[4].builtin = builtin_name("env");
-	builtins[4].fct = ft_env;
-	builtins[5].builtin = builtin_name("export");
-	builtins[5].fct = ft_export;
-	builtins[6].builtin = 0;
+void	builtins_init(t_cmdline *cmdline)
+{
+	cmdline->builtins[0].builtin = builtin_name("exit");
+	cmdline->builtins[0].fct = ft_exit;
+	cmdline->builtins[1].builtin = builtin_name("cd");
+	cmdline->builtins[1].fct = ft_cd;
+	cmdline->builtins[2].builtin = builtin_name("pwd");
+	cmdline->builtins[2].fct = ft_pwd;
+	cmdline->builtins[3].builtin = builtin_name("echo");
+	cmdline->builtins[3].fct = ft_echo;
+	cmdline->builtins[4].builtin = builtin_name("env");
+	cmdline->builtins[4].fct = ft_env;
+	cmdline->builtins[5].builtin = builtin_name("export");
+	cmdline->builtins[5].fct = ft_export;
+	cmdline->builtins[6].builtin = 0;
+	cmdline->builtins[7].builtin = 0;
 	return (builtins);
 }
 
 void	executor(t_cmdline *cmdline)
 {
-	cmdline->builtins = builtins_init();
+	builtins_init(cmdline);
 	pipex(cmdline);
 	ft_printf(BGRN "/\\ execution done \\\n" RESET);
 }

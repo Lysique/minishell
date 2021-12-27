@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 11:26:44 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/27 12:23:48 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_cmds
 typedef struct s_cmdline
 {
 	char				**env;
-	t_builtins			*builtins;
+	struct s_builtins	builtins[8];
 	t_cmds				*cmds;
 	t_array				env_arr;
 }			t_cmdline;
