@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 13:26:01 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/27 13:37:43 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	env_init(char **envp, t_cmdline *cmdline)
 	ft_array_add(&cmdline->env_arr, 0);
 	cmdline->env = cmdline->env_arr.data;
 }
-
 
 int is_nameequword_format(char *line)
 {
