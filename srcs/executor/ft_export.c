@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/24 09:33:07 by slathouw         ###   ########.fr       */
+/*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
+/*   Updated: 2021/12/24 08:14:52 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	env_init(char **envp, t_cmdline *cmdline)
+int	ft_export(t_cmdline *cmdline)
 {
-	char	*line;
+	t_args	*args;
+	t_cmds	cmd;
 
-	ft_array_init(&cmdline->env_arr, sizeof(char *));
-	while (*envp)
-	{
-		line = ft_strdup(*envp);
-		ft_array_add(&cmdline->env_arr, &line);
-		envp++;
-	}
-	ft_array_add(&cmdline->env_arr, 0);
-	cmdline->env = cmdline->env_arr.data;
+	cmd = *cmdline->cmds;
+	args = cmd.args;
+	if (!args)
+		ft_env(cmdline);
+	ft_printf(BBLU "MY EXPORT\n" RESET);
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/02 11:59:30 by slathouw          #+#    #+#              #
-#    Updated: 2021/10/08 12:19:37 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/24 08:18:14 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS 		= ft_isalnum.c ft_isprint.c ft_strlen.c ft_tolower.c ft_atoi.c 	\
 			ft_ultobase_len.c ft_strldup.c ft_max.c
 OBJS		= ${SRCS:.c=.o}
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -g
 
 .c.o:
 			@${CC} ${CFLAGS} -I . -c $< -o ${<:.c=.o}

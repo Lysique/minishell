@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/20 09:55:38 by slathouw          #+#    #+#              #
-#    Updated: 2021/11/06 09:32:02 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/24 08:19:07 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= libftprintf.a
 LIBFT 	= libft
 INCLUDES= includes
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 OBJDIR	= obj
 
 SOURCES =   ft_printf.c ft_print_hex.c ft_print_int.c \
@@ -24,13 +24,19 @@ SRCDIR = srcs
 SRCS = ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS = ${addprefix $(OBJDIR)/, $(SOURCES:.c=.o)}
 
+#FT_ARRAY files 
+ARRSOURCES	= array.c int_array.c ft_realloc.c
+ARRDIR 	= srcs/ft_array
+ARRSRCS = ${addprefix $(ARRDIR)/, $(ARRSOURCES)}
+ARROBJS	= ${addprefix $(OBJDIR)/arr_, $(ARRSOURCES:.c=.o)}
+
 
 all : 		${NAME}
 
-$(NAME) :	$(OBJS)
-	@make -C $(LIBFT)
+$(NAME) :	$(OBJS) ${ARROBJS}
+	@make -sC $(LIBFT)
 	@cp libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS) ${ARROBJS}
 	@ranlib $(NAME)
 	@echo "Libftprintf.a created!"
 
@@ -39,15 +45,20 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p obj
 	@${CC} ${CFLAGS} -I ${INCLUDES} -c $< -o $@
 
+#FT_ARRAY object compilation
+$(OBJDIR)/arr_%.o: $(ARRDIR)/%.c
+	@mkdir -p obj
+	@${CC} ${CFLAGS} -I ${INCLUDES} -c $< -o $@
+
 clean:
 	@rm -f $(OBJS)
 	@rm -rf $(OBJDIR)
-	@make clean -C $(LIBFT)
+	@make clean -sC $(LIBFT)
 	@echo "libftprintf objects removed..."
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C $(LIBFT)
+	@make fclean -sC $(LIBFT)
 	@echo "libftprintf.a removed..."
 
 re :		fclean all
