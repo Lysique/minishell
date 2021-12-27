@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 11:14:44 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/27 11:25:31 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*builtin_name(char *builtin)
 	new[i] = '\0';
 	return (new);
 }
-//TODO: FIX builtins to include env AND put them on STACK instead of HEAP
+//TODO: FIX builtins to put them on STACK instead of HEAP
 t_builtins	*builtins_init(void)
 {
 	t_builtins	*builtins;
