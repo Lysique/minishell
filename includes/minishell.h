@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 12:23:48 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 10:43:57 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,19 @@ typedef struct s_cmds
 	int			p[2];
 }				t_cmds;
 
-typedef struct s_cmdline
-{
-	char				**env;
-	struct s_builtins	builtins[8];
-	t_cmds				*cmds;
-	t_array				env_arr;
-}			t_cmdline;
-
 typedef struct s_builtins
 {
 	char	*builtin;
-	int		(*fct)(t_cmdline *cmdline);
+	int		(*fct)(void *cmdline);
 }				t_builtins;
+
+typedef struct s_cmdline
+{
+	char				**env;
+	t_builtins			builtins[8];
+	t_cmds				*cmds;
+	t_array				env_arr;
+}			t_cmdline;
 
 /*FUNCTIONS*/
 
@@ -95,14 +95,20 @@ int			nb_cmds(char **arr);
 void		executor(t_cmdline *cmdline);
 void		check_exit_status(t_cmds **cmds);
 
-int			ft_exit(t_cmdline *cmdline);
-int			ft_echo(t_cmdline *cmdline);
-int			ft_pwd(t_cmdline *cmdline);
-int			ft_cd(t_cmdline *cmdline);
-int			ft_env(t_cmdline *cmdline);
-int			ft_export(t_cmdline *cmdline);
+int			ft_exit(void *cmdline);
+int			ft_echo(void *cmdline);
+int			ft_pwd(void *cmdline);
+int			ft_cd(void *cmdline);
+int			ft_env(void *cmdline);
+int			ft_export(void *cmdline);
 
+/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
+int			has_valid_identifier(char *line);
+int			is_nameequword_format(char *name);
+int			env_add_var(t_cmdline *cmdline, char *line);
+int			env_set_var(t_cmdline *cmdline, char *linedup, int env_index);
+int			env_find(t_cmdline *cmdline, char *name);
 
 void		pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
