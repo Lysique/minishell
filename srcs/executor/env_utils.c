@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:05:42 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:14:34 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,17 @@ int	env_add_var(t_cmdline *cmdline, char *line)
 	equptr = ft_strchr(line, '=');
 	name = ft_substr(line, 0, equptr - line);
 	env_index = env_find(cmdline, name);
-//	ft_printf(BRED "%s found at index %i\n" RESET, name, env_index);
 	free(name);
 	env_line = ft_strdup(line);
 	if (env_index != -1)
-		env_set_var(cmdline, env_line, env_index);
+		env_set_line_at_index(cmdline, env_line, env_index);
 	else
 		ft_array_add(&cmdline->env_arr, &env_line);
 	cmdline->env = (char **)cmdline->env_arr.data;
 	return (1);
 }
 
-int	env_set_var(t_cmdline *cmdline, char *linedup, int env_index)
+int	env_set_line_at_index(t_cmdline *cmdline, char *linedup, int env_index)
 {
 	char	**env;
 
@@ -123,7 +122,7 @@ int	env_set_var(t_cmdline *cmdline, char *linedup, int env_index)
 	return (1);
 }
 
-int env_unset(t_cmdline *cmdline, char *var_name)
+int	env_unset(t_cmdline *cmdline, char *var_name)
 {
 	int		env_index;
 	char	**env;
@@ -153,7 +152,7 @@ int env_set(t_cmdline *cmdline, char *name, char *value)
 	free (tmp);
 	env_index = env_find(cmdline, name);
 	if (env_index != -1)
-		env_set_var(cmdline, envline, env_index);
+		env_set_line_at_index(cmdline, envline, env_index);
 	else
 		ft_array_add(&cmdline->env_arr, &envline);
 	cmdline->env = (char **)cmdline->env_arr.data;
