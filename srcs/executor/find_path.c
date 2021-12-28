@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/27 10:41:44 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:51:51 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_strchhr(char *envp)
 {
 	if (ft_strlen(envp) > 5)
 	{
-		if (ft_srch(envp) == 1)
+		if (ft_srch(envp, "PATH=") == 1)
 			return (1);
 	}
 	return (0);
@@ -62,7 +62,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	j = ft_strlen((char *)s1);
 	while (j > i && ft_check(s1[j - 1], (char *)set))
 		j--;
-	res = malloc(sizeof(char) * (j - i + 1));
+	res = ft_malloc(sizeof(char) * (j - i + 1), 0);
 	if (!res)
 		return (res);
 	k = i;

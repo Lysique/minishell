@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 12:30:26 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 14:50:56 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int			is_cd_or_exit(t_cmdline *cmdline);
 char		**ft_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 
-int			ft_srch(char *envp);
+char		*ft_strtrim(char const *s1, char const *set);
+int			ft_srch(char *envp, char *var);
 int			ft_check(char s1, char *set);
+int			ft_strcmp(char *s1, char *s2);
 #endif

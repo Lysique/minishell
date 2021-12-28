@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 13:41:35 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 13:51:17 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,6 @@ void	ft_putstr2(char *s)
 	i = 0;
 	while (s[i])
 		write(1, &s[i++], 1);
-}
-
-int	ft_strcmp2(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int	ft_echo(t_cmdline *cmdline)
@@ -48,7 +34,7 @@ int	ft_echo(t_cmdline *cmdline)
 		dup2(cmds->p[1], 1);
 	while (tmp)
 	{
-		if (ft_strcmp2(tmp->content, "-n"))
+		if (ft_strcmp(tmp->content, "-n"))
 			nb = 1;
 		else
 			ft_putstr2(tmp->content);
