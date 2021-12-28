@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:14:13 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:33:53 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,16 @@ int			nb_cmds(char **arr);
 void		executor(t_cmdline *cmdline);
 void		check_exit_status(t_cmds **cmds);
 
+	/*BUILTINS*/
 int			ft_exit(t_cmdline *cmdline);
 int			ft_echo(t_cmdline *cmdline);
 int			ft_pwd(t_cmdline *cmdline);
 int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
 int			ft_export(t_cmdline *cmdline);
+int			ft_unset(t_cmdline *cmdline);
 
-/*ENV FUNCTIONS*/
+	/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
 int			has_valid_identifier(char *line);
 int			is_nameequword_format(char *name);
@@ -113,8 +115,7 @@ int			env_find(t_cmdline *cmdline, char *name);
 int			env_set(t_cmdline *cmdline, char *name, char *value);
 int			env_unset(t_cmdline *cmdline, char *var_name);
 
-/******************/
-
+	/*PIPEX*/
 void		pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
 int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);

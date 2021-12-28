@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2021/12/27 11:14:04 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/28 15:32:33 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ EXPANDER_OBJS	= ${addprefix $(OBJDIR)/expa_, $(EXPANDER:.c=.o)}
 EXECUTOR		= 	pipex.c utils.c redir_exec.c builtin_management.c \
 					ft_split.c find_path.c ft_exit.c ft_echo.c ft_pwd.c \
 					ft_cd.c executor.c check_exit_status.c \
-					ft_env.c env_utils.c ft_export.c
+					ft_env.c env_utils.c ft_export.c \
+					ft_unset.c
 EXECUTOR_DIR 	= srcs/executor
 EXECUTOR_SRCS = ${addprefix $(EXECUTOR_DIR)/, $(EXECUTOR)}
 EXECUTOR_OBJS	= ${addprefix $(OBJDIR)/exec_, $(EXECUTOR:.c=.o)}

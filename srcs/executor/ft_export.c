@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 14:24:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:38:27 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_export(t_cmdline *cmdline)
 			continue ;
 		}
 		env_add_var(cmdline, argline);
-		ft_env(cmdline);
 		args = args->next;
 	}
 	return (!fail);
