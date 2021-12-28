@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 14:50:56 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 14:30:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,18 @@ int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
 int			ft_export(t_cmdline *cmdline);
 
+/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
+int			has_valid_identifier(char *line);
+int			is_nameequword_format(char *name);
+int			env_add_var(t_cmdline *cmdline, char *line);
+int			env_set_var(t_cmdline *cmdline, char *linedup, int env_index);
+int			env_find(t_cmdline *cmdline, char *name);
 
 void		pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
 int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
-int			is_cd_or_exit(t_cmdline *cmdline);
+int			is_cd_exit_export(t_cmdline *cmdline);
 char		**ft_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/27 10:42:30 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 13:41:28 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ int	ft_exit(t_cmdline *cmdline)
 	cmd = *cmdline->cmds;
 	if (cmd.args && is_number(cmd.args->content) && cmd.args->next)
 	{
-		printf("minishell: exit: too many arguments\n");
+		ft_printf("minishell: exit: too many arguments\n");
 		return (0);
 	}
 	if (cmd.args && !is_number(cmd.args->content))
 	{
-		printf("exit\nminishell: exit: %s: numeric argument required\n", 
+		ft_printf("exit\nminishell: exit: %s: numeric argument required\n", 
 				(char *) cmd.args->content);
 		ft_malloc(-2, 0);
 		exit(0);

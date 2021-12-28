@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:14:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/26 11:18:22 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 09:39:27 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 int	count_sep(char *s, char c)
 {
 	int	i;
-	int	j;
-	int	k;
 	int	count;
 
 	i = 0;
-	j = 0;
-	k = 0;
 	count = 0;
 	while (s[i])
 	{
