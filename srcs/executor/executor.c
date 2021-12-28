@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 13:34:46 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:36:28 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	builtins_init(t_cmdline *cmdline)
 	cmdline->builtins[4].fct = ft_env;
 	cmdline->builtins[5].builtin = builtin_name("export");
 	cmdline->builtins[5].fct = ft_export;
-	cmdline->builtins[6].builtin = 0;
+	cmdline->builtins[6].builtin = builtin_name("unset");
+	cmdline->builtins[6].fct = ft_unset;
 	cmdline->builtins[7].builtin = 0;
 }
 
