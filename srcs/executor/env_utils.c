@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 16:08:39 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:27:36 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int env_set(t_cmdline *cmdline, char *name, char *value)
 
 	tmp = ft_strjoin(name, "=");
 	envline = ft_strjoin(tmp, value);
-	free (tmp);
+	ft_malloc (-1, tmp);
 	env_index = env_find(cmdline, name);
 	if (env_index != -1)
 		env_set_line_at_index(cmdline, envline, env_index);

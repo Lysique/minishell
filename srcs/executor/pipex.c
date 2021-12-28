@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:05:39 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 17:08:16 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 17:20:21 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,8 @@ void	pipex(t_cmdline *cmdline)
 	while (cmdline->cmds->command != NULL)
 	{
 		pipe(cmdline->cmds->p);
-		if (is_cd_exit_export(cmdline))
-		{
-			cmdline->cmds++;
+		if (is_cd_exit_export(cmdline) && cmdline->cmds++)
 			continue ;
-		}
 		pid = fork();
 		if (pid == -1)
 			exit(EXIT_FAILURE);
