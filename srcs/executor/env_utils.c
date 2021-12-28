@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:14:34 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:38:00 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	env_unset(t_cmdline *cmdline, char *var_name)
 	if (env_index < 0)
 		return (0);
 	env[env_index] = NULL;
-	while (++env_index < cmdline->env_arr.count && env[env_index])
+	while ((size_t)++env_index < cmdline->env_arr.count && env[env_index])
 	{
 		env[env_index - 1] = env[env_index];
 		env[env_index] = NULL;

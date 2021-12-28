@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:14:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 09:39:27 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:28:07 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ char	*ft_word(char const *s, char c)
 	i = 0;
 	if (*s == '\0')
 		return ((char *)s);
-	str = malloc (sizeof(char) * (j + 1));
-	if (!str)
-		return (NULL);
+	str = ft_malloc(sizeof(char) * (j + 1), 0);
 	while (i < j)
 	{
 		str[i] = s[i];
@@ -94,9 +92,7 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc (sizeof(char *) * (count_sep((char *)s, c) + 1));
-	if (!tab)
-		return (tab);
+	tab = ft_malloc(sizeof(char *) * (count_sep((char *)s, c) + 1), 0);
 	tabres = tab;
 	while (*s)
 	{
