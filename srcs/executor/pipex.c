@@ -6,13 +6,13 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:05:39 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 14:30:14 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:08:16 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	wait_and_next_cmd(t_cmdline *cmdline)
+void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
 
@@ -32,22 +32,26 @@ void	pipex(t_cmdline *cmdline)
 	cmdline->cmds->fd_in = 0;
 	while (cmdline->cmds->command != NULL)
 	{
+		pipe(cmdline->cmds->p);
 		if (is_cd_exit_export(cmdline))
 		{
 			cmdline->cmds++;
 			continue ;
 		}
-		pipe(cmdline->cmds->p);
 		pid = fork();
 		if (pid == -1)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
 		{
+			if ((cmdline->cmds + 1)->command != NULL && cmdline->cmds->pipetype == 1)
+				dup2(cmdline->cmds->p[1], 1);
+			if (close(cmdline->cmds->p[0]) == -1)
+				exit(EXIT_FAILURE);
 			if (!check_if_builtin(cmdline, cmdline->builtins))
 				redir_exec(cmdline);
 			exit(0);
 		}
 		else
-			wait_and_next_cmd(cmdline);
+			parent_process(cmdline);
 	}
 }
