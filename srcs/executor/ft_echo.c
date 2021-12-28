@@ -25,19 +25,25 @@ int	ft_echo(t_cmdline *cmdline)
 {
 	t_args	*tmp;
 	t_cmds	*cmds;
+	int		nb;
 
 	cmds = cmdline->cmds;
 	tmp = cmds->args;
+	nb = 0;
 	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
 		dup2(cmds->p[1], 1);
 	while (tmp)
 	{
-		ft_putstr2(tmp->content);
+		if (ft_strcmp(tmp->content, "-n"))
+			nb = 1;
+		else
+			ft_putstr2(tmp->content);
 		tmp = tmp->next;
 		if (tmp)
 			ft_putstr2(" ");
 	}
-	ft_putstr2("\n");
+	if (!nb)
+		ft_putstr2("\n");
 	if (close(cmdline->cmds->p[0]) == -1)
 		exit(EXIT_FAILURE);
 	return (1);

@@ -6,24 +6,20 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:27:27 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/26 11:28:00 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 14:52:21 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_srch(char *envp)
+int	ft_srch(char *envp, char *var)
 {
 	int		i;
-	int		j;
-	char	*path;
 
-	path = "PATH=";
 	i = 0;
-	j = 4;
-	while (i <= j)
+	while (var[i])
 	{
-		if (envp[i] != path[i])
+		if (envp[i] != var[i])
 			return (0);
 		i++;
 	}

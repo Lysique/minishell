@@ -117,6 +117,8 @@ int			is_cd_exit_export(t_cmdline *cmdline);
 char		**ft_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 
-int			ft_srch(char *envp);
+char		*ft_strtrim(char const *s1, char const *set);
+int			ft_srch(char *envp, char *var);
 int			ft_check(char s1, char *set);
+int			ft_strcmp(char *s1, char *s2);
 #endif
