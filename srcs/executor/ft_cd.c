@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/23 10:22:49 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 09:49:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ char	*ft_pathjoin(char *pwd, char *cd)
 	return (new);
 }
 
-int	ft_cd(t_cmdline *cmdline)
+int	ft_cd(void *cmdline)
 {
 	char	*pwd;
 	t_cmds	cmd;
 
-	cmd = *cmdline->cmds;
+	cmd = *((t_cmdline *) cmdline)->cmds;
 	if (!cmd.args)
 		return (1);
 	pwd = ft_malloc(500, 0);
