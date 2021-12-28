@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/27 10:42:45 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:29:55 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ int	nb_cmds(char **arr)
 	return (i);
 }
 
-t_cmdline	*cmdline_init(char **arr)
+void	cmdline_init(char **arr, t_cmdline *cmdline)
 {
-	t_cmdline	*cmdline;
 	int			i;
 
 	i = nb_cmds(arr);
-	cmdline = ft_malloc(sizeof(t_cmdline), 0);
 	cmdline->cmds = ft_malloc(sizeof(t_cmds) * (nb_cmds(arr) + 1), 0);
 	cmdline->cmds[i].command = 0;
 	while (i--)
@@ -79,16 +77,12 @@ t_cmdline	*cmdline_init(char **arr)
 		cmdline->cmds[i].args = 0;
 		cmdline->cmds[i].pipetype = 0;
 	}
-	return (cmdline);
 }
 
-t_cmdline	*parser(char **arr)
+void	parser(char **arr, t_cmdline *cmdline)
 {
-	t_cmdline	*cmdline;
-
-	cmdline = cmdline_init(arr);
-	cmdline = create_cmdline(arr, cmdline);
+	cmdline_init(arr, cmdline);
+	create_cmdline(arr, cmdline);
 	create_command(cmdline, nb_cmds(arr));
 //	print_cmdline(cmdline, nb_cmds(arr));
-	return (cmdline);
 }
