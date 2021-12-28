@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 12:29:29 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:31:14 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*builtin_name(char *builtin)
 	new[i] = '\0';
 	return (new);
 }
-//TODO: FIX builtins to put them on STACK instead of HEAP
 
 void	builtins_init(t_cmdline *cmdline)
 {
@@ -48,11 +47,13 @@ void	builtins_init(t_cmdline *cmdline)
 	cmdline->builtins[5].fct = ft_export;
 	cmdline->builtins[6].builtin = 0;
 	cmdline->builtins[7].builtin = 0;
-	return (builtins);
 }
 
 void	executor(t_cmdline *cmdline)
 {
+	t_builtins	builtins[8];
+
+	cmdline->builtins = builtins;
 	builtins_init(cmdline);
 	pipex(cmdline);
 	ft_printf(BGRN "/\\ execution done \\\n" RESET);

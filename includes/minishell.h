@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/27 12:23:48 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:30:26 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_cmds
 typedef struct s_cmdline
 {
 	char				**env;
-	struct s_builtins	builtins[8];
+	struct s_builtins	*builtins;
 	t_cmds				*cmds;
 	t_array				env_arr;
 }			t_cmdline;
@@ -82,8 +82,8 @@ char		**tokens_in_arr(char *line, char **arr);
 
 	/*PARSER*/
 
-t_cmdline	*parser(char **arr);
-t_cmdline	*create_cmdline(char **arr, t_cmdline *cmdline);
+void		parser(char **arr, t_cmdline *cmdline);
+void		create_cmdline(char **arr, t_cmdline *cmdline);
 t_cmds		cmds_add_lstfile(char **arr, t_cmds cmds);
 void		create_command(t_cmdline *cmdline, int nb_cmds);
 int			nb_cmds(char **arr);
