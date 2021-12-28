@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 13:34:38 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 13:38:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@ typedef struct s_cmds
 	int			p[2];
 }				t_cmds;
 
-typedef struct s_builtins
-{
-	char	*builtin;
-	int		(*fct)(void *cmdline);
-}				t_builtins;
-
 typedef struct s_cmdline
 {
 	char				**env;
@@ -66,6 +60,12 @@ typedef struct s_cmdline
 	t_cmds				*cmds;
 	t_array				env_arr;
 }			t_cmdline;
+
+typedef struct s_builtins
+{
+	char	*builtin;
+	int		(*fct)(t_cmdline *cmdline);
+}				t_builtins;
 
 /*FUNCTIONS*/
 
@@ -95,12 +95,12 @@ int			nb_cmds(char **arr);
 void		executor(t_cmdline *cmdline);
 void		check_exit_status(t_cmds **cmds);
 
-int			ft_exit(void *cmdline);
-int			ft_echo(void *cmdline);
-int			ft_pwd(void *cmdline);
-int			ft_cd(void *cmdline);
-int			ft_env(void *cmdline);
-int			ft_export(void *cmdline);
+int			ft_exit(t_cmdline *cmdline);
+int			ft_echo(t_cmdline *cmdline);
+int			ft_pwd(t_cmdline *cmdline);
+int			ft_cd(t_cmdline *cmdline);
+int			ft_env(t_cmdline *cmdline);
+int			ft_export(t_cmdline *cmdline);
 
 /*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
