@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 10:36:05 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:08:50 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	env_init(char **envp, t_cmdline *cmdline)
 		envp++;
 	}
 	cmdline->env = cmdline->env_arr.data;
+	ft_printf(BYEL "env set\n" RESET);
 }
 
 int	has_valid_identifier(char *line)
@@ -90,7 +91,7 @@ int	env_find(t_cmdline *cmdline, char *name)
 int	env_add_var(t_cmdline *cmdline, char *line)
 {
 	char	*equptr;
-	char 	*name;
+	char	*name;
 	int		env_index;
 	char	*env_line;
 
@@ -106,9 +107,7 @@ int	env_add_var(t_cmdline *cmdline, char *line)
 		env_set_var(cmdline, env_line, env_index);
 	else
 		ft_array_add(&cmdline->env_arr, &env_line);
-	//ft_env(cmdline);
-	cmdline->env = cmdline->env_arr.data;
-	//ft_env(cmdline);
+	cmdline->env = (char **)cmdline->env_arr.data;
 	return (1);
 }
 

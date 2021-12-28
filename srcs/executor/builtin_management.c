@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:09:00 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/26 13:14:31 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 14:22:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	is_cd_or_exit(t_cmdline *cmdline)
 	else if (ft_strcmp(cmdline->cmds->cmd, "cd"))
 	{
 		cmdline->builtins[1].fct(cmdline);
+		return (1);
+	}
+	else if (ft_strcmp(cmdline->cmds->cmd, "export"))
+	{
+		cmdline->builtins[5].fct(cmdline);
 		return (1);
 	}
 	return (0);

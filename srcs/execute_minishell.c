@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 12:25:04 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 14:23:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	execute_minishell(char **env)
 	t_cmdline	cmdline;
 
 	signal_management();
+	env_init(env, &cmdline);
 	while (1)
 	{
 		line = readline(BMAG "🤪 minishell 👉 " RESET);
@@ -35,7 +36,6 @@ void	execute_minishell(char **env)
 			continue ;
 		}
 		parser(arr, &cmdline);
-		env_init(env, &cmdline);
 		executor(&cmdline);
 		ft_malloc(-2, 0);
 	}
