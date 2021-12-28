@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 10:35:49 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:24:22 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_export(void *cmdline)
+int	ft_export(t_cmdline *cmdline)
 {
 	t_args	*args;
 	t_cmds	cmd;
 	int		fail;
 	char	*argline;
 
-	cmd = *((t_cmdline *) cmdline)->cmds;
+	cmd = *cmdline->cmds;
 	args = cmd.args;
 	fail = 0;
 	if (!args)
-		ft_env(((t_cmdline *) cmdline));
+		ft_env(cmdline);
 	while (args)
 	{
 		argline = (char *) args->content;
@@ -36,12 +36,9 @@ int	ft_export(void *cmdline)
 			fail = 1;
 			continue ;
 		}
-		env_add_var(((t_cmdline *) cmdline), argline);
-//		ft_printf(BRED "%i set to %s\n" RESET,
-//			env_find((t_cmdline *)cmdline,"SLATHOUW"), ((t_cmdline *)cmdline)->env[env_find((t_cmdline *)cmdline, "SLATHOUW")]);
-		ft_env((t_cmdline *) cmdline);
+		env_add_var(cmdline, argline);
+		ft_env(cmdline);
 		args = args->next;
 	}
-	ft_printf(BBLU "MY EXPORT\n" RESET);
 	return (!fail);
 }

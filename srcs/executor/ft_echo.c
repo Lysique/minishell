@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 09:43:42 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 13:40:50 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	ft_putstr2(char *s)
 		write(1, &s[i++], 1);
 }
 
-int	ft_echo(void *cmdline)
+int	ft_echo(t_cmdline *cmdline)
 {
 	t_args	*tmp;
 	t_cmds	*cmds;
 
-	cmds = ((t_cmdline *) cmdline)->cmds;
+	cmds = cmdline->cmds;
 	tmp = cmds->args;
 	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
 		dup2(cmds->p[1], 1);
@@ -38,7 +38,7 @@ int	ft_echo(void *cmdline)
 			ft_putstr2(" ");
 	}
 	ft_putstr2("\n");
-	if (close(((t_cmdline *) cmdline)->cmds->p[0]) == -1)
+	if (close(cmdline->cmds->p[0]) == -1)
 		exit(EXIT_FAILURE);
 	return (1);
 }
