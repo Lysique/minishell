@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 14:08:50 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 15:05:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,39 @@ int	env_set_var(t_cmdline *cmdline, char *linedup, int env_index)
 	return (1);
 }
 
-/* 
 int env_unset(t_cmdline *cmdline, char *var_name)
 {
-	
+	int		env_index;
+	char	**env;
+
+	env = cmdline->env;
+	env_index = env_find(cmdline, var_name);
+	if (env_index < 0)
+		return (0);
+	env[env_index] = NULL;
+	while (++env_index < cmdline->env_arr.count && env[env_index])
+	{
+		env[env_index - 1] = env[env_index];
+		env[env_index] = NULL;
+	}
+	cmdline->env_arr.count--;
+	return (1);
 }
 
-int sort_env(t_cmdline *cmdline)
+int env_set(t_cmdline *cmdline, char *name, char *value)
 {
-	
-} */
+	char	*tmp;
+	char	*envline;
+	int		env_index;
+
+	tmp = ft_strjoin(name, "=");
+	envline = ft_strjoin(tmp, value);
+	free (tmp);
+	env_index = env_find(cmdline, name);
+	if (env_index != -1)
+		env_set_var(cmdline, envline, env_index);
+	else
+		ft_array_add(&cmdline->env_arr, &envline);
+	cmdline->env = (char **)cmdline->env_arr.data;
+	return (1);
+}
