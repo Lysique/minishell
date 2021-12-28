@@ -39,19 +39,30 @@ char	*ft_pathjoin(char *pwd, char *cd)
 	return (new);
 }
 
+char	*cd_to_home(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (ft_srch(env[i], "HOME=") == 0)
+		i++;
+	return (ft_strtrim(env[i], "HOME="));
+}
+
 int	ft_cd(t_cmdline *cmdline)
 {
 	char	*pwd;
 	t_cmds	cmd;
 
 	cmd = *cmdline->cmds;
-	if (!cmd.args)
-		return (1);
 	pwd = ft_malloc(500, 0);
 	pwd = getcwd(pwd, 500);
 	if (!pwd)
 		return (-1);
-	pwd = ft_pathjoin(pwd, cmd.args->content);
+	if (!cmd.args)
+		pwd = cd_to_home(cmdline->env);
+	else
+		pwd = ft_pathjoin(pwd, cmd.args->content);
 	if (chdir(pwd) == -1)
 	{
 		printf("minishell: cd: %s: No such directory\n", (char *) cmd.args->content);
