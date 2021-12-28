@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:09:00 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 14:22:58 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/28 14:30:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (1);
 }
 
-int	is_cd_or_exit(t_cmdline *cmdline)
+int	is_cd_exit_export(t_cmdline *cmdline)
 {
 	if (ft_strcmp(cmdline->cmds->cmd, "exit"))
 	{
