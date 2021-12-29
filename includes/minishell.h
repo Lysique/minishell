@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:33:53 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/29 08:20:51 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ typedef struct s_cmdline
 	struct s_builtins	*builtins;
 	t_cmds				*cmds;
 	t_array				env_arr;
+	char				*line;
+	int					exit;
+	int					quit;
+	pid_t				shellpid;
 }			t_cmdline;
 
 typedef struct s_builtins
@@ -69,8 +73,11 @@ typedef struct s_builtins
 
 /*FUNCTIONS*/
 
+void		prompt(t_cmdline *cmdline);
+t_cmdline	*cl_ptr(t_cmdline *cl);
+
 void		execute_minishell(char **env);
-void		signal_management(void);
+void		signal_management();
 void		*ft_malloc(int size, void *p);
 char		*check_cmdline(char **arr);
 

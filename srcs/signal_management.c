@@ -3,28 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/27 13:34:36 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:13:37 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <signal.h>
 
-void	sig_handler(int sig)
+void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 {
+	t_cmdline	*cl;
+
+	(void) uac;
+	cl = cl_ptr(NULL);
 	if (sig == SIGINT)
 	{
-		ft_printf(BMAG "\n🤪 minishell 👉 " RESET);
+		ft_printf("\b\b  \b\b\n");
+		if (cl->shellpid == siginfo->si_pid)
+			cl->exit = 130;
+		else
+			cl->exit = 1;
+		rl_replace_line("", 0);
+		rl_redisplay();
+		prompt(cl);
+		cl->quit = 1;
 	}
+	if (sig == SIGQUIT)
+		cl->quit = 2;
 }
 
-void	signal_management(void)
+void	signal_management()
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = &sig_handler;
-	sigaction(SIGINT, &sa, 0);
-	sigaction(SIGQUIT, &sa, 0);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = sig_handler;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }

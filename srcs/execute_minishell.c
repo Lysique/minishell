@@ -3,32 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   execute_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 14:23:58 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:13:45 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	prompt(t_cmdline *cmdline)
+{
+	if (cmdline->exit == 0)
+		ft_printf(BMAG "🤪 minishell 👉 " RESET);
+	else
+		ft_printf(BRED "%i?>" BMAG "🤪 minishell 👉 " RESET, cmdline->exit);
+}
+
+t_cmdline	*cl_ptr(t_cmdline *cl)
+{
+	static t_cmdline	*cmdl;
+
+	if (!cmdl)
+		cmdl = cl;
+	return (cmdl);
+}
+
 void	execute_minishell(char **env)
 {
 	char		**arr;
-	char		*line;
 	t_cmdline	cmdline;
 
-	signal_management();
+	ft_bzero(&cmdline, sizeof(t_cmdline));
 	env_init(env, &cmdline);
+	env_set(&cmdline, "SHLVL", "2");
+	cmdline.shellpid = getpid();
+	cl_ptr(&cmdline);
 	while (1)
 	{
-		line = readline(BMAG "🤪 minishell 👉 " RESET);
-		if (!line)
-			exit(0);
-		if (!*line)
+		signal_management();
+		if (cmdline.quit == 0)
+			prompt(&cmdline);
+		cmdline.line = readline(NULL);
+		if (!cmdline.line)
+			exit(cmdline.exit);
+		if (!*cmdline.line)
+		{
+			free(cmdline.line);
+			cmdline.line = NULL;
+			cmdline.quit = 0;
 			continue ;
-		add_history(line);
-		arr = lexer(line);
+		}
+		add_history(cmdline.line);
+		arr = lexer(cmdline.line);
 		if (check_cmdline(arr))
 		{
 			printf("minishell : syntax error near token '%s'\n", check_cmdline(arr));
@@ -37,6 +64,7 @@ void	execute_minishell(char **env)
 		}
 		parser(arr, &cmdline);
 		executor(&cmdline);
+		cmdline.quit = 0;
 		ft_malloc(-2, 0);
 	}
 }

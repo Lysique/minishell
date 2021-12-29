@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:34:40 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/29 08:55:55 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	env_init(char **envp, t_cmdline *cmdline)
 		envp++;
 	}
 	cmdline->env = cmdline->env_arr.data;
-	ft_printf(BYEL "env set\n" RESET);
 }
 
 int	has_valid_identifier(char *line)
@@ -118,7 +117,6 @@ int	env_set_line_at_index(t_cmdline *cmdline, char *linedup, int env_index)
 	if (env[env_index])
 		free(env[env_index]);
 	env[env_index] = linedup;
-	ft_printf(BRED "%i set to %s\n" RESET, env_index, env[env_index]);
 	return (1);
 }
 
