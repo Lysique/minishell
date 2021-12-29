@@ -6,11 +6,25 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 14:51:51 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/28 15:34:58 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_check(char s1, char *set)
+{
+	int	i;
+
+	i = 0;
+	while (set[i] != '\0')
+	{
+		if (s1 == set[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -25,9 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	while (s2[j])
 		j++;
-	res = malloc (i + j + 1);
-	if (!res)
-		return (res);
+	res = ft_malloc(i + j + 1, 0);
 	rres = res;
 	while (*s1)
 		*res++ = *s1++;
@@ -35,16 +47,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*res++ = *s2++;
 	*res = '\0';
 	return (rres);
-}
-
-int	ft_strchhr(char *envp)
-{
-	if (ft_strlen(envp) > 5)
-	{
-		if (ft_srch(envp, "PATH=") == 1)
-			return (1);
-	}
-	return (0);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
@@ -87,12 +89,10 @@ int	find_path2(char **tab, char *cmd, char **cmd1)
 		*cmd1 = ft_strjoin(tab[i], "/");
 		tmp = *cmd1;
 		*cmd1 = ft_strjoin(*cmd1, cmd);
-		free(tmp);
-		if (!(*cmd1))
-			return (0);
+		ft_malloc(-1, tmp);
 		if (access(*cmd1, X_OK) == 0)
 			break ;
-		free(*cmd1);
+		ft_malloc(-1, *cmd1);
 		i++;
 	}
 	if (tab[i] == NULL)
@@ -108,15 +108,13 @@ char	*find_path(char *cmd, char **envp)
 	char	*cmd1;
 
 	i = 0;
-	while (ft_strchhr(envp[i]) == 0)
+	while (ft_strlen(envp[i]) > 5 && ft_srch(envp[i], "PATH=") == 0)
 		i++;
 	path = ft_strtrim(envp[i], "PATH=");
 	tab = ft_split(path, ':');
-	if (!tab)
-		return (0);
-	free(path);
+	ft_malloc(-1, path);
 	if (find_path2(tab, cmd, &cmd1) == 0)
 		return (0);
-	free(tab);
+	ft_malloc(-1, tab);
 	return (cmd1);
 }

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/29 08:55:55 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:22:10 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	env_unset(t_cmdline *cmdline, char *var_name)
 	if (env_index < 0)
 		return (0);
 	env[env_index] = NULL;
-	while (++env_index < (int) cmdline->env_arr.count && env[env_index])
+	while ((size_t)++env_index < cmdline->env_arr.count && env[env_index])
 	{
 		env[env_index - 1] = env[env_index];
 		env[env_index] = NULL;
@@ -147,7 +147,7 @@ int env_set(t_cmdline *cmdline, char *name, char *value)
 
 	tmp = ft_strjoin(name, "=");
 	envline = ft_strjoin(tmp, value);
-	free (tmp);
+	ft_malloc (-1, tmp);
 	env_index = env_find(cmdline, name);
 	if (env_index != -1)
 		env_set_line_at_index(cmdline, envline, env_index);

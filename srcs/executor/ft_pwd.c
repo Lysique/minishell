@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:09:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 13:43:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/29 15:23:50 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 int	ft_pwd(t_cmdline *cmdline)
 {
 	char	*line;
-	t_cmds	*cmds;
 
-	cmds = cmdline->cmds;
-	if ((*(cmds + 1)).command != NULL && cmds->pipetype == 1)
-		dup2(cmds->p[1], 1);
 	line = ft_malloc(500, 0);
 	line = getcwd(line, 500);
 	printf("%s\n", line);
