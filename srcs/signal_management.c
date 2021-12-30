@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 10:36:26 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/30 13:29:50 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 		if (cl->shellpid == siginfo->si_pid)
 		{
 			cl->exit = 130;
-		//	rl_replace_line("", 0);
+			rl_replace_line("", 0);
 			rl_redisplay();
 			prompt(cl);
 			cl->quit = 1;
