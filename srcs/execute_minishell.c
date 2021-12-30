@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 13:26:17 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/30 15:50:33 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	execute_minishell(char **env)
 	cl_ptr(&cmdline);
 	while (1)
 	{
-		signal_management();
+//		signal_management();
 		if (cmdline.quit == 0)
 			prompt(&cmdline);
 		cmdline.line = readline(NULL);
@@ -64,6 +64,7 @@ void	execute_minishell(char **env)
 			continue ;
 		}
 		parser(arr, &cmdline);
+		expander(&cmdline);
 		executor(&cmdline);
 		printf("EXIT : %d\n", cmdline.exit);
 		cmdline.quit = 0;
