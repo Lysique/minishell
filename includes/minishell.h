@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/30 11:40:08 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/30 15:46:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <dirent.h>
 # include "../libs/libftprintf/includes/ft_printf_bonus.h"
 # include "../libs/libftprintf/includes/ft_array.h"
 # include "print_colors.h"
@@ -110,6 +111,7 @@ int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
 int			ft_export(t_cmdline *cmdline);
 int			ft_unset(t_cmdline *cmdline);
+int			ft_expand(t_cmdline *cmdline);
 
 	/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
@@ -121,6 +123,12 @@ int			env_set_line_at_index(t_cmdline *cmdline, char *linedup,
 int			env_find(t_cmdline *cmdline, char *name);
 int			env_set(t_cmdline *cmdline, char *name, char *value);
 int			env_unset(t_cmdline *cmdline, char *var_name);
+
+/*BONUS*/
+	/*
+		returns a heap allocated expanded string of all direntries in cwd, matching the pattern as argument
+	*/
+char		*expand_wildcard(char *pattern);
 
 	/*PIPEX*/
 void		pipex(t_cmdline *cmdline);

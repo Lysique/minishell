@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:36:28 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/30 15:08:38 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ void	builtins_init(t_cmdline *cmdline)
 	cmdline->builtins[5].fct = ft_export;
 	cmdline->builtins[6].builtin = builtin_name("unset");
 	cmdline->builtins[6].fct = ft_unset;
-	cmdline->builtins[7].builtin = 0;
+	cmdline->builtins[7].builtin = builtin_name("expand");
+	cmdline->builtins[7].fct = ft_expand;
+	cmdline->builtins[8].builtin = 0;
 }
 
 void	executor(t_cmdline *cmdline)
 {
-	t_builtins	builtins[8];
+	t_builtins	builtins[9];
 
 	cmdline->builtins = builtins;
 	builtins_init(cmdline);
