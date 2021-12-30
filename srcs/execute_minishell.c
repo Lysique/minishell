@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 10:31:04 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/30 10:47:31 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	execute_minishell(char **env)
 		}
 		parser(arr, &cmdline);
 		executor(&cmdline);
+		printf("EXIT : %d\n", cmdline.exit);
 		cmdline.quit = 0;
 		ft_malloc(-2, 0);
 	}

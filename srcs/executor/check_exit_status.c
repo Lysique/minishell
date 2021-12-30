@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 10:24:26 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/30 10:45:08 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	check_exit_status(t_cmdline *cmdline)
 		}
 	}
 	if (WEXITSTATUS(cmds->exitstatus) == 1)
-		cmdline->exit = 127;
+		cmdline->exit = 1;
 }

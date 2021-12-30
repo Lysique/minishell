@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 15:34:58 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/30 10:46:25 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ char	*find_path(char *cmd, char **envp)
 	tab = ft_split(path, ':');
 	ft_malloc(-1, path);
 	if (find_path2(tab, cmd, &cmd1) == 0)
+	{
+		printf("minishell : command not found\n");
 		return (0);
+	}
 	ft_malloc(-1, tab);
 	return (cmd1);
 }
