@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2021/12/28 16:08:04 by slathouw         ###   ########.fr        #
+#    Updated: 2021/12/30 12:09:07 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,10 @@
 
 NAME 	= minishell
 LIBFT 	= libs/libftprintf
-INCLUDES= includes
+INCLUDES= includes -I ${HOME}/.brew/opt/readline/include 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g 
-LIBFLAGS = -lreadline -I$(HOME)/.brew/opt/readline/include -L$(HOME)/.brew/opt/readline/lib
+LIBFLAGS = -lreadline -L ${HOME}/.brew/opt/readline/lib
 OBJDIR	= obj
 
 # ADD "SRCS" FILES HERE
@@ -66,7 +66,7 @@ all : 		${NAME}
 $(NAME) :	$(OBJS) $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS)
 	@make -sC $(LIBFT)
 	@cp $(LIBFT)/libftprintf.a .
-	@${CC} ${CFLAGS} -I ${INCLUDES} ${OBJS} $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS) $(LIBFLAGS) libftprintf.a -o ${NAME}
+	@${CC} ${CFLAGS} $(LIBFLAGS) -I ${INCLUDES} ${OBJS} $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS) libftprintf.a -o ${NAME}
 	@echo "minishell binary created!"
 
 # SRCS object compilation
