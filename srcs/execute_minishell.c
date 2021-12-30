@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/29 15:27:23 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/30 10:31:04 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	execute_minishell(char **env)
 	while (1)
 	{
 		signal_management();
+		cmdline.exit = 0;
 		if (cmdline.quit == 0)
 			prompt(&cmdline);
 		cmdline.line = readline(NULL);

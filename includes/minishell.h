@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/29 15:21:59 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/12/30 10:25:04 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int			nb_cmds(char **arr);
 	/*EXECUTOR*/
 
 void		executor(t_cmdline *cmdline);
-void		check_exit_status(t_cmds **cmds);
+void		check_exit_status(t_cmdline *cmdline);
 
 	/*BUILTINS*/
 int			ft_exit(t_cmdline *cmdline);

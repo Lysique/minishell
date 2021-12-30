@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:05:39 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 17:20:21 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/30 10:25:50 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parent_process(t_cmdline *cmdline)
 	int		p;
 
 	wait(&cmdline->cmds->exitstatus);
-	check_exit_status(&cmdline->cmds);
+	check_exit_status(cmdline);
 	if (close(cmdline->cmds->p[1]) == -1)
 		exit(EXIT_FAILURE);
 	p = cmdline->cmds->p[0];
