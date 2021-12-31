@@ -6,18 +6,16 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 13:00:49 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/31 16:41:37 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	prompt(t_cmdline *cmdline)
+char	*prompt(t_cmdline *cmdline)
 {
-	if (cmdline->exit == 0)
-		ft_printf(BMAG "🤪 minishell 👉 " RESET);
-	else
-		ft_printf(BRED "%i?>" BMAG "🤪 minishell 👉 " RESET, cmdline->exit);
+	(void)cmdline;
+	return (readline(BMAG "🤪 minishell 👉 " RESET));
 }
 
 t_cmdline	*cl_ptr(t_cmdline *cl)
@@ -41,15 +39,15 @@ void	execute_minishell(char **env)
 	cl_ptr(&cmdline);
 	while (1)
 	{
-//		signal_management();
+		signal_management();
 		if (cmdline.quit == 0)
-			prompt(&cmdline);
-		cmdline.line = readline(NULL);
+			cmdline.line = prompt(&cmdline);
+//		cmdline.line = readline("minishell :");
 		if (!cmdline.line)
 			exit(cmdline.exit);
 		if (!*cmdline.line)
 		{
-			ft_printf("\n");
+//			ft_printf("\n");
 			free(cmdline.line);
 			cmdline.line = NULL;
 			cmdline.quit = 0;
