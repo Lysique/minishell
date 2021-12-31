@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 17:15:41 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:38:57 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ int	ft_echo(t_cmdline *cmdline)
 
 	tmp = cmdline->cmds->args;
 	nb = 0;
+	if (tmp && ft_strcmp(tmp->content, "-n"))
+	{
+		tmp = tmp->next;
+		nb = 1;
+	}
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->content, "-n"))
-			nb = 1;
-		else
-		{
-			ft_putstr2(tmp->content);
-			if (tmp->next && !ft_strcmp(tmp->next->content, "-n"))
-				ft_putstr2(" ");
-		}
+		ft_putstr2(tmp->content);
+		if (tmp->next)
+			ft_putstr2(" ");
 		tmp = tmp->next;
 	}
 	if (!nb)
