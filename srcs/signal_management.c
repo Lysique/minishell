@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 13:29:50 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 12:18:01 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 	}
 }
 
-void	signal_management()
+void	signal_management(void)
 {
 	struct sigaction	sa;
 
