@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/03 12:49:32 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 14:09:19 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,25 @@
 
 void	prompt(t_cmdline *cmdline)
 {
+	char	*tmp;
+	char	*new_prompt;
+	char	*exit_status;
+
+	if (cmdline->prompt)
+		free(cmdline->prompt);
 	if (cmdline->exit == 0)
-		ft_printf(BMAG "🤪 minishell 👉 " RESET);
+		cmdline->prompt = ft_strdup(BMAG "🤪 minishell 👉 " RESET);
 	else
-		ft_printf(BRED "%i?>" BMAG "🤪 minishell 👉 " RESET, cmdline->exit);
+	{
+		exit_status = ft_itoa(cmdline->exit);
+		tmp = ft_strjoin(BRED, exit_status);
+		if (exit_status)
+			free(exit_status);
+		new_prompt = ft_strjoin(tmp, "?>" BMAG "🤪 minishell 👉 " RESET);
+		if (tmp)
+			free(tmp);
+		cmdline->prompt = new_prompt;
+	}
 }
 
 t_cmdline	*cl_ptr(t_cmdline *cl)
@@ -45,12 +60,12 @@ void	execute_minishell(char **env)
 		signal_management();
 		if (cmdline.quit == 0)
 			prompt(&cmdline);
-		cmdline.line = readline(NULL);
+		cmdline.line = readline(cmdline.prompt);
 		if (!cmdline.line)
 			exit(cmdline.exit);
 		if (!*cmdline.line)
 		{
-			ft_printf("\n");
+//			ft_printf("\n");
 			free(cmdline.line);
 			cmdline.line = NULL;
 			cmdline.quit = 0;
@@ -60,7 +75,8 @@ void	execute_minishell(char **env)
 		arr = lexer(cmdline.line);
 		if (check_cmdline(arr))
 		{
-			printf("minishell : syntax error near token '%s'\n", check_cmdline(arr));
+			printf("minishell : syntax error near token '%s'\n",
+				check_cmdline(arr));
 			ft_malloc(-2, 0);
 			continue ;
 		}

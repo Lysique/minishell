@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/03 13:02:11 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:45:28 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_cmdline
 	int					exit;
 	int					quit;
 	pid_t				shellpid;
+	char				*prompt;
 }			t_cmdline;
 
 typedef struct s_builtins
