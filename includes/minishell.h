@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/31 17:14:49 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/03 12:45:39 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_builtins
 /*FUNCTIONS*/
 
 t_cmdline	*cl_ptr(t_cmdline *cl);
-char		*prompt(t_cmdline *cmdline);
+void		prompt(t_cmdline *cmdline);
 
 void		execute_minishell(char **env);
 void		signal_management(void);

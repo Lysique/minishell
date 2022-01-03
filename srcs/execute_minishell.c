@@ -6,16 +6,19 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 16:41:37 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/03 12:49:32 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
-char	*prompt(t_cmdline *cmdline)
+void	prompt(t_cmdline *cmdline)
 {
-	(void)cmdline;
-	return (readline(BMAG "🤪 minishell 👉 " RESET));
+	if (cmdline->exit == 0)
+		ft_printf(BMAG "🤪 minishell 👉 " RESET);
+	else
+		ft_printf(BRED "%i?>" BMAG "🤪 minishell 👉 " RESET, cmdline->exit);
 }
 
 t_cmdline	*cl_ptr(t_cmdline *cl)
@@ -41,13 +44,13 @@ void	execute_minishell(char **env)
 	{
 		signal_management();
 		if (cmdline.quit == 0)
-			cmdline.line = prompt(&cmdline);
-//		cmdline.line = readline("minishell :");
+			prompt(&cmdline);
+		cmdline.line = readline(NULL);
 		if (!cmdline.line)
 			exit(cmdline.exit);
 		if (!*cmdline.line)
 		{
-//			ft_printf("\n");
+			ft_printf("\n");
 			free(cmdline.line);
 			cmdline.line = NULL;
 			cmdline.quit = 0;
@@ -62,7 +65,6 @@ void	execute_minishell(char **env)
 			continue ;
 		}
 		parser(arr, &cmdline);
-		expander(&cmdline);
 		executor(&cmdline);
 		printf("EXIT : %d\n", cmdline.exit);
 		cmdline.quit = 0;

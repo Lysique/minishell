@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 17:37:59 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/03 12:44:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 
 	(void) uac;
 	cl = cl_ptr(NULL);
-	ft_printf("\b\b\n");
 	if (sig == SIGINT)
 	{
-	//	ft_putstr_fd("\r", 2);
-//		ft_printf(BMAG "🤪 minishell 👉   \b\b\n" RESET);
+		ft_printf("\b\b  \b\b\n");
 		if (cl->shellpid == siginfo->si_pid)
 		{
 			cl->exit = 130;
 			rl_replace_line("", 0);
-			rl_on_new_line();
 			rl_redisplay();
+			prompt(cl);
 			cl->quit = 1;
 		}
 		else
@@ -37,13 +35,12 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 	}
 	if (sig == SIGQUIT)
 	{
-		ft_printf("\b\b  ");
-		ft_printf("exit\n");
+		ft_printf("\b\b  \b\b");
 		cl->quit = 2;
 	}
 }
 
-void	signal_management()
+void	signal_management(void)
 {
 	struct sigaction	sa;
 
