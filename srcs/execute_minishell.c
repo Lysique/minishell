@@ -6,12 +6,21 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/03 14:09:19 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:18:20 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/minishell.h"
+
+void	ft_ptrdel(void *ptr)
+{
+	if (ptr)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
 
 void	prompt(t_cmdline *cmdline)
 {
@@ -19,19 +28,16 @@ void	prompt(t_cmdline *cmdline)
 	char	*new_prompt;
 	char	*exit_status;
 
-	if (cmdline->prompt)
-		free(cmdline->prompt);
+	ft_ptrdel(cmdline->prompt);
 	if (cmdline->exit == 0)
 		cmdline->prompt = ft_strdup(BMAG "🤪 minishell 👉 " RESET);
 	else
 	{
 		exit_status = ft_itoa(cmdline->exit);
 		tmp = ft_strjoin(BRED, exit_status);
-		if (exit_status)
-			free(exit_status);
+		ft_ptrdel(exit_status);
 		new_prompt = ft_strjoin(tmp, "?>" BMAG "🤪 minishell 👉 " RESET);
-		if (tmp)
-			free(tmp);
+		ft_ptrdel(tmp);
 		cmdline->prompt = new_prompt;
 	}
 }
@@ -58,16 +64,13 @@ void	execute_minishell(char **env)
 	while (1)
 	{
 		signal_management();
-		if (cmdline.quit == 0)
-			prompt(&cmdline);
+		prompt(&cmdline);
 		cmdline.line = readline(cmdline.prompt);
 		if (!cmdline.line)
-			exit(cmdline.exit);
+			exit(0);
 		if (!*cmdline.line)
 		{
-//			ft_printf("\n");
-			free(cmdline.line);
-			cmdline.line = NULL;
+			ft_ptrdel(cmdline.line);
 			cmdline.quit = 0;
 			continue ;
 		}
@@ -83,6 +86,7 @@ void	execute_minishell(char **env)
 		parser(arr, &cmdline);
 		executor(&cmdline);
 		printf("EXIT : %d\n", cmdline.exit);
+		ft_ptrdel(cmdline.line);
 		cmdline.quit = 0;
 		ft_malloc(-2, 0);
 	}
