@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/30 15:46:14 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 12:19:01 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
 int			ft_export(t_cmdline *cmdline);
 int			ft_unset(t_cmdline *cmdline);
-int			ft_expand(t_cmdline *cmdline);
 
 	/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
@@ -129,6 +128,8 @@ int			env_unset(t_cmdline *cmdline, char *var_name);
 		returns a heap allocated expanded string of all direntries in cwd, matching the pattern as argument
 	*/
 char		*expand_wildcard(char *pattern);
+int			is_match(char *word, char *pattern);
+int			is_visible(char *name, char *pattern);
 
 	/*PIPEX*/
 void		pipex(t_cmdline *cmdline);
