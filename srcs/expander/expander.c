@@ -1,46 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 13:38:57 by tamighi          ###   ########.fr       */
+/*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
+/*   Updated: 2022/01/03 12:53:01 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_putstr2(char *s)
+void	expander(t_cmdline *cmdline)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		write(1, &s[i++], 1);
-}
-
-int	ft_echo(t_cmdline *cmdline)
-{
+	void	*ptr;
 	t_args	*tmp;
-	int		nb;
 
-	tmp = cmdline->cmds->args;
-	nb = 0;
-	if (tmp && ft_strcmp(tmp->content, "-n"))
+	ptr = cmdline->cmds;
+	while (cmdline->cmds->command)
 	{
-		tmp = tmp->next;
-		nb = 1;
+		cmdline->cmds->cmd = expand(cmdline->cmds->cmd,
+				cmdline->env, &cmdline->cmds->args, 1);
+		tmp = cmdline->cmds->args;
+		while (tmp)
+		{
+			tmp->content = expand(tmp->content, cmdline->env, &tmp, 0);
+			tmp = tmp->next;
+		}
+		cmdline->cmds++;
 	}
-	while (tmp)
-	{
-		ft_putstr2(tmp->content);
-		if (tmp->next)
-			ft_putstr2(" ");
-		tmp = tmp->next;
-	}
-	if (!nb)
-		ft_putstr2("\n");
-	return (1);
+	cmdline->cmds = ptr;
 }

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/03 12:18:01 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:02:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 	cl = cl_ptr(NULL);
 	if (sig == SIGINT)
 	{
-		ft_printf("\b\b  \b\b\n");
+		ft_printf("\b\b\n");
 		if (cl->shellpid == siginfo->si_pid)
 		{
 			cl->exit = 130;

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/03 12:19:01 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:02:11 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <dirent.h>
+# include <termios.h>
 # include "../libs/libftprintf/includes/ft_printf_bonus.h"
 # include "../libs/libftprintf/includes/ft_array.h"
 # include "print_colors.h"
@@ -74,8 +75,8 @@ typedef struct s_builtins
 
 /*FUNCTIONS*/
 
-void		prompt(t_cmdline *cmdline);
 t_cmdline	*cl_ptr(t_cmdline *cl);
+void		prompt(t_cmdline *cmdline);
 
 void		execute_minishell(char **env);
 void		signal_management(void);
@@ -97,6 +98,9 @@ void		create_command(t_cmdline *cmdline, int nb_cmds);
 int			nb_cmds(char **arr);
 
 	/*EXPANDER*/
+
+void		expander(t_cmdline *cmdline);
+char		*expand(char *var, char **env, t_args **args, int x);
 
 	/*EXECUTOR*/
 

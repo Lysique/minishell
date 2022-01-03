@@ -6,10 +6,11 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 13:26:17 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/03 12:49:32 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/minishell.h"
 #include "../includes/minishell.h"
 
 void	prompt(t_cmdline *cmdline)

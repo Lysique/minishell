@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/03 12:05:21 by slathouw         ###   ########.fr        #
+#    Updated: 2022/01/03 13:01:36 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,7 @@ PARSER_SRCS = ${addprefix $(PARSER_DIR)/, $(PARSER)}
 PARSER_OBJS	= ${addprefix $(OBJDIR)/pars_, $(PARSER:.c=.o)}
 
 # ADD "EXPANDER" FILES HERE
-EXPANDER		= \
-					wildcards.c  is_match.c
+EXPANDER		= expander.c expand.c wildcards.c is_match.c
 EXPANDER_DIR 	= srcs/expander
 EXPANDER_SRCS = ${addprefix $(EXPANDER_DIR)/, $(EXPANDER)}
 EXPANDER_OBJS	= ${addprefix $(OBJDIR)/expa_, $(EXPANDER:.c=.o)}
