@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/03 12:59:14 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 15:30:55 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ void	check_exit_status(t_cmdline *cmdline)
 			parentheses += cmds->parentheses;
 		}
 	}
-	if (WEXITSTATUS(cmds->exitstatus) == 1)
-		cmdline->exit = 1;
+	cmdline->exit = WEXITSTATUS(cmds->exitstatus);
 }
