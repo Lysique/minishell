@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/30 15:14:31 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/03 14:47:07 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ int env_set(t_cmdline *cmdline, char *name, char *value)
 	char	*envline;
 	int		env_index;
 
-	tmp = ft_strjoin(name, "=");
-	envline = ft_strjoin(tmp, value);
+	tmp = ms_strjoin(name, "=");
+	envline = ms_strjoin(tmp, value);
 	ft_malloc (-1, tmp);
 	env_index = env_find(cmdline, name);
 	if (env_index != -1)

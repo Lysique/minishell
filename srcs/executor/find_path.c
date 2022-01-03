@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 10:46:25 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/03 14:47:07 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check(char s1, char *set)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ms_strjoin(char const *s1, char const *s2)
 {
 	int		i;
 	int		j;
@@ -86,9 +86,9 @@ int	find_path2(char **tab, char *cmd, char **cmd1)
 	i = 0;
 	while (tab[i])
 	{
-		*cmd1 = ft_strjoin(tab[i], "/");
+		*cmd1 = ms_strjoin(tab[i], "/");
 		tmp = *cmd1;
-		*cmd1 = ft_strjoin(*cmd1, cmd);
+		*cmd1 = ms_strjoin(*cmd1, cmd);
 		ft_malloc(-1, tmp);
 		if (access(*cmd1, X_OK) == 0)
 			break ;
