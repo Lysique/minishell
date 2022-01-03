@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/31 16:35:31 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/31 17:14:49 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <termios.h>
 # include "../libs/libftprintf/includes/ft_printf_bonus.h"
 # include "../libs/libftprintf/includes/ft_array.h"
 # include "print_colors.h"

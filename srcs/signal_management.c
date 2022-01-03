@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 16:45:05 by tamighi          ###   ########.fr       */
+/*   Updated: 2021/12/31 17:37:59 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 
 	(void) uac;
 	cl = cl_ptr(NULL);
+	ft_printf("\b\b\n");
 	if (sig == SIGINT)
 	{
-		ft_printf(BMAG "🤪 minishell 👉   \b\b\n" RESET);
+	//	ft_putstr_fd("\r", 2);
+//		ft_printf(BMAG "🤪 minishell 👉   \b\b\n" RESET);
 		if (cl->shellpid == siginfo->si_pid)
 		{
 			cl->exit = 130;
