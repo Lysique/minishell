@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/28 15:38:27 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/03 11:45:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_export(t_cmdline *cmdline)
 			ft_putstr_fd("minishell: export: '", 2);
 			ft_putstr_fd(argline, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
+			args = args->next;
 			fail = 1;
 			continue ;
 		}
