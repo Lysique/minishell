@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:32:18 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/03 12:04:26 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:10:20 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ char	*expand_wildcard(char *pattern)
 {
 	char	*curr_dir_path;
 	char	*ret;
+	char	*ret2;
 	DIR		*curr_dir;
 
 	curr_dir_path = getcwd(NULL, 0);
-	//TODO: if expansion fails->write error "minishell: No matches found: <format>"
 	curr_dir = opendir(curr_dir_path);
 	ret = get_matches_in_dir(curr_dir, pattern);
 	closedir(curr_dir);
-	return (ret);
+	ret2 = ms_strjoin(ret, "");
+	free(ret);
+	return (ret2);
 }
 
 int	ft_expand(t_cmdline *cmdline)
