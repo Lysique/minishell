@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/04 12:01:18 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 13:51:12 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ void	execute_minishell(char **env)
 		arr = lexer(cmdline.line);
 		if (check_cmdline(arr))
 		{
-			printf("minishell : syntax error near token '%s'\n",
+			ft_fdprintf(2,
+				"minishell : syntax error near unexpected token '%s'\n",
 				check_cmdline(arr));
+			cmdline.exit = EXIT_SYNTAX_ERR;
 			ft_malloc(-2, 0);
 			continue ;
 		}
