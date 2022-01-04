@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 13:38:57 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 13:54:19 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ int	ft_echo(t_cmdline *cmdline)
 	}
 	if (!nb)
 		ft_putstr2("\n");
-	return (1);
+	return (EXIT_SUCCESS);
 }
