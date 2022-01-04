@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 13:48:15 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 15:57:09 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 12:12:19 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,10 @@ char	*expand(char *var, char **env, t_args **args, int x)
 	int	quote;
 
 	i = 0;
+	if (x && var[i] == '*')
+		return (split_cmd_to_args(expand_wildcard(var), args));
+	else if (!x && var[i] == '*')
+		return (split_content_to_lst(expand_wildcard(var), args));
 	quote = check_quotes(&var);
 	while (var[i])
 	{
