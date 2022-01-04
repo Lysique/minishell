@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 13:48:15 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/04 12:12:19 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 12:19:19 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*split_cmd_to_args(char *cmd, t_args **args)
 	}
 	if (i != 1)
 		*args = tmp3;
-	ft_malloc(-1, cmd);
 	return (arr[0]);
 }
 
