@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_str_bonus.c                               :+:      :+:    :+:   */
+/*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 10:30:19 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/22 12:41:35 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:19:17 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static void	print_padding(size_t len)
+static void	print_padding(t_format *fmt, size_t len)
 {
 	while (len--)
-		ft_putchar_fd(' ', 1);
+		ft_putchar_fd(' ', fmt->fd);
 }
 
 static void	print_s(t_field *fld, t_format *fmt, char *str)
@@ -26,11 +26,11 @@ static void	print_s(t_field *fld, t_format *fmt, char *str)
 	if ((size_t)fld->min_width > ft_strlen(str))
 		padding = fld->min_width - ft_strlen(str);
 	if (fld->left_align)
-		fmt->num_printed += ft_putstrl_fd(str, ft_strlen(str), 1);
-	print_padding(padding);
+		fmt->num_printed += ft_putstrl_fd(str, ft_strlen(str), fmt->fd);
+	print_padding(fmt, padding);
 	fmt->num_printed += padding;
 	if (!fld->left_align)
-		fmt->num_printed += ft_putstrl_fd(str, ft_strlen(str), 1);
+		fmt->num_printed += ft_putstrl_fd(str, ft_strlen(str), fmt->fd);
 }
 
 void	ft_print_str(t_field *fld, t_format *fmt, va_list ap)
@@ -46,7 +46,7 @@ void	ft_print_str(t_field *fld, t_format *fmt, va_list ap)
 		len = ft_strlen(str);
 	trunc = ft_strldup(str, len);
 	if (!str)
-		fmt->num_printed += ft_putstrl_fd("(null)", 6, 1);
+		fmt->num_printed += ft_putstrl_fd("(null)", 6, fmt->fd);
 	else
 		print_s(fld, fmt, trunc);
 	free(trunc);

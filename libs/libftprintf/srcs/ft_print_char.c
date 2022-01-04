@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_char_bonus.c                              :+:      :+:    :+:   */
+/*   ft_print_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 10:08:45 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/22 11:12:59 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:19:55 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static void	print_c(t_field *fld, t_format *fmt, va_list ap)
 {
 	if (*fld->parse_ptr == '%')
-		ft_putchar_fd('%', 1);
+		ft_putchar_fd('%', fmt->fd);
 	else
-		ft_putchar_fd((char) va_arg(ap, int), 1);
+		ft_putchar_fd((char) va_arg(ap, int), fmt->fd);
 	fmt->num_printed++;
 }
 
 static void	print_width(t_field *fld, t_format *fmt, char c)
 {
-	ft_putchar_fd(c, 1);
+	ft_putchar_fd(c, fmt->fd);
 	fmt->num_printed++;
 	fld->min_width--;
 }

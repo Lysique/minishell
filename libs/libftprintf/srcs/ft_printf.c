@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:18:21 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/23 07:47:57 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:17:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_printl_nopercent(t_format *fmt, size_t len)
 {
-	len = ft_putstrl_fd(fmt->fstr, len, 1);
+	len = ft_putstrl_fd(fmt->fstr, len, fmt->fd);
 	fmt->num_printed += len;
 	fmt->fstr += len;
 }
@@ -33,7 +33,7 @@ static void	ft_print_parse(t_field *fld, t_format *fmt, va_list ap)
 		ft_print_hex(fld, fmt, ap);
 	else
 	{
-		ft_putchar_fd(*fld->percent_ptr, 1);
+		ft_putchar_fd(*fld->percent_ptr, fmt->fd);
 		fmt->fstr = fld->percent_ptr + 1;
 		fmt->num_printed++;
 	}
@@ -63,6 +63,22 @@ int	ft_printf(const char *format, ...)
 	va_start(ap, format);
 	ft_bzero(&fmt, sizeof(t_format));
 	fmt.fstr = format;
+	fmt.fd = 1;
+	while (fmt.fstr < format + ft_strlen(format))
+		ft_print(&fmt, ap);
+	va_end(ap);
+	return (fmt.num_printed);
+}
+
+int	ft_fdprintf(int fd, const char *format, ...)
+{
+	va_list		ap;
+	t_format	fmt;
+
+	va_start(ap, format);
+	ft_bzero(&fmt, sizeof(t_format));
+	fmt.fstr = format;
+	fmt.fd = fd;
 	while (fmt.fstr < format + ft_strlen(format))
 		ft_print(&fmt, ap);
 	va_end(ap);

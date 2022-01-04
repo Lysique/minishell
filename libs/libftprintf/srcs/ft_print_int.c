@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_int_bonus.c                               :+:      :+:    :+:   */
+/*   ft_print_int.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 10:09:22 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/23 10:51:07 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:21:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void
 {	
 	if (sign)
 	{
-		ft_putchar_fd(sign, 1);
+		ft_putchar_fd(sign, fmt->fd);
 		fmt->num_printed ++;
 	}
 }
@@ -34,11 +34,11 @@ static void
 	len = fld->precision - ft_strlen(str);
 	while (len -- > 0)
 	{
-		ft_putchar_fd('0', 1);
+		ft_putchar_fd('0', fmt->fd);
 		fmt->num_printed++;
 	}
 	if (!(!n && !fld->precision))
-		fmt->num_printed += ft_putstrl_fd(str, ft_strlen(str), 1);
+		fmt->num_printed += ft_putstrl_fd(str, ft_strlen(str), fmt->fd);
 	free(str);
 }
 
@@ -62,7 +62,7 @@ static void
 		width_remainder -= num_len;
 	while (width_remainder-- > 0)
 	{
-		ft_putchar_fd(padding, 1);
+		ft_putchar_fd(padding, fmt->fd);
 		fmt->num_printed++;
 	}
 }

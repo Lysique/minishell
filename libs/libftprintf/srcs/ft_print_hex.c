@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hex_bonus.c                               :+:      :+:    :+:   */
+/*   ft_print_hex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 10:09:05 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/29 12:08:26 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:22:46 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ static void
 	print_prefix_precision(t_field *fld, t_format *fmt, int len, char *str)
 {
 	if (*fld->parse_ptr == 'p')
-		fmt->num_printed += ft_putstrl_fd("0x", 2, 1);
+		fmt->num_printed += ft_putstrl_fd("0x", 2, fmt->fd);
 	else if (*str != '0')
 	{
 		if (fld->alt_form && *fld->parse_ptr == 'x')
-			fmt->num_printed += ft_putstrl_fd("0x", 2, 1);
+			fmt->num_printed += ft_putstrl_fd("0x", 2, fmt->fd);
 		else if (fld->alt_form && *fld->parse_ptr == 'X')
-			fmt->num_printed += ft_putstrl_fd("0X", 2, 1);
+			fmt->num_printed += ft_putstrl_fd("0X", 2, fmt->fd);
 	}
 	while (len-- > 0)
-		fmt->num_printed += ft_putstrl_fd("0", 1, 1);
+		fmt->num_printed += ft_putstrl_fd("0", 1, fmt->fd);
 }
 
 static void
@@ -44,7 +44,7 @@ static void
 	if (!(*str == '0' && fld->precision == 0))
 		width_remainder -= ft_max(fld->precision, print_len);
 	while (width_remainder-- > 0)
-		fmt->num_printed += ft_putstrl_fd(padding, 1, 1);
+		fmt->num_printed += ft_putstrl_fd(padding, 1, fmt->fd);
 }
 
 static void
@@ -60,7 +60,7 @@ static void
 	print_prefix_precision(fld, fmt, (fld->precision - print_len), hexstr);
 	if (!(*hexstr == '0' && fld->precision == 0))
 	{
-		fmt->num_printed += ft_putstrl_fd(hexstr, print_len, 1);
+		fmt->num_printed += ft_putstrl_fd(hexstr, print_len, fmt->fd);
 	}
 	if (fld->left_align)
 		print_width(fld, fmt, hexstr, print_len);
