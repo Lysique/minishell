@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 12:03:34 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 14:49:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	has_valid_identifier(char *line)
 	}
 	return (1);
 }
+
 /*Checks env_var format
 	RETURNS: 	
 	- 1 if name=word format
@@ -146,7 +147,7 @@ int env_set(t_cmdline *cmdline, char *name, char *value)
 	int		env_index;
 
 	tmp = ms_strjoin(name, "=");
-	envline = ms_strjoin(tmp, value);
+	envline = ft_strjoin(tmp, value);
 	ft_malloc (-1, tmp);
 	env_index = env_find(cmdline, name);
 	if (env_index != -1)
