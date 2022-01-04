@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 13:41:28 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:48:08 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ int	ft_num_exit(char *str)
 	return (num);
 }
 
+static int	is_not_numeric(t_cmdline *cmdline, t_cmds cmd)
+{
+	if (cmd.args && !is_number(cmd.args->content))
+	{
+		ft_fdprintf(2, "exit\nminishell: exit: %s: numeric argument required\n",
+			(char *) cmd.args->content);
+		ft_malloc(-2, 0);
+		cmdline->exit = 255;
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_exit(t_cmdline *cmdline)
 {
 	int		num;
@@ -64,15 +77,13 @@ int	ft_exit(t_cmdline *cmdline)
 	cmd = *cmdline->cmds;
 	if (cmd.args && is_number(cmd.args->content) && cmd.args->next)
 	{
-		ft_printf("minishell: exit: too many arguments\n");
-		return (0);
+		ft_fdprintf(2, "minishell: exit: too many arguments\n");
+		cmdline->exit = 1;
+		return (1);
 	}
-	if (cmd.args && !is_number(cmd.args->content))
+	if (is_not_numeric(cmdline, cmd))
 	{
-		ft_printf("exit\nminishell: exit: %s: numeric argument required\n", 
-				(char *) cmd.args->content);
-		ft_malloc(-2, 0);
-		exit(0);
+		exit(cmdline->exit);
 	}
 	printf("exit\n");
 	if (cmd.args)
@@ -81,5 +92,5 @@ int	ft_exit(t_cmdline *cmdline)
 		num = 0;
 	ft_malloc(-2, 0);
 	exit(num);
-	return (1);
+	return (num);
 }
