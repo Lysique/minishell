@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 13:50:43 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:28:55 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # define EXIT_SYNTAX_ERR	258
-
+# define EXIT_CMD_NOT_FOUND_ERR 127
 
 # include <fcntl.h>
 # include <sys/types.h>
