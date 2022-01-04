@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/03 11:45:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 14:58:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 int	ft_export(t_cmdline *cmdline)
 {
-	t_args	*args;
-	t_cmds	cmd;
-	int		fail;
-	char	*argline;
+	t_args			*args;
+	const t_cmds	cmd = *cmdline->cmds;
+	int				fail;
+	char			*argline;
 
-	cmd = *cmdline->cmds;
 	args = cmd.args;
 	fail = 0;
 	if (!args)
@@ -27,12 +26,11 @@ int	ft_export(t_cmdline *cmdline)
 	while (args)
 	{
 		argline = (char *) args->content;
+		ft_printf("ARG = |%s|\n", argline);
 		if (!has_valid_identifier(argline))
 		{
-			//TODO: refactor to correct error handler
-			ft_putstr_fd("minishell: export: '", 2);
-			ft_putstr_fd(argline, 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
+			ft_fdprintf(2, "minishell: export: '%s': not a valid identifier\n",
+				argline);
 			args = args->next;
 			fail = 1;
 			continue ;
@@ -40,5 +38,5 @@ int	ft_export(t_cmdline *cmdline)
 		env_add_var(cmdline, argline);
 		args = args->next;
 	}
-	return (!fail);
+	return (fail);
 }
