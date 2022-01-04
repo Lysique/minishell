@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:09:23 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/29 15:23:50 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/04 15:03:34 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	ft_pwd(t_cmdline *cmdline)
 	printf("%s\n", line);
 	if (close(cmdline->cmds->p[0]) == -1)
 		exit(EXIT_FAILURE);
-	return (1);
+	return (EXIT_SUCCESS);
 }
