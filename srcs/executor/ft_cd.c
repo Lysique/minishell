@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/01 08:08:25 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 13:53:59 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ int	ft_cd(t_cmdline *cmdline)
 		pwd = ft_pathjoin(pwd, cmd.args->content);
 	if (chdir(pwd) == -1)
 	{
-		printf("minishell: cd: %s: No such directory\n", (char *) cmd.args->content);
-		return (-1);
+		ft_fdprintf(2, "minishell: cd: %s: No such directory\n",
+			(char *) cmd.args->content);
+		return (EXIT_FAILURE);
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
