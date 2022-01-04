@@ -6,12 +6,15 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 12:12:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/04 13:50:43 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define EXIT_SYNTAX_ERR	258
+
 
 # include <fcntl.h>
 # include <sys/types.h>
