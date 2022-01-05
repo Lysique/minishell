@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:09:04 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:16:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ void	redir_exec(t_cmdline *cmdline)
 
 	dup2(cmdline->cmds->fd_in, 0);
 	act = cmdline_to_arr(cmdline);
-	printf("arr[0]=|%s|\n", act[0]);
-	if (act[1])
-		printf("arr[1]=|%s|", act[1]);
+
 	path = find_path(act[0], cmdline->env);
 	if (!path)
 	{
 		cmdline->exit = 127;
 		exit(EXIT_CMD_NOT_FOUND_ERR);
 	}
+	printf("arr[0]=|%s|\n", act[0]);
+	if (act[1])
+		printf("arr[1]=|%s|\n", act[1]);
+	printf("path=|%s|",path);
 	execve(path, act, cmdline->env);
-	ft_malloc(-1, act);
 }
