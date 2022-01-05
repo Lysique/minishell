@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 13:48:15 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 08:00:34 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 12:30:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*split_cmd_to_args(char *cmd, t_args **args)
 	t_args	*tmp2;
 	t_args	*tmp3;
 
-	arr = ft_split(cmd, ' ');
+	arr = ms_split(cmd, ' ');
 	i = 1;
 	while (arr[i])
 	{
@@ -45,7 +45,7 @@ char	*split_content_to_lst(char *content, t_args **argss)
 	t_args	*tmp;
 	t_args	*args;
 
-	arr = ft_split(content, ' ');
+	arr = ms_split(content, ' ');
 	args = *argss;
 	i = 1;
 	while (arr[i])

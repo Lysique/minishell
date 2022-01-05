@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 15:28:55 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 12:30:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void		pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
 int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
 int			is_cd_exit_export(t_cmdline *cmdline);
-char		**ft_split(char const *s, char c);
+char		**ms_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 
 char		*ft_strtrim(char const *s1, char const *set);

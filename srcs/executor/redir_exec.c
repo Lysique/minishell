@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/04 15:29:18 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 12:30:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	redir_exec(t_cmdline *cmdline)
 	char	*path;
 
 	dup2(cmdline->cmds->fd_in, 0);
-	act = ft_split(cmdline->cmds->command, ' ');
+	act = ms_split(cmdline->cmds->command, ' ');
 	path = find_path(act[0], cmdline->env);
 	if (!path)
 	{

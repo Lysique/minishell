@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:14:42 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/28 15:28:07 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 12:30:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*ft_splitfct(char const *s, char c)
 	return ((char *)s);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ms_split(char const *s, char c)
 {
 	char	**tab;
 	char	**tabres;

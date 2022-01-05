@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/04 15:20:49 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 12:30:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*find_path(char *cmd, char **envp)
 	while (ft_strlen(envp[i]) > 5 && ft_srch(envp[i], "PATH=") == 0)
 		i++;
 	path = ft_strtrim(envp[i], "PATH=");
-	tab = ft_split(path, ':');
+	tab = ms_split(path, ':');
 	ft_malloc(-1, path);
 	if (find_path2(tab, cmd, &cmd1) == 0)
 	{

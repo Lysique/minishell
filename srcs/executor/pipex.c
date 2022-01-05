@@ -6,12 +6,13 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:05:39 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 10:25:50 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 12:26:18 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+//TODO: exit in parent process? won't this quit our minishell?
 void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
