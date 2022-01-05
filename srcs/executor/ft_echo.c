@@ -6,20 +6,23 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 14:30:52 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 15:02:56 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	my_strcmp(char *content, char *cmp)
+int	check_n_arg(char *arg)
 {
 	int	i;
 
 	i = 0;
-	while (content[i] || cmp[i])
+	if (arg[i] != '-')
+		return (0);
+	i++;
+	while (arg[i])
 	{
-		if (content[i] != cmp[i])
+		if (arg[i] != 'n')
 			return (0);
 		i++;
 	}
@@ -42,7 +45,7 @@ int	ft_echo(t_cmdline *cmdline)
 
 	tmp = cmdline->cmds->args;
 	nb = 0;
-	if (tmp && my_strcmp(tmp->content, "-n"))
+	if (tmp && check_n_arg(tmp->content))
 	{
 		tmp = tmp->next;
 		nb = 1;
