@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:05:39 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/30 10:25:50 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 12:07:33 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	pipex(t_cmdline *cmdline)
 	cmdline->cmds->fd_in = 0;
 	while (cmdline->cmds->command != NULL)
 	{
+		expander(cmdline);
 		pipe(cmdline->cmds->p);
 		if (is_cd_exit_export(cmdline) && cmdline->cmds++)
 			continue ;

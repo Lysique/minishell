@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 13:48:15 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 08:00:34 by tamighi          ###   ########.fr       */
+/*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
+/*   Updated: 2022/01/05 13:21:26 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*split_cmd_to_args(char *cmd, t_args **args)
 	return (arr[0]);
 }
 
-char	*split_content_to_lst(char *content, t_args **argss)
+char	*split_content_to_args(char *content, t_args **argss)
 {
 	char	**arr;
 	int		i;
@@ -61,106 +61,26 @@ char	*split_content_to_lst(char *content, t_args **argss)
 	return (arr[0]);
 }
 
-int	env_index(char **env, char *var)
+char	*expand(char *var, char **env, t_args *args, int x)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (env[i])
-	{
-		while (env[i][j] == var[j])
-		{
-			j++;
-			if (env[i][j] == '=' && (var[j] == ' ' || !var[j]))
-				return (i);
-		}
-		i++;
-		j = 0;
-	}
-	return (-1);
-}
-
-char	*expand_to_env(char *var, char *env)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	new = ft_malloc(ft_strlen(var) + ft_strlen(env) + 1, 0);
-	i = 0;
-	j = 0;
-	while (var[i] != '$')
-	{
-		new[i] = var[i];
-		i++;
-	}
-	while (env[j] != '=')
-		j++;
-	while (env[j++])
-		new[i++] = env[j];
-	ft_malloc(-1, var);
-	return (new);
-}
-
-int	check_quotes(char **var)
-{
-	int		i;
-	int		j;
-	char	*new;
-	char	quote;
-	char	*tmp;
-
-	i = 0;
-	j = 0;
-	quote = 0;
-	tmp = *var;
-	new = ft_malloc(ft_strlen(*var) + 1, 0);
-	while (tmp[i])
-	{
-		if (tmp[i] == 39 || tmp[i] == 34)
-		{
-			quote = tmp[i++];
-			while (tmp[i] != quote && tmp[i])
-				new[j++] = tmp[i++];
-		}
-		else
-			new[j++] = tmp[i];
-		if (tmp[i])
-			i++;
-	}
-	new[j] = 0;
-	*var = new;
-	return (quote);
-}
-
-char	*expand(char *var, char **env, t_args **args, int x)
-{
-	int	i;
-	int	quote;
-
-	i = 0;
-	if (x && var[i] == '*')
-		return (split_cmd_to_args(expand_wildcard(var), args));
-	else if (!x && var[i] == '*')
-		return (split_content_to_lst(expand_wildcard(var), args));
-	quote = check_quotes(&var);
+	if (var[i] == '*')
+		var = expand_wildcard(var);
 	while (var[i])
 	{
-		if (var[i] == '$' && env_index(env, &var[i + 1]) != -1)
+		if (var[i] == '$')
 		{
-			if (quote != 39)
-			{
-				var = expand_to_env(var, env[env_index(env, &var[i + 1])]);
-				i = -1;
-			}
+			var = expand_to_env(var, env[env_index(env, &var[i + 1])]);
+			i = 0;
 		}
 		i++;
 	}
-	if (x && !quote)
-		return (split_cmd_to_args(var, args));
-	else if (!x && !quote)
-		return (split_content_to_lst(var, args));
+	var = fk_quotes(var);
+	if (x)
+		var = split_cmd_to_args(var, &args);
+	else
+		var = split_content_to_args(var, &args);
 	return (var);
 }
