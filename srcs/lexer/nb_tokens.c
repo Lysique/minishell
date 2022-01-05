@@ -6,22 +6,11 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:50:40 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/22 14:29:18 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 07:49:38 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*handle_arg(char *line)
-{
-	while (*line && *line != ' ' && *line != '|' && *line != '&'
-		&& *line != '<' && *line != '>' && *line != '('
-		&& *line != ')')
-		line++;
-	while (*line == ' ')
-		line++;
-	return (line);
-}
 
 char	*handle_parentheses(char *line)
 {
@@ -53,6 +42,21 @@ char	*handle_quotes(char *line)
 		line++;
 	if (*line == quote)
 		line++;
+	while (*line == ' ')
+		line++;
+	return (line);
+}
+
+char	*handle_arg(char *line)
+{
+	while (*line && *line != ' ' && *line != '|' && *line != '&'
+		&& *line != '<' && *line != '>' && *line != '('
+		&& *line != ')')
+	{
+		if (*line == 34 || *line == 39)
+			line = handle_quotes(line);
+		line++;
+	}
 	while (*line == ' ')
 		line++;
 	return (line);

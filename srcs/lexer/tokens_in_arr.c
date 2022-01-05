@@ -6,36 +6,11 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/31 15:14:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 08:15:20 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*arg_line(char **line)
-{
-	char	*new;
-	int		i;
-
-	i = 0;
-	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '|'
-		&& (*line)[i] != '&' && (*line)[i] != '<' && (*line)[i] != '>'
-		&& (*line)[i] != '(' && (*line)[i] != ')')
-		i++;
-	new = ft_malloc(i + 1, 0);
-	i = 0;
-	while (**line && **line != ' ' && **line != '|' && **line != '&'
-		&& **line != '<' && **line != '>' && **line != '('
-		&& **line != ')')
-	{
-		new[i++] = **line;
-		(*line)++;
-	}
-	new[i] = '\0';
-	while (**line == ' ')
-		(*line)++;
-	return (new);
-}
 
 char	*parentheses_line(char **line)
 {
@@ -95,6 +70,52 @@ char	*quote_line(char **line)
 	new[i++] = **line;
 	new[i] = '\0';
 	(*line)++;
+	while (**line == ' ')
+		(*line)++;
+	return (new);
+}
+
+char	*arg_line(char **line)
+{
+	char	*new;
+	int		i;
+	char	quote;
+
+	i = 0;
+	while ((*line)[i] && (*line)[i] != ' ' && (*line)[i] != '|'
+		&& (*line)[i] != '&' && (*line)[i] != '<' && (*line)[i] != '>'
+		&& (*line)[i] != '(' && (*line)[i] != ')')
+	{
+		if ((*line)[i] == 39 || (*line)[i] == 34)
+		{
+			quote = (*line)[i++];
+			while ((*line)[i] && (*line)[i] != quote)
+				i++;
+		}
+		if ((*line)[i])
+			i++;
+	}
+	new = ft_malloc(i + 1, 0);
+	i = 0;
+	while (**line && **line != ' ' && **line != '|' && **line != '&'
+		&& **line != '<' && **line != '>' && **line != '('
+		&& **line != ')')
+	{
+		if (**line == 39 || **line == 34)
+		{
+			quote = **line;
+			new[i++] = **line;
+			(*line)++;
+			while (**line != quote && **line)
+			{
+				new[i++] = **line;
+				(*line)++;
+			}
+		}
+		new[i++] = **line;
+		(*line)++;
+	}
+	new[i] = '\0';
 	while (**line == ' ')
 		(*line)++;
 	return (new);
