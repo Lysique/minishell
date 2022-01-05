@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/05 13:36:24 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:48:13 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char		*find_path(char *cmd, char **envp);
 
 char		*ft_strtrim(char const *s1, char const *set);
 int			ft_srch(char *envp, char *var);
-int			ft_strcmp(char *s1, char *s2);
+int			ft_strequ(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);
 
 #endif
