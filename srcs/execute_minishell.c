@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:39:28 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:43:33 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	execute_minishell(char **env)
 		}
 		add_history(cmdline.line);
 		arr = lexer(cmdline.line);
+		if (!*arr)
+			continue ;
 		if (check_cmdline(arr))
 		{
 			ft_fdprintf(2,
