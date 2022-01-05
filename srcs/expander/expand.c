@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 14:52:18 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 17:10:15 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ char	*expand(char *var, t_cmdline *cmdline, int x)
 		var = expand_wildcard(var);
 	while (var[i])
 	{
+		if (var[i] == 39)
+		{
+			i++;
+			while (var[i] && var[i] != 39)
+				i++;
+		}
 		if (var[i] == '$' && var[i + 1] == '?')
 			var = special_expand(var, cmdline->exit);
 		else if (var[i] == '$')
