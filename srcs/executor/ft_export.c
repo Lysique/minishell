@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 14:58:58 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 13:01:36 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	ft_export(t_cmdline *cmdline)
 	while (args)
 	{
 		argline = (char *) args->content;
-		ft_printf("ARG = |%s|\n", argline);
 		if (!has_valid_identifier(argline))
 		{
 			ft_fdprintf(2, "minishell: export: '%s': not a valid identifier\n",
