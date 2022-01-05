@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 17:05:12 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 17:19:34 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_n_arg(char *arg)
 	int	i;
 
 	i = 0;
+	if (!arg)
+		return (0);
 	if (arg[i] != '-')
 		return (0);
 	i++;
@@ -50,7 +52,7 @@ int	ft_echo(t_cmdline *cmdline)
 		tmp = tmp->next;
 		nb = 1;
 	}
-	while (tmp)
+	while (tmp && tmp->content)
 	{
 		ft_putstr2(tmp->content);
 		if (tmp->next)

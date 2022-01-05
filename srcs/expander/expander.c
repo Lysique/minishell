@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 14:57:25 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 17:33:32 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char	*fk_quotes(char *var)
 			quote = var[i];
 			while (var[++i] != quote && var[i])
 				new[j++] = var[i];
-			i++;
+			if (var[i])
+				i++;
 		}
 		if (var[i])
 			new[j++] = var[i++];
@@ -38,24 +39,34 @@ char	*fk_quotes(char *var)
 	return (new);
 }
 
-char	*expand_to_env(char *var, char *env)
+char	*expand_to_nb(char *new, char *var, int j)
+{
+	int	i;
+
+	i = 0;
+	while (var[i] && var[i] != 34 && var[i] != '$')
+		new[j++] = var[i++];
+	return (new);
+}
+
+char	*expand_to_env(char *var, char **env, int ix, int i)
 {
 	char	*new;
-	int		i;
 	int		j;
 	int		k;
 
-	new = ft_malloc(ft_strlen(var) + ft_strlen(env) + 1, 0);
-	i = 0;
+	new = ft_malloc(ft_strlen(var) + ft_strlen(env[ix]) + 1, 0);
 	j = 0;
 	k = 0;
 	while (var[i] != '$' && var[i])
 		new[k++] = var[i++];
-	while (env && env[j] != '=')
+	if (var[i + 1] >= '0' && var[i + 1] <= '9')
+		return (expand_to_nb(new, &var[i + 2], k));
+	while (env[ix] && env[ix][j] != '=')
 		j++;
 	j++;
-	while (env && env[j])
-		new[k++] = env[j++];
+	while (env[ix] && env[ix][j])
+		new[k++] = env[ix][j++];
 	i++;
 	while (var[i] && var[i] != ' ' && var[i] != 34 && var[i] != '$')
 		i++;

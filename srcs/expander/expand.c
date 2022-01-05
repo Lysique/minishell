@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 17:10:15 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 17:32:53 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ char	*special_expand(char *var, int exitstatus)
 	return (new);
 }
 
+char	*expand_return(char *var, t_args **args, int x)
+{
+	var = fk_quotes(var);
+	if (x)
+		var = split_cmd_to_args(var, args);
+	else
+		var = split_content_to_args(var, args);
+	return (var);
+}
+
 char	*expand(char *var, t_cmdline *cmdline, int x)
 {
 	int	i;
@@ -110,16 +120,11 @@ char	*expand(char *var, t_cmdline *cmdline, int x)
 		else if (var[i] == '$')
 		{
 			var = expand_to_env(var,
-				cmdline->env[env_index(cmdline->env, &var[i + 1])]);
+					cmdline->env, env_index(cmdline->env, &var[i + 1]), 0);
 			i = 0;
 		}
 		else
 			i++;
 	}
-	var = fk_quotes(var);
-	if (x)
-		var = split_cmd_to_args(var, &cmdline->cmds->args);
-	else
-		var = split_content_to_args(var, &cmdline->cmds->args);
-	return (var);
+	return (expand_return(var, &cmdline->cmds->args, x));
 }
