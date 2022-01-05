@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/05 13:36:24 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/05 14:42:28 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int			nb_cmds(char **arr);
 	/*EXPANDER*/
 
 void		expander(t_cmdline *cmdline);
-char		*expand(char *var, char **env, t_args *args, int x);
+char		*expand(char *var, t_cmdline *cmdline, int x);
 char		*expand_wildcard(char *pattern);
 int			env_index(char **env, char *var);
 char		*expand_to_env(char *var, char *env);
@@ -153,7 +153,6 @@ char		*find_path(char *cmd, char **envp);
 
 char		*ft_strtrim(char const *s1, char const *set);
 int			ft_srch(char *envp, char *var);
-int			ft_strcmp(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);
 
 #endif

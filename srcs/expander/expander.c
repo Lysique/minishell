@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:20:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 14:41:59 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*fk_quotes(char *var)
 		if (var[i])
 			new[j++] = var[i++];
 	}
-	new[j] = 0;
+	new[j] = '\0';
 	return (new);
 }
 
@@ -91,10 +91,10 @@ void	expander(t_cmdline *cmdline)
 	t_args	*tmp;
 
 	tmp = cmdline->cmds->args;
-	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline->env, tmp, 1);
+	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline, 1);
 	while (tmp)
 	{
-		tmp->content = expand(tmp->content, cmdline->env, tmp, 0);
+		tmp->content = expand(tmp->content, cmdline, 0);
 		tmp = tmp->next;
 	}
 }
