@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
+#    By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/02 11:59:30 by slathouw          #+#    #+#              #
-#    Updated: 2021/12/24 08:18:14 by slathouw         ###   ########.fr        #
+#    Updated: 2022/01/05 16:47:49 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS 		= ft_isalnum.c ft_isprint.c ft_strlen.c ft_tolower.c ft_atoi.c 	\
 			ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_nbr_len.c\
 			ft_unbr_len.c ft_uitoa.c ft_lstmap.c ft_lstnew.c ft_lstsize.c	\
 			ft_putunbr_fd.c ft_strrev.c ft_putlong_base_fd.c ft_ultoa_base.c \
-			ft_ultobase_len.c ft_strldup.c ft_max.c
+			ft_ultobase_len.c ft_strldup.c ft_max.c ft_strcmp.c
 OBJS		= ${SRCS:.c=.o}
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -g
