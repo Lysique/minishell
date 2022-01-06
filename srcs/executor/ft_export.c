@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/06 04:43:30 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 05:26:39 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static char	**get_dup_env(t_cmdline *cmdline)
 	return (dup);
 }
 
-static void	ft_swap(char *a, char *b)
+static void	ft_swap(char **a, char **b)
 {
 	char	*tmp;
 
-	tmp = a;
-	a = b;
-	b = tmp;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }
 
 static void	print_export(char **env)
@@ -77,8 +77,8 @@ static void	env_sort(t_cmdline *cmdline)
 		j = i;
 		while (dup[++j])
 		{
-			if (ft_strequ(dup[i], dup[j]) > 0)
-				ft_swap(dup[i], dup[j]);
+			if (ft_strcmp(dup[i], dup[j]) > 0)
+				ft_swap(&dup[i], &dup[j]);
 		}
 	}
 	print_export(dup);
