@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:50:40 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 07:49:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:58:08 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*handle_parentheses(char *line)
 {
 	line++;
-	while (*line == ' ')
+	while (ft_isspace(*line == ' '))
 		line++;
 	return (line);
 }
@@ -27,7 +27,7 @@ char	*handle_pipe_redir(char *line)
 	redir_or_pipe = *line;
 	while (*line == redir_or_pipe)
 		line++;
-	while (*line == ' ')
+	while (ft_isspace(*line))
 		line++;
 	return (line);
 }
@@ -42,14 +42,14 @@ char	*handle_quotes(char *line)
 		line++;
 	if (*line == quote)
 		line++;
-	while (*line == ' ')
+	while (ft_isspace(*line))
 		line++;
 	return (line);
 }
 
 char	*handle_arg(char *line)
 {
-	while (*line && *line != ' ' && *line != '|' && *line != '&'
+	while (*line && !ft_isspace(*line) && *line != '|' && *line != '&'
 		&& *line != '<' && *line != '>' && *line != '('
 		&& *line != ')')
 	{
@@ -57,7 +57,7 @@ char	*handle_arg(char *line)
 			line = handle_quotes(line);
 		line++;
 	}
-	while (*line == ' ')
+	while (ft_isspace(*line))
 		line++;
 	return (line);
 }
@@ -67,7 +67,7 @@ int	nb_tokens(char *line)
 	int	count;
 
 	count = 0;
-	while (*line == ' ')
+	while (ft_isspace(*line))
 		line++;
 	if (!*line)
 		return (0);

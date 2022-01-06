@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:17:47 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:57:41 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	nb_char_arg(char *line)
 	char	quote;
 
 	i = 0;
-	while (line[i] && line[i] != ' ' && line[i] != '|'
+	while (line[i] && !ft_isspace(*line) && line[i] != '|'
 		&& line[i] != '&' && line[i] != '<' && line[i] != '>'
 		&& line[i] != '(' && line[i] != ')')
 	{
@@ -74,7 +74,7 @@ char	*arg_line(char **line)
 
 	i = 0;
 	new = ft_malloc(nb_char_arg(*line) + 1, 0);
-	while (**line && **line != ' ' && **line != '|' && **line != '&'
+	while (**line && !ft_isspace(**line) && **line != '|' && **line != '&'
 		&& **line != '<' && **line != '>' && **line != '('
 		&& **line != ')')
 	{
@@ -97,7 +97,7 @@ char	**tokens_in_arr(char *line, char **arr)
 	int	j;
 
 	j = 0;
-	while (*line == ' ')
+	while (ft_isspace(*line))
 		line++;
 	while (*line)
 	{
@@ -107,9 +107,8 @@ char	**tokens_in_arr(char *line, char **arr)
 			arr[j] = parentheses_line(&line);
 		else
 			arr[j] = arg_line(&line);
-		while (*line == ' ')
+		while (ft_isspace(*line))
 			line++;
-		//printf("ARR[%d] = %s|\n", j, arr[j]);
 		j++;
 	}
 	arr[j] = 0;
