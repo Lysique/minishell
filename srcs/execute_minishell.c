@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 17:43:33 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 06:03:25 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ void	execute_minishell(char **env)
 		prompt(&cmdline);
 		cmdline.line = readline(cmdline.prompt);
 		if (!cmdline.line)
+		{
+			free_env(cmdline.env);
+			ft_ptrdel(cmdline.prompt);
 			exit(0);
+		}
 		if (!*cmdline.line)
 		{
 			ft_ptrdel(cmdline.line);
@@ -77,13 +81,17 @@ void	execute_minishell(char **env)
 		add_history(cmdline.line);
 		arr = lexer(cmdline.line);
 		if (!*arr)
+		{
+			ft_ptrdel(cmdline.line);
 			continue ;
+		}
 		if (check_cmdline(arr))
 		{
 			ft_fdprintf(2,
 				"minishell : syntax error near unexpected token '%s'\n",
 				check_cmdline(arr));
 			cmdline.exit = EXIT_SYNTAX_ERR;
+			ft_ptrdel(cmdline.line);
 			ft_malloc(-2, 0);
 			continue ;
 		}
