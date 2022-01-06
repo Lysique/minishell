@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 06:03:25 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 06:39:10 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	execute_minishell(char **env)
 		{
 			free_env(cmdline.env);
 			ft_ptrdel(cmdline.prompt);
+			ft_malloc(-2, 0);
 			exit(0);
 		}
 		if (!*cmdline.line)
