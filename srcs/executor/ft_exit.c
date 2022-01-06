@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/04 14:48:08 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 06:02:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ int	ft_exit(t_cmdline *cmdline)
 	}
 	if (is_not_numeric(cmdline, cmd))
 	{
+		free_env(cmdline->env);
+		free(cmdline->prompt);
+		ft_malloc(-2, 0);
 		exit(cmdline->exit);
 	}
 	printf("exit\n");
@@ -91,6 +94,8 @@ int	ft_exit(t_cmdline *cmdline)
 	else
 		num = 0;
 	ft_malloc(-2, 0);
+	free_env(cmdline->env);
+	free(cmdline->prompt);
 	exit(num);
 	return (num);
 }
