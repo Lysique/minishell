@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 13:19:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 13:39:08 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ void	pipex(t_cmdline *cmdline)
 	cmdline->cmds->fd_in = 0;
 	expander(cmdline);
 	if (miscarriage(cmdline))
+	{
 		cmdline->cmds++;
+		if (cmdline->cmds->cmd)
+			pipex(cmdline);
+		return ;	
+	}
 	else
 		fork_call(cmdline);
 	while (cmdline->cmds->cmd && (cmdline->cmds - 1)->pipetype <= 1)
