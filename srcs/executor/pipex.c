@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 13:39:08 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:23:38 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
 
-	if (!(cmdline->cmds + 1)->cmd)
-		wait(&cmdline->cmds->exitstatus);
+	if (cmdline->cmds->pipetype != 1)
+	{
+		while (wait(&cmdline->cmds->exitstatus) != -1)
+			;
+		check_exit_status(cmdline);
+	}
 	if (close(cmdline->cmds->p[1]) == -1)
 		exit(EXIT_FAILURE);
 	p = cmdline->cmds->p[0];
@@ -60,8 +64,9 @@ void	pipex(t_cmdline *cmdline)
 	}
 	else
 		fork_call(cmdline);
-	while (cmdline->cmds->cmd && (cmdline->cmds - 1)->pipetype <= 1)
+	while (cmdline->cmds->command)
 	{
+	
 		expander(cmdline);
 		fork_call(cmdline);
 	}
