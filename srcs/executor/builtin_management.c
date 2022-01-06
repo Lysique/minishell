@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:09:00 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 16:48:13 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:02:21 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,6 @@ int	ft_strequ(char *s1, char *s2)
 		i++;
 	}
 	return (1);
-}
-
-int	is_cd_exit_export(t_cmdline *cmdline)
-{
-	if (ft_strequ(cmdline->cmds->cmd, "exit"))
-	{
-		cmdline->exit = cmdline->builtins[0].fct(cmdline);
-		return (1);
-	}
-	else if (ft_strequ(cmdline->cmds->cmd, "cd"))
-	{
-		cmdline->exit = cmdline->builtins[1].fct(cmdline);
-		return (1);
-	}
-	else if (ft_strequ(cmdline->cmds->cmd, "export"))
-	{
-		cmdline->exit = cmdline->builtins[5].fct(cmdline);
-		return (1);
-	}
-	else if (ft_strequ(cmdline->cmds->cmd, "unset"))
-	{
-		cmdline->exit = cmdline->builtins[6].fct(cmdline);
-		return (1);
-	}
-	return (0);
 }
 
 int	check_if_builtin(t_cmdline *cmdline, t_builtins *builtins)

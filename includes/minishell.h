@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/06 06:22:18 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:12:03 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int			env_find(t_cmdline *cmdline, char *name);
 int			env_set(t_cmdline *cmdline, char *name, char *value);
 int			env_unset(t_cmdline *cmdline, char *var_name);
 void		free_env(void *arr);
+int			ft_strcmp(const char *s1, const char *s2);
 
 /*BONUS*/
 	/*
@@ -148,7 +149,7 @@ int			is_visible(char *name, char *pattern);
 void		pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
 int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
-int			is_cd_exit_export(t_cmdline *cmdline);
+int			miscarriage(t_cmdline *cmdline);
 char		**ms_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 
