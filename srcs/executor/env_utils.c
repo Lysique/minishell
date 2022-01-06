@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 10:56:36 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 14:49:58 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 05:41:13 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_env(void *arr)
+{
+	char	**to_free;
+	int		i;
+
+	to_free = (char **) arr;
+	i = -1;
+	if (to_free)
+	{
+		while (to_free[++i])
+			free(to_free[i]);
+		free(to_free);
+	}
+}
 
 void	env_init(char **envp, t_cmdline *cmdline)
 {
