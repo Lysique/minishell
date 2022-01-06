@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/06 10:12:03 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 13:24:14 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ char		*ft_strtrim(char const *s1, char const *set);
 int			ft_srch(char *envp, char *var);
 int			ft_strequ(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);
+void		ft_putstr2(char *str);
 
 	/*TERMIOS*/
 void		setup_term(void);

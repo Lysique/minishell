@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 06:02:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 13:23:46 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_exit(t_cmdline *cmdline)
 		ft_malloc(-2, 0);
 		exit(cmdline->exit);
 	}
-	printf("exit\n");
+	ft_putstr2("exit\n");
 	if (cmd.args)
 		num = ft_num_exit(cmd.args->content);
 	else
