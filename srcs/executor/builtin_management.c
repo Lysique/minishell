@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:09:00 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 10:02:21 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 13:35:50 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_if_builtin(t_cmdline *cmdline, t_builtins *builtins)
 	{
 		if (ft_strequ(builtins[i].builtin, cmds.cmd))
 		{
-			builtins[i].fct(cmdline);
+			cmdline->exit = builtins[i].fct(cmdline);
 			return (1);
 		}
 		i++;
