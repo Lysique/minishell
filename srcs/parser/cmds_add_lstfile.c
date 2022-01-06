@@ -3,42 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_add_lstfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/07 13:51:44 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 04:15:06 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	end_heredoc(char *line, char *end)
+/* int	ft_strcmmp(const char *s1, const char *s2)
 {
-	int	i;
+	size_t			i;
 
 	i = 0;
-	while (line[i] != '\n' && line[i])
+	if (!s1 && !s2)
+		return (0);
+	if (!s1)
+		return ((unsigned char)s2[i]);
+	if (!s2)
+		return ((unsigned char)s1[i]);
+	while (s1[i] != '\0' && s2[i] != '\0')
 	{
-		if (line[i] != end[i])
-			return (0);
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 		i++;
 	}
-	return (1);
+	if (s2[i] == 0 && s2[i - 1] == s1[i - 1])
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+ */
+char	*get_heredoc_string(char *file)
+{
+	static char	*line_read = (char *)NULL;
+	char		*res;
+	int			i;
+	char		*tmp;
+
+	i = 0;
+	res = NULL;
+	line_read = readline("heredoc> ");
+	while (ft_strcmmp(line_read, file) != 0 && line_read && *line_read)
+	{
+		if (i++ == 0)
+			res = ft_strjoin(line_read, "\n");
+		else
+		{
+			tmp = res;
+			res = ft_strjoin(res, line_read);
+			free(tmp);
+			tmp = res;
+			res = ft_strjoin(res, "\n");
+			free(tmp);
+			free(line_read);
+		}
+		line_read = readline("heredoc> ");
+	}
+	return (res);
 }
 
-int	ft_heredoc(char *end)
+int	ft_heredoc(char *file)
 {
+	char	*res;
 	int		fd;
-	char	*line;
 
-	line = readline("< ");
-	fd = open("", O_CREAT | O_RDWR);
-	while (!end_heredoc(line, end))
-	{
-		write(fd, line, ft_strlen(line));
-		line = readline("< ");
-	}
-	return (fd);
+	res = get_heredoc_string(file);
+	fd = open("fhere.txt",O_CREAT | O_WRONLY, 0777);
+	write(fd, res, ft_strlen(res));
+	return (0);
 }
 
 t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)

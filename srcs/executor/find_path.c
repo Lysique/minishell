@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:36:31 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:16:40 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ char	*find_path(char *cmd, char **envp)
 	char	*cmd1;
 
 	i = 0;
+	if (ft_strlen(cmd) >= 2 && cmd[0] == '.' && cmd[1] == '/')
+	{
+		if (!access(cmd, X_OK))
+			return (cmd);
+	}
 	while (ft_strlen(envp[i]) > 5 && ft_srch(envp[i], "PATH=") == 0)
 		i++;
 	path = ft_strtrim(envp[i], "PATH=");

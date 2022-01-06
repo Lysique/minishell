@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:35:05 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:16:19 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	redir_exec(t_cmdline *cmdline)
 
 	dup2(cmdline->cmds->fd_in, 0);
 	act = cmdline_to_arr(cmdline);
-
 	path = find_path(act[0], cmdline->env);
 	if (!path)
 	{
