@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:32:10 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 18:02:50 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	cmdline_init(char **arr, t_cmdline *cmdline)
 		cmdline->cmds[i].cmd = 0;
 		cmdline->cmds[i].args = 0;
 		cmdline->cmds[i].pipetype = 0;
+		cmdline->cmds[i].exitstatus = 0;
 		cmdline->cmds[i].exitok = 0;
+		cmdline->cmds[i].p[0] = 0;
+		cmdline->cmds[i].p[1] = 0;
 		i--;
 	}
 }
