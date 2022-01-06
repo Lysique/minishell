@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:03:25 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 11:22:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 16:35:09 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	miscarriage(t_cmdline *cmdline)
 {
 	if (!cmdline->cmds->command)
 		return (0);
-	expander(cmdline);
 	if (is_last_child(cmdline) && check_if_builtin(cmdline, cmdline->builtins))
 		return (1);
 	return (0);

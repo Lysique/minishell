@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:44:37 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 16:33:22 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	pipex(t_cmdline *cmdline)
 	{
 		cmdline->cmds->exitok = 1;
 		cmdline->cmds++;
+		check_exit_status(cmdline);
 		if (cmdline->cmds->cmd)
 			pipex(cmdline);
 		return ;	
