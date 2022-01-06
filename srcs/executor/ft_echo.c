@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 16:48:13 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:39:19 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	check_n_arg(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (!arg)
+		return (0);
+	if (arg[i] != '-')
+		return (0);
+	i++;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	ft_putstr2(char *s)
 {
@@ -28,12 +47,12 @@ int	ft_echo(t_cmdline *cmdline)
 
 	tmp = cmdline->cmds->args;
 	nb = 0;
-	if (tmp && ft_strequ(tmp->content, "-n"))
+	if (tmp && check_n_arg(tmp->content))
 	{
 		tmp = tmp->next;
 		nb = 1;
 	}
-	while (tmp)
+	while (tmp && tmp->content)
 	{
 		ft_putstr2(tmp->content);
 		if (tmp->next)

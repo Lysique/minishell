@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 13:20:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/05 17:33:32 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,46 @@ char	*fk_quotes(char *var)
 			quote = var[i];
 			while (var[++i] != quote && var[i])
 				new[j++] = var[i];
-			i++;
+			if (var[i])
+				i++;
 		}
 		if (var[i])
 			new[j++] = var[i++];
 	}
-	new[j] = 0;
+	new[j] = '\0';
 	return (new);
 }
 
-char	*expand_to_env(char *var, char *env)
+char	*expand_to_nb(char *new, char *var, int j)
+{
+	int	i;
+
+	i = 0;
+	while (var[i] && var[i] != 34 && var[i] != '$')
+		new[j++] = var[i++];
+	return (new);
+}
+
+char	*expand_to_env(char *var, char **env, int ix, int i)
 {
 	char	*new;
-	int		i;
 	int		j;
 	int		k;
 
-	new = ft_malloc(ft_strlen(var) + ft_strlen(env) + 1, 0);
-	i = 0;
+	new = ft_malloc(ft_strlen(var) + ft_strlen(env[ix]) + 1, 0);
 	j = 0;
 	k = 0;
 	while (var[i] != '$' && var[i])
 		new[k++] = var[i++];
-	while (env && env[j] != '=')
+	if (var[i + 1] >= '0' && var[i + 1] <= '9')
+		return (expand_to_nb(new, &var[i + 2], k));
+	while (env[ix] && env[ix][j] != '=')
 		j++;
 	j++;
-	while (env && env[j])
-		new[k++] = env[j++];
-	while (var[i] && var[i] != ' ' && var[i] != 34)
+	while (env[ix] && env[ix][j])
+		new[k++] = env[ix][j++];
+	i++;
+	while (var[i] && var[i] != ' ' && var[i] != 34 && var[i] != '$')
 		i++;
 	while (var[i])
 		new[k++] = var[i++];
@@ -77,7 +89,8 @@ int	env_index(char **env, char *var)
 		while (env[i][j] == var[j])
 		{
 			j++;
-			if (env[i][j] == '=' && (var[j] == ' ' || var[j] == 34 || !var[j]))
+			if (env[i][j] == '=' && (var[j] == ' ' || var[j] == 34 || !var[j]
+					|| var[j] == '$'))
 				return (i);
 		}
 		i++;
@@ -91,10 +104,10 @@ void	expander(t_cmdline *cmdline)
 	t_args	*tmp;
 
 	tmp = cmdline->cmds->args;
-	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline->env, tmp, 1);
+	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline, 1);
 	while (tmp)
 	{
-		tmp->content = expand(tmp->content, cmdline->env, tmp, 0);
+		tmp->content = expand(tmp->content, cmdline, 0);
 		tmp = tmp->next;
 	}
 }
