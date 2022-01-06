@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 11:10:41 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 13:10:08 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	cmdline_init(char **arr, t_cmdline *cmdline)
 	i = nb_cmds(arr);
 	cmdline->cmds = ft_malloc(sizeof(t_cmds) * (nb_cmds(arr) + 1), 0);
 	cmdline->cmds[i].command = 0;
-	while (i--)
+	while (i)
 	{
 		cmdline->cmds[i].outfiles = 0;
 		cmdline->cmds[i].infiles = 0;
@@ -76,6 +76,7 @@ void	cmdline_init(char **arr, t_cmdline *cmdline)
 		cmdline->cmds[i].cmd = 0;
 		cmdline->cmds[i].args = 0;
 		cmdline->cmds[i].pipetype = 0;
+		i--;
 	}
 }
 
