@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 06:57:35 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/05 16:57:45 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:43:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_swap(char *a, char *b)
 
 	tmp = a;
 	a = b;
-	b = a;
+	b = tmp;
 }
 
 static void	print_export(char **env)

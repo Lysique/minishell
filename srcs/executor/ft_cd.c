@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 04:38:46 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 04:42:35 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*cd_to_home(char **env)
 	int			i;
 	t_cmdline	*cl;
 
-	i = env_find(env, "HOME");
+	cl = cl_ptr(NULL);
+	i = env_find(cl, "HOME");
 	if (i > -1)
 		while (ft_srch(env[i++], "HOME=") == 0)
 			;
