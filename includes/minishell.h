@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/06 04:39:00 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 06:22:18 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int			env_set_line_at_index(t_cmdline *cmdline, char *linedup,
 int			env_find(t_cmdline *cmdline, char *name);
 int			env_set(t_cmdline *cmdline, char *name, char *value);
 int			env_unset(t_cmdline *cmdline, char *var_name);
+void		free_env(void *arr);
 
 /*BONUS*/
 	/*
@@ -155,5 +156,9 @@ char		*ft_strtrim(char const *s1, char const *set);
 int			ft_srch(char *envp, char *var);
 int			ft_strequ(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);
+
+	/*TERMIOS*/
+void		setup_term(void);
+void		reset_term(void);
 
 #endif
