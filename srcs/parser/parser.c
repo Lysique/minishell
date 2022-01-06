@@ -6,46 +6,11 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 13:17:45 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:32:10 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void print_cmdline(t_cmdline *cmdline, int nb)
-{
-	int	i;
-	
-	i = 0;
-	while (nb--)
-	{
-		printf("Command %d :\n", i + 1);
-		printf("parentheses = %d\n", cmdline->cmds[i].parentheses);
-		printf("command = %s, args = ", cmdline->cmds[i].cmd);
-		while (cmdline->cmds[i].args)
-		{
-			printf("%s || ", (char *) cmdline->cmds[i].args->content);
-			cmdline->cmds[i].args = cmdline->cmds[i].args->next;
-		}
-		printf("\n");
-		printf("outfiles = ");
-		while (cmdline->cmds[i].outfiles)
-		{
-			printf("fd : %d, ", cmdline->cmds[i].outfiles->fd);
-			cmdline->cmds[i].outfiles = cmdline->cmds[i].outfiles->next;
-		}
-		printf("\ninfiles = ");	
-		while (cmdline->cmds[i].infiles)
-		{
-			printf("fd : %d, ", cmdline->cmds[i].infiles->fd);
-			cmdline->cmds[i].infiles = cmdline->cmds[i].infiles->next;
-		}
-		printf("\n");
-		printf("pipetype : %d\n", cmdline->cmds[i].pipetype);
-		printf("\n");
-		i++;
-	}
-}
 
 int	nb_cmds(char **arr)
 {
@@ -76,6 +41,7 @@ void	cmdline_init(char **arr, t_cmdline *cmdline)
 		cmdline->cmds[i].cmd = 0;
 		cmdline->cmds[i].args = 0;
 		cmdline->cmds[i].pipetype = 0;
+		cmdline->cmds[i].exitok = 0;
 		i--;
 	}
 }

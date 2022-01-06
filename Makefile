@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/06 10:09:20 by tamighi          ###   ########.fr        #
+#    Updated: 2022/01/06 15:43:57 by tamighi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ all : 		${NAME}
 ###############
 
 # Minishell linking compilation
-$(NAME) :	$(OBJS) $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS)
+$(NAME) :	$(OBJS) $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS) includes/minishell.h
 	@make -sC $(LIBFT)
 	@cp $(LIBFT)/libftprintf.a .
 	@${CC} ${CFLAGS} -I ${INCLUDES} ${OBJS} $(LEXER_OBJS) $(PARSER_OBJS) $(EXPANDER_OBJS) $(EXECUTOR_OBJS) libftprintf.a $(LIBFLAGS) -o ${NAME}

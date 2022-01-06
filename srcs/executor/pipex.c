@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:23:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:44:37 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	fork_call(t_cmdline *cmdline)
 		if (close(cmdline->cmds->p[0]) == -1)
 			exit(EXIT_FAILURE);
 		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1)
+		{
 			dup2(cmdline->cmds->p[1], 1);
+		}
 		if (!check_if_builtin(cmdline, cmdline->builtins))
 			redir_exec(cmdline);
 		exit(0);
@@ -57,6 +59,7 @@ void	pipex(t_cmdline *cmdline)
 	expander(cmdline);
 	if (miscarriage(cmdline))
 	{
+		cmdline->cmds->exitok = 1;
 		cmdline->cmds++;
 		if (cmdline->cmds->cmd)
 			pipex(cmdline);
@@ -64,9 +67,8 @@ void	pipex(t_cmdline *cmdline)
 	}
 	else
 		fork_call(cmdline);
-	while (cmdline->cmds->command)
+	while (cmdline->cmds->command && (cmdline->cmds - 1)->pipetype <= 1)
 	{
-	
 		expander(cmdline);
 		fork_call(cmdline);
 	}
