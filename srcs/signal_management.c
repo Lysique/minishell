@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/04 12:55:49 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 06:20:06 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,16 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 	}
 	if (sig == SIGQUIT)
 	{
-		ft_printf("%s%s", cl->prompt, rl_line_buffer);
-		rl_redisplay();
+		/* if (cl->quit != 2)
+		{
+			ft_printf("%s%s", cl->prompt, rl_line_buffer);
+			rl_redisplay();
+		} */
 		cl->quit = 2;
 	}
 }
 
-static void	setup_term(void)
+void	setup_term(void)
 {
 	struct termios	t;
 
@@ -50,10 +53,20 @@ static void	setup_term(void)
 	tcsetattr(0, TCSANOW, &t);
 }
 
+void	reset_term(void)
+{
+	struct termios	t;
+
+	tcgetattr(0, &t);
+	t.c_lflag |= ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
+}
+
 void	signal_management(void)
 {
 	struct sigaction	sa;
 
+	ft_bzero(&sa, sizeof(sigaction));
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = sig_handler;
 	sigaction(SIGINT, &sa, NULL);
