@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_add_lstfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 04:41:08 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/06 17:15:19 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_heredoc(char *file)
 	int		fd;
 
 	res = get_heredoc_string(file);
-	fd = open("fhere.txt",O_CREAT | O_WRONLY, 0777);
+	fd = open("fhere.txt",O_CREAT | O_WRONLY, 0644);
 	write(fd, res, ft_strlen(res));
 	return (0);
 }
@@ -82,9 +82,9 @@ t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
 	new = ft_malloc(sizeof(t_lstfiles), 0);
 	tmp = cmds.outfiles;
 	if (!redirection[1])
-		new->fd = open(file, O_WRONLY | O_CREAT);
+		new->fd = open(file, O_WRONLY | O_CREAT, 0644);
 	else
-		new->fd = open(file, O_WRONLY | O_CREAT | O_APPEND);
+		new->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	new->next = 0;
 	while (tmp && tmp->next)
 		tmp = tmp->next;
