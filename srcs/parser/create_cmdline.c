@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 09:29:18 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:42:30 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 10:33:44 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_cmds	cmds_add_cmd(char ***arr, t_cmds cmds)
 			cmds.cmd = **arr;
 		else
 			cmds.args = arg_add(**arr, cmds);
+	//	printf("%s|\n", **arr);
 		(*arr)++;
 	}
 	(*arr)--;

@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 09:56:00 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 10:32:39 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char	**tokens_in_arr(char *line, char **arr)
 			arr[j] = arg_line(&line);
 		while (ft_isspace(*line))
 			line++;
+//		printf("arr[%d] : %s|\n", j, arr[j]);
 		j++;
 	}
 	arr[j] = 0;
