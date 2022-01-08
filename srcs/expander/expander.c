@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 17:33:32 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 10:48:20 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ char	*fk_quotes(char *var)
 				new[j++] = var[i];
 			if (var[i])
 				i++;
+			continue ;
 		}
-		if (var[i])
-			new[j++] = var[i++];
+		new[j++] = var[i++];
 	}
 	new[j] = '\0';
 	return (new);
