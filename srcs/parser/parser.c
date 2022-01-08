@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 18:02:50 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 09:56:56 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,4 @@ void	parser(char **arr, t_cmdline *cmdline)
 	cmdline_init(arr, cmdline);
 	create_cmdline(arr, cmdline);
 	create_command(cmdline, nb_cmds(arr));
-//	print_cmdline(cmdline, nb_cmds(arr));
 }
