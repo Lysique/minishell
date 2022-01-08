@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 11:28:59 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 12:36:47 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*expand_return(char *var, t_args **args, int x)
 		var = split_cmd_to_args(var, args);
 	else
 		var = split_content_to_args(var, args);
-	printf("AFTER : %s\n", var);
+//	printf("AFTER : %s\n", var);
 	return (var);
 }
 
@@ -105,7 +105,7 @@ char	*expand(char *var, t_cmdline *cmdline, int x)
 	int	i;
 
 	i = 0;
-	printf("BEFORE : %s\n", var);
+//	printf("BEFORE : %s\n", var);
 	if (var[i] == '*')
 		var = expand_wildcard(var);
 	while (var[i])

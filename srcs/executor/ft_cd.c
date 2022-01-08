@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 04:42:35 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/08 12:43:27 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ char	*cd_to_home(char **env)
 	return (ft_strtrim(env[i], "HOME="));
 }
 
+int	cd_error(t_args *args)
+{
+	if (!args)
+		ft_fdprintf(2, "minishell : You unsetted home :(\n");
+	else
+		ft_fdprintf(2, "minishell: cd: %s: No such directory\n",
+		(char *) args->content);
+	return (EXIT_FAILURE);
+}
+
 int	ft_cd(t_cmdline *cmdline)
 {
 	char	*pwd;
@@ -65,17 +75,14 @@ int	ft_cd(t_cmdline *cmdline)
 	else if (!cmd.args)
 		pwd = cd_to_home(cmdline->env);
 	else if (chdir(cmd.args->content) != -1)
+	{
+		env_set(cmdline, "PWD", getcwd(pwd, 500));
 		return (EXIT_SUCCESS);
+	}
 	else
 		pwd = ft_pathjoin(pwd, cmd.args->content);
 	if (!pwd || chdir(pwd) == -1)
-	{
-		if (!cmd.args)
-			ft_fdprintf(2, "minishell : You unsetted home :(\n");
-		else
-			ft_fdprintf(2, "minishell: cd: %s: No such directory\n",
-			(char *) cmd.args->content);
-		return (EXIT_FAILURE);
-	}
+		return (cd_error(cmd.args));
+	env_set(cmdline, "PWD", getcwd(pwd, 500));
 	return (EXIT_SUCCESS);
 }
