@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/08 11:25:25 by tamighi          ###   ########.fr        #
+#    Updated: 2022/01/08 13:02:05 by tamighi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFLAGS = -lreadline -L ${HOME}/.brew/opt/readline/lib
 OBJDIR	= obj
 
 # ADD "SRCS" FILES HERE
-SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c
+SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c shlvl_setter.c
 SRCDIR 	= srcs
 SRCS 	= ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS	= ${addprefix $(OBJDIR)/srcs_, $(SOURCES:.c=.o)}

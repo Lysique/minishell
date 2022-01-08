@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 09:56:46 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 12:44:33 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	execute_minishell(char **env)
 
 	ft_bzero(&cmdline, sizeof(t_cmdline));
 	env_init(env, &cmdline);
-	env_set(&cmdline, "SHLVL", "2");
+	shlvl_setter(&cmdline);
 	cmdline.shellpid = getpid();
 	cl_ptr(&cmdline);
 	signal_management();
