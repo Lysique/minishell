@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/06 15:53:35 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 11:25:57 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ char		*expand_wildcard(char *pattern);
 int			env_index(char **env, char *var);
 char		*expand_to_env(char *var, char **env, int ix, int i);
 char		*fk_quotes(char *var);
+char		**expander_split(char *var);
 
 	/*EXECUTOR*/
 

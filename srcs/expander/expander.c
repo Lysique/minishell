@@ -6,38 +6,11 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 10:48:20 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 11:04:46 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*fk_quotes(char *var)
-{
-	int		i;
-	int		j;
-	char	*new;
-	char	quote;
-
-	i = 0;
-	j = 0;
-	new = ft_malloc(ft_strlen(var) + 1, 0);
-	while (var[i])
-	{
-		if (var[i] == 34 || var[i] == 39)
-		{
-			quote = var[i];
-			while (var[++i] != quote && var[i])
-				new[j++] = var[i];
-			if (var[i])
-				i++;
-			continue ;
-		}
-		new[j++] = var[i++];
-	}
-	new[j] = '\0';
-	return (new);
-}
 
 char	*expand_to_nb(char *new, char *var, int j)
 {
