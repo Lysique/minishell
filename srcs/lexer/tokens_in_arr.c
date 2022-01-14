@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 10:32:39 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 10:46:21 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,13 @@ char	*arg_line(char **line)
 			quote = **line;
 			new[i++] = **line;
 			while (++(*line) && **line && **line != quote)
+			{
 				new[i++] = **line;
+			}
+			continue ;
 		}
 		new[i++] = **line;
-		if (**line)
-			(*line)++;
+		(*line)++;
 	}
 	new[i] = '\0';
 	return (new);

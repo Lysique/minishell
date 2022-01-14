@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/06 15:43:57 by tamighi          ###   ########.fr        #
+#    Updated: 2022/01/08 13:02:05 by tamighi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFLAGS = -lreadline -L ${HOME}/.brew/opt/readline/lib
 OBJDIR	= obj
 
 # ADD "SRCS" FILES HERE
-SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c
+SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c shlvl_setter.c
 SRCDIR 	= srcs
 SRCS 	= ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS	= ${addprefix $(OBJDIR)/srcs_, $(SOURCES:.c=.o)}
@@ -41,7 +41,7 @@ PARSER_SRCS = ${addprefix $(PARSER_DIR)/, $(PARSER)}
 PARSER_OBJS	= ${addprefix $(OBJDIR)/pars_, $(PARSER:.c=.o)}
 
 # ADD "EXPANDER" FILES HERE
-EXPANDER		= expander.c expand.c wildcards.c is_match.c
+EXPANDER		= expander.c expand.c wildcards.c is_match.c expander_split.c
 EXPANDER_DIR 	= srcs/expander
 EXPANDER_SRCS = ${addprefix $(EXPANDER_DIR)/, $(EXPANDER)}
 EXPANDER_OBJS	= ${addprefix $(OBJDIR)/expa_, $(EXPANDER:.c=.o)}

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 10:37:05 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 12:36:47 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*split_cmd_to_args(char *cmd, t_args **args)
 	t_args	*tmp2;
 	t_args	*tmp3;
 
-	arr = ms_split(cmd, ' ');
+	arr = expander_split(cmd);
 	i = 1;
 	while (arr[i])
 	{
@@ -45,7 +45,7 @@ char	*split_content_to_args(char *content, t_args **argss)
 	t_args	*tmp;
 	t_args	*args;
 
-	arr = ms_split(content, ' ');
+	arr = expander_split(content);
 	args = *argss;
 	i = 1;
 	while (arr[i])
@@ -92,12 +92,11 @@ char	*special_expand(char *var, int exitstatus)
 
 char	*expand_return(char *var, t_args **args, int x)
 {
-	if (*var == 34 || *var == 39)
-		var = fk_quotes(var);
-	else if (x)
+	if (x)
 		var = split_cmd_to_args(var, args);
 	else
 		var = split_content_to_args(var, args);
+//	printf("AFTER : %s\n", var);
 	return (var);
 }
 
@@ -106,6 +105,7 @@ char	*expand(char *var, t_cmdline *cmdline, int x)
 	int	i;
 
 	i = 0;
+//	printf("BEFORE : %s\n", var);
 	if (var[i] == '*')
 		var = expand_wildcard(var);
 	while (var[i])
