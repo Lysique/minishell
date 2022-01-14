@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/06 13:24:14 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/06 15:53:35 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_cmds
 	t_args		*args;
 	t_lstfiles	*outfiles;
 	t_lstfiles	*infiles;
+	int			exitok;
 	int			parentheses;
 	int			exitstatus;
 	int			pipetype;
@@ -92,6 +93,7 @@ char		*check_cmdline(char **arr);
 char		**lexer(char *line);
 int			nb_tokens(char *line);
 char		**tokens_in_arr(char *line, char **arr);
+int			ft_isspace(char c);
 
 	/*PARSER*/
 

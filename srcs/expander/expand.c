@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 17:32:53 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/08 10:37:05 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,9 @@ char	*special_expand(char *var, int exitstatus)
 
 char	*expand_return(char *var, t_args **args, int x)
 {
-	var = fk_quotes(var);
-	if (x)
+	if (*var == 34 || *var == 39)
+		var = fk_quotes(var);
+	else if (x)
 		var = split_cmd_to_args(var, args);
 	else
 		var = split_content_to_args(var, args);
