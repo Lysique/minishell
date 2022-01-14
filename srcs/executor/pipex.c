@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 09:31:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/14 14:04:10 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	fork_call(t_cmdline *cmdline)
 
 	pid = fork();
 	if (pid == -1)
-		exit(EXIT_FAILURE); //correct exit
+		exit(EXIT_FAILURE);
 	else if (pid == 0)
 	{
 		if (close(cmdline->cmds->p[0]) == -1)
@@ -65,7 +65,7 @@ void	pipex(t_cmdline *cmdline)
 			cmdline->cmds++;
 		if (cmdline->cmds->cmd)
 			pipex(cmdline);
-		return ;	
+		return ;
 	}
 	else
 		fork_call(cmdline);
