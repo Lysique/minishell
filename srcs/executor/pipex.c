@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/14 14:04:10 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/17 08:20:04 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	fork_call(t_cmdline *cmdline)
 	{
 		if (close(cmdline->cmds->p[0]) == -1)
 			exit(EXIT_FAILURE);
-		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1)
+// only dup to pipe IF NO outfile is defined
+		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1 && !cmdline->cmds->outfiles)
 			dup2(cmdline->cmds->p[1], 1);
+// test outfile redirection
+		if (cmdline->cmds->outfiles)
+			dup2(cmdline->cmds->outfiles->fd, 1);
 		if (!check_if_builtin(cmdline, cmdline->builtins))
 			redir_exec(cmdline);
 		exit(0);
@@ -54,7 +58,10 @@ void	fork_call(t_cmdline *cmdline)
 
 void	pipex(t_cmdline *cmdline)
 {
-	cmdline->cmds->fd_in = 0;
+	if (cmdline->cmds->infiles)
+		cmdline->cmds->fd_in = cmdline->cmds->infiles->fd;
+	if (cmdline->cmds->outfiles)
+		cmdline->cmds->fd_out = cmdline->cmds->outfiles->fd;
 	expander(cmdline);
 	pipe(cmdline->cmds->p);
 	if (miscarriage(cmdline))
