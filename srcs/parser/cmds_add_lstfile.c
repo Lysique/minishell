@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/17 07:31:05 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:02:35 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	ft_heredoc(char *file)
 	int		fd;
 
 	res = get_heredoc_string(file);
-	fd = open("fhere.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = open("heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	write(fd, res, ft_strlen(res));
-	return (0);
+	return (fd);
 }
 
 //O_TRUNC:
