@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/17 08:20:04 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:51:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	fork_call(t_cmdline *cmdline)
 // only dup to pipe IF NO outfile is defined
 		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1 && !cmdline->cmds->outfiles)
 			dup2(cmdline->cmds->p[1], 1);
-// test outfile redirection
+// outfile redirection
 		if (cmdline->cmds->outfiles)
 			dup2(cmdline->cmds->outfiles->fd, 1);
 		if (!check_if_builtin(cmdline, cmdline->builtins))
