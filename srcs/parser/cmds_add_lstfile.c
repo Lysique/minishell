@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_add_lstfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/14 13:57:21 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/17 07:31:05 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,50 +47,53 @@ int	ft_heredoc(char *file)
 	int		fd;
 
 	res = get_heredoc_string(file);
-	fd = open("fhere.txt",O_CREAT | O_WRONLY, 0644);
+	fd = open("fhere.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	write(fd, res, ft_strlen(res));
 	return (0);
 }
 
+//O_TRUNC:
+//  to reduce size to 0 when opening the file (like what happens in bash)
+//  even when nothing is written to the file, if > redir is defined it will 
+//	truncate the file to 0
+
+// REVERSE ORDER OF FILES: 
+//	we only need to write to the last file defined in the commandline so we push
+//	all the others down in the list making it easy to access the one 
+//  file we need
 t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
 {
 	t_lstfiles	*new;
-	t_lstfiles	*tmp;
+	t_lstfiles	*listptr;
 
 	new = ft_malloc(sizeof(t_lstfiles), 0);
-	tmp = cmds.outfiles;
+	listptr = cmds.outfiles;
 	if (!redirection[1])
-		new->fd = open(file, O_WRONLY | O_CREAT, 0644);
+		new->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		new->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	new->next = 0;
-	while (tmp && tmp->next)
-		tmp = tmp->next;
-	if (!tmp)
-		cmds.outfiles = new;
-	else
-		tmp->next = new;
+	new->next = listptr;
+	cmds.outfiles = new;
 	return (cmds);
 }
 
+// REVERSE ORDER OF FILES: 
+//	we only need to read from the last file defined in the commandline so we 
+//  push all the others down in the list making it easy to access the one 
+//  file we need
 t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file)
 {
 	t_lstfiles	*new;
-	t_lstfiles	*tmp;
+	t_lstfiles	*listptr;
 
 	new = ft_malloc(sizeof(t_lstfiles), 0);
-	tmp = cmds.infiles;
+	listptr = cmds.infiles;
 	if (!redirection[1])
 		new->fd = open(file, O_RDONLY);
 	else
 		new->fd = ft_heredoc(file);
-	new->next = 0;
-	while (tmp && tmp->next)
-		tmp = tmp->next;
-	if (!tmp)
-		cmds.infiles = new;
-	else
-		tmp->next = new;
+	new->next = listptr;
+	cmds.infiles = new;
 	return (cmds);
 }
 
