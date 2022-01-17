@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 09:56:56 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/17 07:47:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	cmdline_init(char **arr, t_cmdline *cmdline)
 		cmdline->cmds[i].pipetype = 0;
 		cmdline->cmds[i].exitstatus = 0;
 		cmdline->cmds[i].exitok = 0;
+		cmdline->cmds[i].fd_in = 0;
+		cmdline->cmds[i].fd_out = 1;
 		cmdline->cmds[i].p[0] = 0;
 		cmdline->cmds[i].p[1] = 0;
 		i--;
