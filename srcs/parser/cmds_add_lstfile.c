@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/17 10:02:35 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/17 10:36:10 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_heredoc_string(char *file)
 	i = 0;
 	res = NULL;
 	line_read = readline("heredoc> ");
-	while (ft_strcmp(line_read, file) != 0 && line_read && *line_read)
+	while (ft_strcmp(line_read, file) != 0 && line_read)
 	{
 		if (i++ == 0)
 			res = ft_strjoin(line_read, "\n");
@@ -41,14 +41,18 @@ char	*get_heredoc_string(char *file)
 	return (res);
 }
 
+// see https://www.oilshell.org/blog/2016/10/18.html for stacktrace of heredoc
 int	ft_heredoc(char *file)
 {
 	char	*res;
 	int		fd;
 
 	res = get_heredoc_string(file);
-	fd = open("heredoc", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fd = open("heredoc", O_CREAT | O_WRONLY | O_TRUNC | O_EXCL, 0600);
 	write(fd, res, ft_strlen(res));
+	close(fd);
+	fd = open("heredoc", O_RDONLY);
+	unlink("heredoc");
 	return (fd);
 }
 
