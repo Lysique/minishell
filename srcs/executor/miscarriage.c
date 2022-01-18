@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miscarriage.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:03:25 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 16:35:09 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:08:49 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ int	miscarriage(t_cmdline *cmdline)
 		return (1);
 	return (0);
 }
-
