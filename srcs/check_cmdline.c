@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmdline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 17:20:08 by tamighi           #+#    #+#             */
-/*   Updated: 2021/11/22 16:13:11 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:35:03 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*check_parentheses_count(char **arr)
+static char	*check_parentheses_count(char **arr)
 {
 	int	count;
 
@@ -34,7 +34,7 @@ char	*check_parentheses_count(char **arr)
 	return (0);
 }
 
-char	*check_redir(char **arr)
+static char	*check_redir(char **arr)
 {
 	if (arr[0][1] && arr[0][2])
 		return (*arr);
@@ -45,7 +45,7 @@ char	*check_redir(char **arr)
 	return (0);
 }
 
-char	*check_pipe(char **arr)
+static char	*check_pipe(char **arr)
 {
 	if (arr[0][0] == '&' && !(arr[0][1]))
 		return (*arr);
@@ -57,7 +57,7 @@ char	*check_pipe(char **arr)
 	return (0);
 }
 
-char	*check_parentheses(char **arr)
+static char	*check_parentheses(char **arr)
 {
 	arr++;
 	if (**arr == '|' || **arr == '&')
