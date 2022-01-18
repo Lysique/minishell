@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/18 11:12:34 by slathouw         ###   ########.fr        #
+#    Updated: 2022/01/18 21:04:07 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME 	= minishell
 LIBFT 	= libs/libftprintf
 INCLUDES= includes -I ${HOME}/.brew/opt/readline/include 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -g 
+CFLAGS	= -Wall -Wextra -g 
 LIBFLAGS = -lreadline -L ${HOME}/.brew/opt/readline/lib
 OBJDIR	= obj
 

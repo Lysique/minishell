@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/18 12:13:06 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 21:01:21 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void		prompt(t_cmdline *cmdline);
 
 void		execute_minishell(char **env);
 void		signal_management(void);
+void		disable_sigint(void);
 void		reset_signals(void);
 void		*ft_malloc(int size, void *p);
 char		*check_cmdline(char **arr);
