@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 11:02:37 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:45:24 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
 
-	cmdline->is_forked = 1;
 	if (close(cmdline->cmds->p[1]) == -1)
 		exit(EXIT_FAILURE);
 	if (cmdline->cmds->pipetype != 1)
@@ -37,10 +36,10 @@ void	fork_call(t_cmdline *cmdline)
 {
 	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
+	cmdline->is_forked = fork();
+	if (cmdline->is_forked == -1)
 		exit(EXIT_FAILURE);
-	else if (pid == 0)
+	else if (cmdline->is_forked == 0)
 	{
 		if (close(cmdline->cmds->p[0]) == -1)
 			exit(EXIT_FAILURE);
