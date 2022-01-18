@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/08 13:02:05 by tamighi          ###   ########.fr        #
+#    Updated: 2022/01/18 11:12:34 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ LIBFLAGS = -lreadline -L ${HOME}/.brew/opt/readline/lib
 OBJDIR	= obj
 
 # ADD "SRCS" FILES HERE
-SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c shlvl_setter.c
+SOURCES	= minishell.c execute_minishell.c signal_management.c ft_malloc.c check_cmdline.c \
+			shlvl_setter.c cmdline_utils.c
 SRCDIR 	= srcs
 SRCS 	= ${addprefix $(SRCDIR)/, $(SOURCES)}
 OBJS	= ${addprefix $(OBJDIR)/srcs_, $(SOURCES:.c=.o)}
@@ -50,7 +51,7 @@ EXPANDER_OBJS	= ${addprefix $(OBJDIR)/expa_, $(EXPANDER:.c=.o)}
 EXECUTOR		= 	pipex.c utils.c redir_exec.c builtin_management.c \
 					ft_split.c find_path.c ft_exit.c ft_echo.c ft_pwd.c \
 					ft_cd.c executor.c check_exit_status.c \
-					ft_env.c env_utils.c ft_export.c \
+					ft_env.c env_utils.c env_utils2.c ft_export.c \
 					ft_unset.c miscarriage.c
 EXECUTOR_DIR 	= srcs/executor
 EXECUTOR_SRCS = ${addprefix $(EXECUTOR_DIR)/, $(EXECUTOR)}

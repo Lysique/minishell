@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/08 13:02:56 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 10:59:57 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_cmdline
 	int					quit;
 	pid_t				shellpid;
 	char				*prompt;
+	int					is_forked;
 }			t_cmdline;
 
 typedef struct s_builtins
@@ -85,6 +86,7 @@ void		prompt(t_cmdline *cmdline);
 
 void		execute_minishell(char **env);
 void		signal_management(void);
+void		reset_signals(void);
 void		*ft_malloc(int size, void *p);
 char		*check_cmdline(char **arr);
 void		shlvl_setter(t_cmdline *cmdline);
@@ -142,8 +144,10 @@ void		free_env(void *arr);
 int			ft_strcmp(const char *s1, const char *s2);
 
 /*BONUS*/
-	/*
-		returns a heap allocated expanded string of all direntries in cwd, matching the pattern as argument
+
+	/* EXPAND WILDCARD:
+		returns a heap allocated expanded string of all direntries in cwd, 
+		matching the pattern as argument
 	*/
 char		*expand_wildcard(char *pattern);
 int			is_match(char *word, char *pattern);
@@ -166,5 +170,11 @@ void		ft_putstr2(char *str);
 	/*TERMIOS*/
 void		setup_term(void);
 void		reset_term(void);
+
+	/*CMDLINE UTILS*/
+void		ft_ptrdel(void *ptr);
+void		prompt(t_cmdline *cmdline);
+t_cmdline	*cl_ptr(t_cmdline *cl);
+void		minishell_init(t_cmdline *cmdline, char **env);
 
 #endif
