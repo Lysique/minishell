@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 14:45:24 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 14:47:08 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	parent_process(t_cmdline *cmdline)
 
 void	fork_call(t_cmdline *cmdline)
 {
-	pid_t	pid;
-
 	cmdline->is_forked = fork();
 	if (cmdline->is_forked == -1)
 		exit(EXIT_FAILURE);
