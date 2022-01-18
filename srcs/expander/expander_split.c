@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 11:04:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 12:36:49 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:25:35 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	expander_count(char *var)
+static int	expander_count(char *var)
 {
 	int	i;
 	int	nb;
@@ -40,7 +40,7 @@ int	expander_count(char *var)
 	return (nb);
 }
 
-int	ft_countlength(char *var)
+static int	ft_countlength(char *var)
 {
 	int	i;
 	int	quote;
@@ -60,7 +60,7 @@ int	ft_countlength(char *var)
 	return (i);
 }
 
-char	*add_expander_word(char **var)
+static char	*add_expander_word(char **var)
 {
 	char	*new;
 	int		quote;
@@ -85,7 +85,6 @@ char	*add_expander_word(char **var)
 			new[i++] = *(*var + j++);
 	}
 	new[i] = '\0';
-//	printf("NEW : %s\n", new);
 	*var += j;
 	return (new);
 }
