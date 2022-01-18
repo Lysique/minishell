@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   nb_tokens.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:50:40 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:58:08 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:29:10 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*handle_parentheses(char *line)
+static char	*handle_parentheses(char *line)
 {
 	line++;
 	while (ft_isspace(*line == ' '))
@@ -20,7 +20,7 @@ char	*handle_parentheses(char *line)
 	return (line);
 }
 
-char	*handle_pipe_redir(char *line)
+static char	*handle_pipe_redir(char *line)
 {
 	char	redir_or_pipe;
 
@@ -32,7 +32,7 @@ char	*handle_pipe_redir(char *line)
 	return (line);
 }
 
-char	*handle_quotes(char *line)
+static char	*handle_quotes(char *line)
 {
 	char	quote;
 
@@ -47,7 +47,7 @@ char	*handle_quotes(char *line)
 	return (line);
 }
 
-char	*handle_arg(char *line)
+static char	*handle_arg(char *line)
 {
 	while (*line && !ft_isspace(*line) && *line != '|' && *line != '&'
 		&& *line != '<' && *line != '>' && *line != '('

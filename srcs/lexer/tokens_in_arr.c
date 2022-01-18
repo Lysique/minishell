@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_in_arr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 10:46:21 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:30:26 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*parentheses_line(char **line)
+static char	*parentheses_line(char **line)
 {
 	char	*new;
 
@@ -23,7 +23,7 @@ char	*parentheses_line(char **line)
 	return (new);
 }
 
-char	*pipe_redir_line(char **line)
+static char	*pipe_redir_line(char **line)
 {
 	char	pipe;
 	int		i;
@@ -44,7 +44,7 @@ char	*pipe_redir_line(char **line)
 	return (new);
 }
 
-int	nb_char_arg(char *line)
+static int	nb_char_arg(char *line)
 {
 	int		i;
 	char	quote;
@@ -66,7 +66,7 @@ int	nb_char_arg(char *line)
 	return (i);
 }
 
-char	*arg_line(char **line)
+static char	*arg_line(char **line)
 {
 	char	*new;
 	int		i;
@@ -112,7 +112,6 @@ char	**tokens_in_arr(char *line, char **arr)
 			arr[j] = arg_line(&line);
 		while (ft_isspace(*line))
 			line++;
-//		printf("arr[%d] : %s|\n", j, arr[j]);
 		j++;
 	}
 	arr[j] = 0;

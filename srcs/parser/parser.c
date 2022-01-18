@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/17 07:47:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:34:12 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	nb_cmds(char **arr)
 	return (i);
 }
 
-void	cmdline_init(char **arr, t_cmdline *cmdline)
+static void	cmdline_init(char **arr, t_cmdline *cmdline)
 {
 	int			i;
 

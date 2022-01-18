@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 16:33:01 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/13 16:47:40 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:33:40 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_argjoin(char *command, char *arg)
+static char	*ft_argjoin(char *command, char *arg)
 {
 	int		i;
 	int		j;
@@ -37,7 +37,7 @@ char	*ft_argjoin(char *command, char *arg)
 	return (new);
 }
 
-char	*join_cmds_arg(t_cmds cmd)
+static char	*join_cmds_arg(t_cmds cmd)
 {
 	t_list	*args;
 	char	*command;

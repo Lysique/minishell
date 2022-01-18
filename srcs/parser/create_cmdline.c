@@ -6,13 +6,13 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 09:29:18 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 10:33:44 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:32:50 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_cmds	cmds_add_parentheses(char parentheses, t_cmds cmds)
+static t_cmds	cmds_add_parentheses(char parentheses, t_cmds cmds)
 {
 	if (parentheses == '(')
 		cmds.parentheses++;
@@ -21,7 +21,7 @@ t_cmds	cmds_add_parentheses(char parentheses, t_cmds cmds)
 	return (cmds);
 }
 
-t_args	*arg_add(char *arg, t_cmds cmds)
+static t_args	*arg_add(char *arg, t_cmds cmds)
 {
 	t_args	*new;
 	t_args	*tmp;
@@ -38,7 +38,7 @@ t_args	*arg_add(char *arg, t_cmds cmds)
 	return (cmds.args);
 }
 
-t_cmds	cmds_add_cmd(char ***arr, t_cmds cmds)
+static t_cmds	cmds_add_cmd(char ***arr, t_cmds cmds)
 {
 	while (**arr)
 	{
@@ -49,14 +49,13 @@ t_cmds	cmds_add_cmd(char ***arr, t_cmds cmds)
 			cmds.cmd = **arr;
 		else
 			cmds.args = arg_add(**arr, cmds);
-	//	printf("%s|\n", **arr);
 		(*arr)++;
 	}
 	(*arr)--;
 	return (cmds);
 }
 
-t_cmds	cmd_add_pipetype(char *arr, t_cmds cmds)
+static t_cmds	cmd_add_pipetype(char *arr, t_cmds cmds)
 {
 	if (arr[0] == '|' && arr[1])
 		cmds.pipetype = 2;

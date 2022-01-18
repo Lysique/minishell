@@ -6,13 +6,13 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/17 10:36:10 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:31:44 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_heredoc_string(char *file)
+static char	*get_heredoc_string(char *file)
 {
 	static char	*line_read = (char *) NULL;
 	char		*res;
@@ -42,7 +42,7 @@ char	*get_heredoc_string(char *file)
 }
 
 // see https://www.oilshell.org/blog/2016/10/18.html for stacktrace of heredoc
-int	ft_heredoc(char *file)
+static int	ft_heredoc(char *file)
 {
 	char	*res;
 	int		fd;
@@ -65,7 +65,7 @@ int	ft_heredoc(char *file)
 //	we only need to write to the last file defined in the commandline so we push
 //	all the others down in the list making it easy to access the one 
 //  file we need
-t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
+static t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
 {
 	t_lstfiles	*new;
 	t_lstfiles	*listptr;
@@ -85,7 +85,7 @@ t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
 //	we only need to read from the last file defined in the commandline so we 
 //  push all the others down in the list making it easy to access the one 
 //  file we need
-t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file)
+static t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file)
 {
 	t_lstfiles	*new;
 	t_lstfiles	*listptr;
