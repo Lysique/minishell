@@ -3,52 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   execute_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/14 13:28:39 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 11:00:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/minishell.h"
 
-void	ft_ptrdel(void *ptr)
+static void	exit_if_null_line(t_cmdline *cmdline)
 {
-	if (ptr)
+	if (!cmdline->line)
 	{
-		free(ptr);
-		ptr = NULL;
+		ft_printf("\bexit");
+		free_env(cmdline->env);
+		ft_ptrdel(cmdline->prompt);
+		ft_malloc(-2, 0);
+		exit(0);
 	}
 }
 
-void	prompt(t_cmdline *cmdline)
+static int	check_syntax_error(t_cmdline *cmdline, char **arr)
 {
-	char	*tmp;
-	char	*new_prompt;
-	char	*exit_status;
-
-	ft_ptrdel(cmdline->prompt);
-	if (cmdline->exit == 0)
-		cmdline->prompt = ft_strdup(BMAG "🤪 minishell 👉 " RESET);
-	else
+	if (check_cmdline(arr))
 	{
-		exit_status = ft_itoa(cmdline->exit);
-		tmp = ft_strjoin(BRED, exit_status);
-		ft_ptrdel(exit_status);
-		new_prompt = ft_strjoin(tmp, "?>" BMAG "🤪 minishell 👉 " RESET);
-		ft_ptrdel(tmp);
-		cmdline->prompt = new_prompt;
+		ft_fdprintf(2,
+			"minishell : syntax error near unexpected token '%s'\n",
+			check_cmdline(arr));
+		cmdline->exit = EXIT_SYNTAX_ERR;
+		ft_ptrdel(cmdline->line);
+		ft_malloc(-2, 0);
+		return (1);
 	}
+	return (0);
 }
 
-t_cmdline	*cl_ptr(t_cmdline *cl)
+static int	arr_is_empty(t_cmdline *cmdline, char **arr)
 {
-	static t_cmdline	*cmdl;
+	if (!*arr)
+	{
+		ft_ptrdel(cmdline->line);
+		return (1);
+	}
+	return (0);
+}
 
-	if (!cmdl)
-		cmdl = cl;
-	return (cmdl);
+static int	empty_line(t_cmdline *cmdline)
+{
+	if (!*(cmdline->line))
+	{
+		ft_ptrdel(cmdline->line);
+		cmdline->quit = 0;
+		return (1);
+	}
+	return (0);
 }
 
 void	execute_minishell(char **env)
@@ -56,50 +65,22 @@ void	execute_minishell(char **env)
 	char		**arr;
 	t_cmdline	cmdline;
 
-	ft_bzero(&cmdline, sizeof(t_cmdline));
-	env_init(env, &cmdline);
-	shlvl_setter(&cmdline);
-	cmdline.shellpid = getpid();
-	cl_ptr(&cmdline);
-	signal_management();
+	minishell_init(&cmdline, env);
 	while (1)
 	{
 		prompt(&cmdline);
 		cmdline.line = readline(cmdline.prompt);
-		if (!cmdline.line)
-		{
-			ft_printf("\bexit");
-			free_env(cmdline.env);
-			ft_ptrdel(cmdline.prompt);
-			ft_malloc(-2, 0);
-			exit(0);
-		}
-		if (!*cmdline.line)
-		{
-			ft_ptrdel(cmdline.line);
-			cmdline.quit = 0;
+		exit_if_null_line(&cmdline);
+		if (empty_line(&cmdline))
 			continue ;
-		}
 		add_history(cmdline.line);
 		arr = lexer(cmdline.line);
-		if (!*arr)
-		{
-			ft_ptrdel(cmdline.line);
+		if (arr_is_empty(&cmdline, arr))
 			continue ;
-		}
-		if (check_cmdline(arr))
-		{
-			ft_fdprintf(2,
-				"minishell : syntax error near unexpected token '%s'\n",
-				check_cmdline(arr));
-			cmdline.exit = EXIT_SYNTAX_ERR;
-			ft_ptrdel(cmdline.line);
-			ft_malloc(-2, 0);
+		if (check_syntax_error(&cmdline, arr))
 			continue ;
-		}
 		parser(arr, &cmdline);
 		executor(&cmdline);
-//		printf("EXIT : %d\n", cmdline.exit);
 		ft_ptrdel(cmdline.line);
 		cmdline.quit = 0;
 		ft_malloc(-2, 0);
