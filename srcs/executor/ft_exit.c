@@ -6,13 +6,13 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:46:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 11:16:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_number(char *str)
+static int	is_number(char *str)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	is_number(char *str)
 	return (1);
 }
 
-int	ft_num_exit(char *str)
+static int	ft_num_exit(char *str)
 {
 	long	num;
 	long	sign;
@@ -69,6 +69,13 @@ static int	is_not_numeric(t_cmdline *cmdline, t_cmds cmd)
 	return (0);
 }
 
+static int	exit_error(t_cmdline *cmdline)
+{
+	ft_fdprintf(2, "minishell: exit: too many arguments\n");
+	cmdline->exit = 1;
+	return (1);
+}
+
 int	ft_exit(t_cmdline *cmdline)
 {
 	int		num;
@@ -76,11 +83,7 @@ int	ft_exit(t_cmdline *cmdline)
 
 	cmd = *cmdline->cmds;
 	if (cmd.args && is_number(cmd.args->content) && cmd.args->next)
-	{
-		ft_fdprintf(2, "minishell: exit: too many arguments\n");
-		cmdline->exit = 1;
-		return (1);
-	}
+		return (exit_error(cmdline));
 	if (is_not_numeric(cmdline, cmd))
 	{
 		free_env(cmdline->env);
