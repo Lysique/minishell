@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:32:18 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/05 11:57:29 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:28:02 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_strjoinfree(char *dest, const char *str)
 	return (dest);
 }
 
-char	*get_matches_in_dir(DIR *dir, char *pattern)
+static char	*get_matches_in_dir(DIR *dir, char *pattern)
 {
 	struct dirent	*entry;
 	char			*concat;
@@ -63,19 +63,4 @@ char	*expand_wildcard(char *pattern)
 		ret2 = ms_strjoin(ret, "");
 	free(ret);
 	return (ret2);
-}
-
-int	ft_expand(t_cmdline *cmdline)
-{
-	t_args	*args;
-
-	args = cmdline->cmds->args;
-	while (args)
-	{
-		ft_printf("EXPANDER:\n");
-		ft_printf("wildarg = |%s|\nexpanded to = |%s|\n",
-			(char *) args->content, expand_wildcard((char *)args->content));
-		args = args->next;
-	}
-	return (1);
 }
