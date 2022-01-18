@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/05 13:39:34 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:12:02 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,4 @@ void	executor(t_cmdline *cmdline)
 	cmdline->builtins = builtins;
 	builtins_init(cmdline);
 	pipex(cmdline);
-//	ft_printf(BGRN "/\\ execution done \\\n" RESET);
 }
