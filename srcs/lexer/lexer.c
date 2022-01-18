@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 09:04:02 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 15:52:57 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:28:24 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isspace(char c)
 	return (0);
 }
 
-char	**create_token_arr(char *line)
+static char	**create_token_arr(char *line)
 {
 	char	**arr;
 	int		tokens;
