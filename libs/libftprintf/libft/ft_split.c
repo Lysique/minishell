@@ -56,7 +56,8 @@ static char	*get_word(char const *str, char sep)
 
 void	ft_free_split(char **arr)
 {
-	char **head;
+	char	**head;
+
 	head = arr;
 	if (arr)
 	{
