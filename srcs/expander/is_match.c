@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_match.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 11:41:40 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/03 11:42:10 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:26:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_match(char *word, char *pattern)
 		while (++j <= pl)
 		{
 			if (pattern[j - 1] == '*')
-				lookup[i][j] = (lookup[i -1][j] || lookup[i][j -1]);
+				lookup[i][j] = (lookup[i - 1][j] || lookup[i][j - 1]);
 			else if (pattern[j - 1] == '?' || word[i - 1] == pattern[j - 1])
 				lookup[i][j] = lookup[i - 1][j - 1];
 		}
