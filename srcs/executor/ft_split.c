@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:14:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/05 12:30:30 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:17:22 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	count_sep(char *s, char c)
+static int	count_sep(char *s, char c)
 {
 	int	i;
 	int	count;
@@ -33,7 +33,7 @@ int	count_sep(char *s, char c)
 	return (count);
 }
 
-char	*next_word(char *s, char c)
+static char	*next_word(char *s, char c)
 {
 	char	*d;
 
@@ -43,7 +43,7 @@ char	*next_word(char *s, char c)
 	return (d);
 }
 
-char	*ft_word(char const *s, char c)
+static char	*ft_word(char const *s, char c)
 {
 	char	*str;
 	int		i;
@@ -66,7 +66,7 @@ char	*ft_word(char const *s, char c)
 	return (str);
 }
 
-char	*ft_splitfct(char const *s, char c)
+static char	*ft_splitfct(char const *s, char c)
 {
 	int	i;
 	int	j;
