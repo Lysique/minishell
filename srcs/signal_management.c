@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/14 13:22:09 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 11:11:47 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <signal.h>
 
 void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 {
@@ -33,7 +32,7 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 		else
 			cl->exit = 1;
 	}
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && cl->quit != 2)
 	{
 		ft_printf("%s%s", cl->prompt, rl_line_buffer);
 		rl_redisplay();
