@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/18 10:59:57 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:13:06 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,6 @@ void		ft_ptrdel(void *ptr);
 void		prompt(t_cmdline *cmdline);
 t_cmdline	*cl_ptr(t_cmdline *cl);
 void		minishell_init(t_cmdline *cmdline, char **env);
+char		*ft_strjoinfree(char *dest, const char *str);
 
 #endif

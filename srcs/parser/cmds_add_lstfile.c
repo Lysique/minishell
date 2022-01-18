@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:31:44 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:15:03 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static char	*get_heredoc_string(char *file)
 	static char	*line_read = (char *) NULL;
 	char		*res;
 	int			i;
-	char		*tmp;
 
 	i = 0;
 	res = NULL;
@@ -25,19 +24,17 @@ static char	*get_heredoc_string(char *file)
 	while (ft_strcmp(line_read, file) != 0 && line_read)
 	{
 		if (i++ == 0)
-			res = ft_strjoin(line_read, "\n");
+			res = ft_strjoinfree(line_read, "\n");
 		else
 		{
-			tmp = res;
-			res = ft_strjoin(res, line_read);
-			free(tmp);
-			tmp = res;
-			res = ft_strjoin(res, "\n");
-			free(tmp);
+			res = ft_strjoinfree(res, line_read);
+			res = ft_strjoinfree(res, "\n");
 			free(line_read);
 		}
 		line_read = readline("heredoc> ");
 	}
+	if (line_read)
+		free(line_read);
 	return (res);
 }
 
@@ -50,6 +47,7 @@ static int	ft_heredoc(char *file)
 	res = get_heredoc_string(file);
 	fd = open("heredoc", O_CREAT | O_WRONLY | O_TRUNC | O_EXCL, 0600);
 	write(fd, res, ft_strlen(res));
+	free(res);
 	close(fd);
 	fd = open("heredoc", O_RDONLY);
 	unlink("heredoc");
