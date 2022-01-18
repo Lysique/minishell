@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/08 12:36:47 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/18 09:23:59 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*split_cmd_to_args(char *cmd, t_args **args)
+static char	*split_cmd_to_args(char *cmd, t_args **args)
 {
 	char	**arr;
 	int		i;
@@ -38,7 +38,7 @@ char	*split_cmd_to_args(char *cmd, t_args **args)
 	return (arr[0]);
 }
 
-char	*split_content_to_args(char *content, t_args **argss)
+static char	*split_content_to_args(char *content, t_args **argss)
 {
 	char	**arr;
 	int		i;
@@ -61,7 +61,7 @@ char	*split_content_to_args(char *content, t_args **argss)
 	return (arr[0]);
 }
 
-char	*special_expand(char *var, int exitstatus)
+static char	*special_expand(char *var, int exitstatus)
 {
 	int		i;
 	int		j;
@@ -90,13 +90,12 @@ char	*special_expand(char *var, int exitstatus)
 	return (new);
 }
 
-char	*expand_return(char *var, t_args **args, int x)
+static char	*expand_return(char *var, t_args **args, int x)
 {
 	if (x)
 		var = split_cmd_to_args(var, args);
 	else
 		var = split_content_to_args(var, args);
-//	printf("AFTER : %s\n", var);
 	return (var);
 }
 
@@ -105,7 +104,6 @@ char	*expand(char *var, t_cmdline *cmdline, int x)
 	int	i;
 
 	i = 0;
-//	printf("BEFORE : %s\n", var);
 	if (var[i] == '*')
 		var = expand_wildcard(var);
 	while (var[i])
