@@ -6,18 +6,32 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 09:53:11 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/19 11:25:38 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	close_my_files(t_cmds *cmd)
+{
+	close(cmd->p[1]);
+	while (cmd->outfiles)
+	{
+		close(cmd->outfiles->fd);
+		cmd->outfiles = cmd->outfiles->next;
+	}
+	while (cmd->infiles)
+	{
+		close(cmd->infiles->fd);
+		cmd->infiles = cmd->infiles->next;
+	}
+}
+
 void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
 
-	if (close(cmdline->cmds->p[1]) == -1)
-		exit(EXIT_FAILURE);
+	close_my_files(cmdline->cmds);
 	if (cmdline->cmds->pipetype != 1)
 	{
 		wait(&cmdline->cmds->exitstatus);
@@ -70,6 +84,8 @@ void	pipex(t_cmdline *cmdline)
 	pipe(cmdline->cmds->p);
 	if (miscarriage(cmdline))
 	{
+		close(cmdline->cmds->p[0]);
+		close_my_files(cmdline->cmds);
 		cmdline->cmds->exitok = 1;
 		check_exit_status(cmdline);
 		if (cmdline->cmds->cmd)

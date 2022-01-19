@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 11:03:56 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/19 11:26:35 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int	ft_heredoc(char *file, t_cmdline *cmdline)
 	int		fd;
 
 	res = get_heredoc_string(file);
-	res = heredoc_expand(res, cmdline);
+	if (res)
+		res = heredoc_expand(res, cmdline);
 	fd = open("heredoc", O_CREAT | O_WRONLY | O_TRUNC | O_EXCL, 0600);
 	write(fd, res, ft_strlen(res));
 	free(res);
