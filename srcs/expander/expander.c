@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:26:30 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:11:50 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*expand_to_env(char *var, char **env, int ix, int i)
 	while (env[ix] && env[ix][j])
 		new[k++] = env[ix][j++];
 	i++;
-	while (var[i] && var[i] != ' ' && var[i] != 34 && var[i] != '$')
+	while (var[i] && var[i] != ' ' && var[i] != 34
+		&& var[i] != 39 && var[i] != '$' && var[i] != '*')
 		i++;
 	while (var[i])
 		new[k++] = var[i++];
@@ -63,7 +64,7 @@ int	env_index(char **env, char *var)
 		{
 			j++;
 			if (env[i][j] == '=' && (var[j] == ' ' || var[j] == 34 || !var[j]
-					|| var[j] == '$'))
+					|| var[j] == '$' || var[j] == 39 || var[j] == '*'))
 				return (i);
 		}
 		i++;
