@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 12:13:51 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:23:59 by slathouw         ###   ########.fr       */
+/*   Created: 2022/01/19 08:36:08 by tamighi           #+#    #+#             */
+/*   Updated: 2022/01/19 09:14:02 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ static char	*special_expand(char *var, int exitstatus)
 
 static char	*expand_return(char *var, t_args **args, int x)
 {
+	var = expand_wildcard(var);
 	if (x)
 		var = split_cmd_to_args(var, args);
 	else
@@ -102,28 +103,28 @@ static char	*expand_return(char *var, t_args **args, int x)
 char	*expand(char *var, t_cmdline *cmdline, int x)
 {
 	int	i;
+	int	double_quote;
 
-	i = 0;
-	if (var[i] == '*')
-		var = expand_wildcard(var);
-	while (var[i])
+	i = -1;
+	double_quote = -1;
+	while (var[++i])
 	{
-		if (var[i] == 39)
+		if (var[i] == 39 && double_quote == -1 && ++i)
 		{
-			i++;
 			while (var[i] && var[i] != 39)
 				i++;
 		}
-		if (var[i] == '$' && var[i + 1] == '?')
-			var = special_expand(var, cmdline->exit);
-		else if (var[i] == '$')
+		if (var[i] == 34)
+			double_quote = double_quote * -1;
+		else if (var[i] == '$' && var[i + 1])
 		{
-			var = expand_to_env(var,
-					cmdline->env, env_index(cmdline->env, &var[i + 1]), 0);
-			i = 0;
+			if (var[i + 1] == '?')
+				var = special_expand(var, cmdline->exit);
+			else
+				var = expand_to_env(var, cmdline->env,
+						env_index(cmdline->env, &var[i + 1]), 0);
+			i = -1;
 		}
-		else
-			i++;
 	}
 	return (expand_return(var, &cmdline->cmds->args, x));
 }
