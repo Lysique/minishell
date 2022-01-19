@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 11:11:47 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/19 10:37:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 		else
 			cl->exit = 1;
 	}
-	if (sig == SIGQUIT && cl->quit != 2)
+	if (sig == SIGQUIT)
 	{
 		ft_printf("%s%s", cl->prompt, rl_line_buffer);
 		rl_redisplay();
