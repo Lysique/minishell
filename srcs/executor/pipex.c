@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 14:47:08 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:53:11 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	parent_process(t_cmdline *cmdline)
 		exit(EXIT_FAILURE);
 	if (cmdline->cmds->pipetype != 1)
 	{
-		while (wait(&cmdline->cmds->exitstatus) != -1)
+		wait(&cmdline->cmds->exitstatus);
+		while (wait(0) != -1)
 			;
 		check_exit_status(cmdline);
 	}
