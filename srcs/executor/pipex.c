@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 11:25:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/19 12:09:27 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	close_my_files(t_cmds *cmd)
 {
 	close(cmd->p[1]);
+	close(cmd->p[0]);
 	while (cmd->outfiles)
 	{
 		close(cmd->outfiles->fd);
@@ -54,8 +55,6 @@ void	fork_call(t_cmdline *cmdline)
 		exit(EXIT_FAILURE);
 	else if (cmdline->is_forked == 0)
 	{
-		if (close(cmdline->cmds->p[0]) == -1)
-			exit(EXIT_FAILURE);
 		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1
 			&& !cmdline->cmds->outfiles)
 			dup2(cmdline->cmds->p[1], 1);
@@ -84,7 +83,6 @@ void	pipex(t_cmdline *cmdline)
 	pipe(cmdline->cmds->p);
 	if (miscarriage(cmdline))
 	{
-		close(cmdline->cmds->p[0]);
 		close_my_files(cmdline->cmds);
 		cmdline->cmds->exitok = 1;
 		check_exit_status(cmdline);
