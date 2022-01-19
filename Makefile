@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/18 11:12:34 by slathouw         ###   ########.fr        #
+#    Updated: 2022/01/19 11:00:51 by tamighi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ LEXER_SRCS = ${addprefix $(LEXER_DIR)/, $(LEXER)}
 LEXER_OBJS	= ${addprefix $(OBJDIR)/lexe_, $(LEXER:.c=.o)}
 
 # ADD "PARSER" FILES HERE
-PARSER		= parser.c create_cmdline.c cmds_add_lstfile.c create_command.c
+PARSER		= parser.c create_cmdline.c cmds_add_lstfile.c create_command.c heredoc_expand.c
 PARSER_DIR 	= srcs/parser
 PARSER_SRCS = ${addprefix $(PARSER_DIR)/, $(PARSER)}
 PARSER_OBJS	= ${addprefix $(OBJDIR)/pars_, $(PARSER:.c=.o)}

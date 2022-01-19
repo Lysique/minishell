@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 12:15:03 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:03:56 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ static char	*get_heredoc_string(char *file)
 }
 
 // see https://www.oilshell.org/blog/2016/10/18.html for stacktrace of heredoc
-static int	ft_heredoc(char *file)
+static int	ft_heredoc(char *file, t_cmdline *cmdline)
 {
 	char	*res;
 	int		fd;
 
 	res = get_heredoc_string(file);
+	res = heredoc_expand(res, cmdline);
 	fd = open("heredoc", O_CREAT | O_WRONLY | O_TRUNC | O_EXCL, 0600);
 	write(fd, res, ft_strlen(res));
 	free(res);
@@ -83,7 +84,8 @@ static t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
 //	we only need to read from the last file defined in the commandline so we 
 //  push all the others down in the list making it easy to access the one 
 //  file we need
-static t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file)
+static t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file,
+	t_cmdline *cmdline)
 {
 	t_lstfiles	*new;
 	t_lstfiles	*listptr;
@@ -93,20 +95,20 @@ static t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file)
 	if (!redirection[1])
 		new->fd = open(file, O_RDONLY);
 	else
-		new->fd = ft_heredoc(file);
+		new->fd = ft_heredoc(file, cmdline);
 	new->next = listptr;
 	cmds.infiles = new;
 	return (cmds);
 }
 
-t_cmds	cmds_add_lstfile(char **arr, t_cmds cmds)
+t_cmds	cmds_add_lstfile(char **arr, t_cmds cmds, t_cmdline *cmdline)
 {
 	char		*redirection;
 
 	redirection = *arr;
 	arr++;
 	if (*redirection == '<')
-		cmds = add_lst_infile(cmds, redirection, *arr);
+		cmds = add_lst_infile(cmds, redirection, *arr, cmdline);
 	else if (*redirection == '>')
 		cmds = add_lst_outfile(cmds, redirection, *arr);
 	return (cmds);

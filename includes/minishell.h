@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/18 12:13:06 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:04:32 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,9 @@ int			ft_isspace(char c);
 
 void		parser(char **arr, t_cmdline *cmdline);
 void		create_cmdline(char **arr, t_cmdline *cmdline);
-t_cmds		cmds_add_lstfile(char **arr, t_cmds cmds);
+t_cmds		cmds_add_lstfile(char **arr, t_cmds cmds, t_cmdline *cmdline);
 void		create_command(t_cmdline *cmdline, int nb_cmds);
+char		*heredoc_expand(char *var, t_cmdline *cmdline);
 int			nb_cmds(char **arr);
 
 	/*EXPANDER*/

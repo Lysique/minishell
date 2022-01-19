@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 09:29:18 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:32:50 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/19 11:02:48 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	create_cmdline(char **arr, t_cmdline *cmdline)
 			cmdline->cmds[i] = cmds_add_parentheses(**arr, cmdline->cmds[i]);
 		else if (**arr == '<' || **arr == '>')
 		{
-			cmdline->cmds[i] = cmds_add_lstfile(arr, cmdline->cmds[i]);
+			cmdline->cmds[i] = cmds_add_lstfile(arr, cmdline->cmds[i],
+				cmdline);
 			arr++;
 		}
 		else
