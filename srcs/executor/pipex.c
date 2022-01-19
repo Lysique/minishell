@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 12:09:27 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/19 12:17:06 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	close_my_files(t_cmds *cmd)
 {
-	close(cmd->p[1]);
-	close(cmd->p[0]);
 	while (cmd->outfiles)
 	{
 		close(cmd->outfiles->fd);
@@ -33,6 +31,8 @@ void	parent_process(t_cmdline *cmdline)
 	int		p;
 
 	close_my_files(cmdline->cmds);
+	close(cmdline->cmds->p[1]);
+	close(cmdline->cmds->p[0]);
 	if (cmdline->cmds->pipetype != 1)
 	{
 		wait(&cmdline->cmds->exitstatus);
@@ -80,7 +80,6 @@ void	pipex(t_cmdline *cmdline)
 {
 	set_fds(cmdline);
 	expander(cmdline);
-	pipe(cmdline->cmds->p);
 	if (miscarriage(cmdline))
 	{
 		close_my_files(cmdline->cmds);
@@ -93,12 +92,13 @@ void	pipex(t_cmdline *cmdline)
 		return ;
 	}
 	else
-		fork_call(cmdline);
-	while (cmdline->cmds->command && (cmdline->cmds - 1)->pipetype <= 1)
 	{
-		pipe(cmdline->cmds->p);
-		expander(cmdline);
-		fork_call(cmdline);
+		while (cmdline->cmds->command && (cmdline->cmds - 1)->pipetype <= 1)
+		{
+			pipe(cmdline->cmds->p);
+			expander(cmdline);
+			fork_call(cmdline);
+		}
 	}
 	if (cmdline->cmds->cmd)
 		pipex(cmdline);
