@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 15:17:24 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:43:31 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	signal_management(void)
 	struct sigaction	sa;
 
 	ft_bzero(&sa, sizeof(sigaction));
-	sa.sa_flags = SA_SIGINFO; //| SA_RESTART;
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sa.sa_sigaction = sig_handler;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   int_array.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 13:06:55 by slathouw          #+#    #+#             */
-/*   Updated: 2021/12/03 13:22:19 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:44:53 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	*ft_int_array_extend(t_int_array *a)
 {
 	a->size *= 2;
 	a->data = ft_realloc(a->data,
-			 a->size * sizeof(int),
-			 a->count * sizeof(int));
+			a->size * sizeof(int),
+			a->count * sizeof(int));
 	return (a->data);
 }
 

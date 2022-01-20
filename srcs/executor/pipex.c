@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 15:30:28 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:43:08 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	parent_process(t_cmdline *cmdline)
 
 	close_my_files(cmdline->cmds);
 	check_for_minishell(cmdline->cmds->cmd);
- 	close(cmdline->cmds->p[1]);
+	close(cmdline->cmds->p[1]);
 	close(cmdline->cmds->p[0]);
 	if (cmdline->cmds->pipetype != 1)
 	{
