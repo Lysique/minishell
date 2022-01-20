@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 15:16:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:36:40 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	exit_if_null_line(t_cmdline *cmdline)
 {
 	if (!cmdline->line)
 	{
-		ft_printf("\bexit: empty line detected");
+		ft_printf("\bexit");
 		free_env(cmdline->env);
 		ft_ptrdel(cmdline->prompt);
 		ft_malloc(-2, 0);
