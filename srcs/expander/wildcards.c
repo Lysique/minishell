@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:32:18 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/20 14:19:15 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:44:13 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*expand_wildcard(char *pattern)
 	if (!curr_dir_path)
 		return (pattern);
 	curr_dir = opendir(curr_dir_path);
-	free(curr_dir_path);
 	ret = get_matches_in_dir(curr_dir, pattern);
 	closedir(curr_dir);
 	if (!*ret)
