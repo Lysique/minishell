@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:32:18 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/20 11:47:19 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:19:15 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ char	*expand_wildcard(char *pattern)
 	else
 		ret2 = ms_strjoin(ret, "");
 	free(ret);
+	free(curr_dir_path);
 	return (ret2);
 }
