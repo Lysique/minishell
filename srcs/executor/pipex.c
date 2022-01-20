@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 14:19:21 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:14:44 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,12 @@ void	pipex(t_cmdline *cmdline)
 		return ;
 	}
 	else
+		fork_call(cmdline);
+	while (cmdline->cmds->command && (cmdline->cmds - 1)->pipetype <= 1)
 	{
-		while (cmdline->cmds->command && (cmdline->cmds - 1)->pipetype <= 1)
-		{
-			pipe(cmdline->cmds->p);
-			expander(cmdline);
-			fork_call(cmdline);
-		}
+		pipe(cmdline->cmds->p);
+		expander(cmdline);
+		fork_call(cmdline);
 	}
 	if (cmdline->cmds->cmd)
 		pipex(cmdline);
