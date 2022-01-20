@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 08:30:13 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 11:00:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:43:07 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	execute_minishell(char **env)
 	minishell_init(&cmdline, env);
 	while (1)
 	{
+		signal_management();
 		prompt(&cmdline);
 		cmdline.line = readline(cmdline.prompt);
 		exit_if_null_line(&cmdline);

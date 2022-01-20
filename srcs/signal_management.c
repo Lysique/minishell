@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 21:07:38 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:44:39 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static void	child_handler(t_cmdline *cl, int sig)
 	}
 	else if (sig == SIGINT)
 	{
-/* 		ft_printf("\n");
+		ft_printf("\n");
 		cl->exit = 1;
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		cl->quit = 1; */
+		cl->quit = 1;
 	}
 }
 
@@ -58,7 +58,7 @@ void	sig_handler(int sig, siginfo_t *siginfo, void *uac)
 			rl_redisplay();
 			cl->quit = 1;
 		}
-		if (sig == SIGQUIT && cl->quit != 2)
+		if (sig == SIGQUIT)
 		{
 			ft_printf("%s%s", cl->prompt, rl_line_buffer);
 			rl_redisplay();
@@ -95,13 +95,4 @@ void	signal_management(void)
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 	setup_term();
-}
-
-void	disable_sigint(void)
-{
-	struct sigaction	sa;
-
-	ft_bzero(&sa, sizeof(sigaction));
-	sa.sa_sigaction = SIG_IGN;
-	sigaction(SIGINT, &sa, NULL);
 }

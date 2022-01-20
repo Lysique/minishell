@@ -3,19 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 14:47:46 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:40:38 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static void	check_for_minishell(t_cmdline *cl, char *cmd)
+{
+	char	*ptr;
+
+	ptr = ft_strnstr(cmd, "/minishell", ft_strlen(cmd));
+	if (!ptr)
+		return ;
+	if (ft_strequ(ptr, "/minishell"))
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+}
+
 void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
 
+	check_for_minishell(cmdline, cmdline->cmds->cmd);
 	if (close(cmdline->cmds->p[1]) == -1)
 		exit(EXIT_FAILURE);
 	if (cmdline->cmds->pipetype != 1)

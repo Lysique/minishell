@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 21:04:36 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:38:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,6 @@ char	**cmdline_to_arr(t_cmdline *cl)
 	return (arr);
 }
 
-static void	check_for_minishell(t_cmdline *cl, char *cmd)
-{
-	char	*ptr;
-
-	ptr = ft_strnstr(cmd, "/minishell", ft_strlen(cmd));
-	if (!ptr)
-		return ;
-	if (ft_strequ(ptr, "/minishell"))
-		disable_sigint();
-}
-
 void	redir_exec(t_cmdline *cmdline)
 {
 	char	**act;
@@ -53,7 +42,6 @@ void	redir_exec(t_cmdline *cmdline)
 	dup2(cmdline->cmds->fd_in, 0);
 	act = cmdline_to_arr(cmdline);
 	path = find_path(act[0], cmdline->env);
-	check_for_minishell(cmdline, act[0]);
 	if (!path)
 	{
 		cmdline->exit = 127;
