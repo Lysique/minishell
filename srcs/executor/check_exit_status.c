@@ -6,11 +6,26 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 12:59:42 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:29:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	set_exit_status(t_cmdline *cl)
+{
+	t_cmds	*cmds;
+
+	cmds = cl->cmds;
+	if (WIFEXITED(cmds->exitstatus))
+		cl->exit = WEXITSTATUS(cmds->exitstatus);
+	if (WIFSIGNALED(cmds->exitstatus))
+	{
+		cl->exit = WTERMSIG(cmds->exitstatus);
+		if (cl->exit != 131)
+			cl->exit += 128;
+	}
+}
 
 void	check_exit_status(t_cmdline *cmdline)
 {
@@ -20,7 +35,7 @@ void	check_exit_status(t_cmdline *cmdline)
 
 	cmds = cmdline->cmds;
 	if (!cmdline->exit)
-		cmdline->exit = WEXITSTATUS(cmds->exitstatus);
+		set_exit_status(cmdline);
 	if ((cmds->pipetype == 3 && cmdline->exit)
 		|| (cmds->pipetype == 2 && cmdline->exit == 0))
 	{
