@@ -6,13 +6,13 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 13:40:38 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:47:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	check_for_minishell(t_cmdline *cl, char *cmd)
+static void	check_for_minishell(char *cmd)
 {
 	char	*ptr;
 
@@ -30,7 +30,7 @@ void	parent_process(t_cmdline *cmdline)
 {
 	int		p;
 
-	check_for_minishell(cmdline, cmdline->cmds->cmd);
+	check_for_minishell(cmdline->cmds->cmd);
 	if (close(cmdline->cmds->p[1]) == -1)
 		exit(EXIT_FAILURE);
 	if (cmdline->cmds->pipetype != 1)
