@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 15:43:08 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:55:54 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	close_my_files(t_cmds *cmd)
 {
+	close(cmd->p[1]);
 	while (cmd->outfiles)
 	{
 		close(cmd->outfiles->fd);
@@ -32,8 +33,6 @@ void	parent_process(t_cmdline *cmdline)
 
 	close_my_files(cmdline->cmds);
 	check_for_minishell(cmdline->cmds->cmd);
-	close(cmdline->cmds->p[1]);
-	close(cmdline->cmds->p[0]);
 	if (cmdline->cmds->pipetype != 1)
 	{
 		wait(&cmdline->cmds->exitstatus);
@@ -56,6 +55,8 @@ void	fork_call(t_cmdline *cmdline)
 		exit(EXIT_FAILURE);
 	else if (cmdline->is_forked == 0)
 	{
+		if (close(cmdline->cmds->p[0]) == -1)
+			exit(EXIT_FAILURE);
 		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1
 			&& !cmdline->cmds->outfiles)
 			dup2(cmdline->cmds->p[1], 1);
@@ -84,6 +85,7 @@ void	pipex(t_cmdline *cmdline)
 	pipe(cmdline->cmds->p);
 	if (miscarriage(cmdline))
 	{
+		close(cmdline->cmds->p[0]);
 		close_my_files(cmdline->cmds);
 		cmdline->cmds->exitok = 1;
 		check_exit_status(cmdline);
