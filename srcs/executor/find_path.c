@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 17:22:55 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/20 11:59:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ms_strjoin(char const *s1, char const *s2)
 	return (rres);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ms_strtrim(char const *s1, char const *set)
 {
 	char	*res;
 	int		i;
@@ -112,7 +112,7 @@ char	*find_path(char *cmd, char **envp)
 		return (cmd);
 	while (ft_strlen(envp[i]) > 5 && ft_srch(envp[i], "PATH=") == 0)
 		i++;
-	path = ft_strtrim(envp[i], "PATH=");
+	path = ms_strtrim(envp[i], "PATH=");
 	tab = ms_split(path, ':');
 	ft_malloc(-1, path);
 	if (find_path2(tab, cmd, &cmd1) == 0)

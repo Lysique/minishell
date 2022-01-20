@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 09:53:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/20 12:59:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	check_exit_status(t_cmdline *cmdline)
 	int		pipe;
 
 	cmds = cmdline->cmds;
-	cmdline->exit = WEXITSTATUS(cmds->exitstatus);
+	if (!cmdline->exit)
+		cmdline->exit = WEXITSTATUS(cmds->exitstatus);
 	if ((cmds->pipetype == 3 && cmdline->exit)
 		|| (cmds->pipetype == 2 && cmdline->exit == 0))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/19 11:04:32 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/20 11:59:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int			miscarriage(t_cmdline *cmdline);
 char		**ms_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 
-char		*ft_strtrim(char const *s1, char const *set);
+char		*ms_strtrim(char const *s1, char const *set);
 int			ft_srch(char *envp, char *var);
 int			ft_strequ(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);

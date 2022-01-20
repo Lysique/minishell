@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:32:18 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/18 12:12:40 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 11:47:19 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ char	*expand_wildcard(char *pattern)
 	DIR		*curr_dir;
 
 	curr_dir_path = getcwd(NULL, 0);
+	if (!curr_dir_path)
+		return (pattern);
 	curr_dir = opendir(curr_dir_path);
+	free(curr_dir_path);
 	ret = get_matches_in_dir(curr_dir, pattern);
 	closedir(curr_dir);
 	if (!*ret)

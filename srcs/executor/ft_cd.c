@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 09:14:40 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/20 12:44:58 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*cd_to_home(char **env)
 	if (i > -1)
 		while (ft_srch(env[i++], "HOME=") == 0)
 			;
-	return (ft_strtrim(env[i], "HOME="));
+	return (ms_strtrim(env[i], "HOME="));
 }
 
 int	cd_error(t_args *args)
@@ -65,24 +65,42 @@ int	cd_error(t_args *args)
 int	ft_cd(t_cmdline *cmdline)
 {
 	char	*pwd;
+	char	*cwd;
+	int		pwd_index;
 	t_cmds	cmd;
 
 	cmd = *cmdline->cmds;
-	pwd = ft_malloc(500, 0);
-	pwd = getcwd(pwd, 500);
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
-		return (-1);
-	else if (!cmd.args)
+	{
+		pwd_index = env_find(cmdline, "PWD");
+		pwd = ft_strtrim(cmdline->env[pwd_index], "PWD=");
+	}
+	if (!cmd.args)
+	{
+		free(pwd);
 		pwd = cd_to_home(cmdline->env);
+	}
 	else if (chdir(cmd.args->content) != -1)
 	{
-		env_set(cmdline, "PWD", getcwd(pwd, 500));
+		cwd = getcwd(NULL, 0);
+		if (!cwd)
+		{
+			cwd = ft_strjoinfree(pwd, "/");
+			cwd = ft_strjoinfree(cwd, cmd.args->content);
+		}
+		env_set(cmdline, "PWD", cwd);
+		free (cwd);
 		return (EXIT_SUCCESS);
 	}
-	else
-		pwd = ft_pathjoin(pwd, cmd.args->content);
-	if (!pwd || chdir(pwd) == -1)
+	cwd = ft_pathjoin(pwd, cmd.args->content);
+	free(pwd);
+	if (!cwd || chdir(cwd) == -1)
 		return (cd_error(cmd.args));
-	env_set(cmdline, "PWD", getcwd(pwd, 500));
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		pwd = cwd;
+	env_set(cmdline, "PWD", pwd);
+	free(cwd);
 	return (EXIT_SUCCESS);
 }
