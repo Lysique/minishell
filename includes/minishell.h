@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/20 11:59:23 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/20 14:03:14 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		prompt(t_cmdline *cmdline);
 
 void		execute_minishell(char **env);
 void		signal_management(void);
-void		reset_signals(void);
+void		check_for_minishell(char *cmd);
 void		*ft_malloc(int size, void *p);
 char		*check_cmdline(char **arr);
 void		shlvl_setter(t_cmdline *cmdline);
@@ -170,7 +170,6 @@ void		ft_putstr2(char *str);
 
 	/*TERMIOS*/
 void		setup_term(void);
-void		reset_term(void);
 
 	/*CMDLINE UTILS*/
 void		ft_ptrdel(void *ptr);

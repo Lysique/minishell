@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 11:25:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/20 14:03:43 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	parent_process(t_cmdline *cmdline)
 	int		p;
 
 	close_my_files(cmdline->cmds);
+	check_for_minishell(cmdline->cmds->cmd);
 	if (cmdline->cmds->pipetype != 1)
 	{
 		wait(&cmdline->cmds->exitstatus);
