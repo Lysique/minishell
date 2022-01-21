@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/21 14:57:25 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:09:24 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,11 @@ static void	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *curr
 }
 
 void	execute_pipex(t_cmdline *cmdline) //TODO: copy to executor.c
-{
-	init_builtins(cmdline);
-	
+{	
 	int			fds[6];
 	int			i;
 	int			flags_in_out[2];
 	t_cmds		*current;
-
 
 	flags_in_out[0] = 0;
 	flags_in_out[1] = 0;
