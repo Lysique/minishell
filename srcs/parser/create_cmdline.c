@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 09:29:18 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 11:28:28 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/21 07:58:18 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	create_cmdline(char **arr, t_cmdline *cmdline)
 			cmdline->cmds[i] = cmds_add_lstfile(arr, cmdline->cmds[i],
 					cmdline);
 			arr++;
+			if (!*arr)
+				break ;
 		}
 		else
 			cmdline->cmds[i] = cmds_add_cmd(&arr, cmdline->cmds[i]);
