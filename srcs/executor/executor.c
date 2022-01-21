@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/21 14:55:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 15:07:18 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ void	executor(t_cmdline *cmdline)
 
 	cmdline->builtins = builtins;
 	builtins_init(cmdline);
+	expander(cmdline);
+	cmdline->exit = 0;
 	execute_pipex(cmdline);
 }
