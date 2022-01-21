@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/20 14:03:14 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:56:06 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int			is_match(char *word, char *pattern);
 int			is_visible(char *name, char *pattern);
 
 	/*PIPEX*/
-void		pipex(t_cmdline *cmdline);
+void		execute_pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
 int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
 int			miscarriage(t_cmdline *cmdline);

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:55:09 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/21 14:40:33 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:57:21 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	init_builtins(t_cmdline *cmdline)
 {
 	t_builtins	builtins[8];
-	builtins_init(cmdline);
 	cmdline->builtins = builtins;
+	builtins_init(cmdline);
 }
 
 static void	set_up_pipes(int *fds)
@@ -73,7 +73,7 @@ void	redir_exec(t_cmdline *cmdline) //TODO: copy to redir_exec.c
 	execve(path, act, cmdline->env);
 }
 
-void	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *current)
+static void	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *current)
 {
 		int	i;
 
@@ -105,7 +105,7 @@ void	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *current)
 		dup2(fds[5], 1);
 }
 
-void	executor(t_cmdline *cmdline) //TODO: copy to executor.c
+void	execute_pipex(t_cmdline *cmdline) //TODO: copy to executor.c
 {
 	init_builtins(cmdline);
 	
