@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 17:20:08 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:35:03 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 08:22:38 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static char	*check_redir(char **arr)
 	if (arr[0][1] && arr[0][2])
 		return (*arr);
 	arr++;
+	if (!*arr)
+		return ("newline");
 	if (*arr && (**arr == '(' || **arr == ')' || **arr == '&' || **arr == '|'
 			|| **arr == '<' || **arr == '>'))
 		return (*arr);
@@ -52,6 +54,8 @@ static char	*check_pipe(char **arr)
 	if (arr[0][1] && arr[0][2])
 		return (*arr);
 	arr++;
+	if (!*arr)
+		return ("newline");
 	if (*arr && (**arr == '&' || **arr == '|' || **arr == ')'))
 		return (*arr);
 	return (0);
@@ -60,6 +64,8 @@ static char	*check_pipe(char **arr)
 static char	*check_parentheses(char **arr)
 {
 	arr++;
+	if (!*arr)
+		return ("newline");
 	if (**arr == '|' || **arr == '&')
 		return (*arr);
 	return (0);
@@ -67,16 +73,21 @@ static char	*check_parentheses(char **arr)
 
 char	*check_cmdline(char **arr)
 {
+	char	*checkptr;
+
 	if (check_parentheses_count(arr))
 		return (check_parentheses_count(arr));
 	while (*arr)
 	{
-		if ((**arr == '<' || **arr == '>') && check_redir(arr))
-			return (*arr);
-		else if ((**arr == '|' || **arr == '&') && check_pipe(arr))
-			return (*arr);
-		else if (**arr == '(' && check_parentheses(arr))
-			return (*arr);
+		checkptr = check_redir(arr);
+		if ((**arr == '<' || **arr == '>') && checkptr)
+			return (checkptr);
+		checkptr = check_pipe(arr);
+		if ((**arr == '|' || **arr == '&') && checkptr)
+			return (checkptr);
+		checkptr = check_parentheses(arr);
+		if (**arr == '(' && checkptr)
+			return (checkptr);
 		if (*arr)
 			arr++;
 	}
