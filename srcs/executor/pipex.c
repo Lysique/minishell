@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/21 10:50:26 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:45:35 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	parent_process(t_cmdline *cmdline)
 		check_exit_status(cmdline);
 	}
 	if (!cmdline->cmds->cmd)
+	{
+		close(cmdline->cmds->p[0]);
 		return ;
+	}
 	p = cmdline->cmds->p[0];
 	cmdline->cmds++;
 	cmdline->cmds->fd_in = p;
@@ -61,7 +64,10 @@ void	fork_call(t_cmdline *cmdline)
 			exit(EXIT_FAILURE);
 		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1
 			&& !cmdline->cmds->outfiles)
+			{
 			dup2(cmdline->cmds->p[1], 1);
+			close(cmdline->cmds->p[1]);
+			}
 		if (cmdline->cmds->outfiles)
 			dup2(cmdline->cmds->outfiles->fd, 1);
 		if (!check_if_builtin(cmdline, cmdline->builtins))
