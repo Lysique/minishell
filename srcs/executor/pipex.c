@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 15:55:54 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/21 10:50:26 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void	close_my_files(t_cmds *cmd)
 {
-	close(cmd->p[1]);
-	while (cmd->outfiles)
+	if (cmd->p[1] > 2 )
+		close(cmd->p[1]);
+	while (cmd->outfiles && cmd->outfiles->fd > 2)
 	{
 		close(cmd->outfiles->fd);
 		cmd->outfiles = cmd->outfiles->next;
 	}
-	while (cmd->infiles)
+	while (cmd->infiles && cmd->infiles->fd > 2)
 	{
 		close(cmd->infiles->fd);
 		cmd->infiles = cmd->infiles->next;
@@ -50,12 +51,13 @@ void	parent_process(t_cmdline *cmdline)
 
 void	fork_call(t_cmdline *cmdline)
 {
+	pipe(cmdline->cmds->p);
 	cmdline->is_forked = fork();
 	if (cmdline->is_forked == -1)
 		exit(EXIT_FAILURE);
 	else if (cmdline->is_forked == 0)
 	{
-		if (close(cmdline->cmds->p[0]) == -1)
+		if (cmdline->cmds->p[0] > 2 && close(cmdline->cmds->p[0]) == -1)
 			exit(EXIT_FAILURE);
 		if ((cmdline->cmds + 1)->command && cmdline->cmds->pipetype == 1
 			&& !cmdline->cmds->outfiles)
@@ -66,8 +68,7 @@ void	fork_call(t_cmdline *cmdline)
 			redir_exec(cmdline);
 		exit(0);
 	}
-	else
-		parent_process(cmdline);
+	parent_process(cmdline);
 }
 
 static void	set_fds(t_cmdline *cmdline)
@@ -82,7 +83,6 @@ void	pipex(t_cmdline *cmdline)
 {
 	set_fds(cmdline);
 	expander(cmdline);
-	pipe(cmdline->cmds->p);
 	if (miscarriage(cmdline))
 	{
 		close(cmdline->cmds->p[0]);
@@ -99,7 +99,7 @@ void	pipex(t_cmdline *cmdline)
 		fork_call(cmdline);
 	while (cmdline->cmds->command && (cmdline->cmds - 1)->pipetype <= 1)
 	{
-		pipe(cmdline->cmds->p);
+		set_fds(cmdline);
 		expander(cmdline);
 		fork_call(cmdline);
 	}
