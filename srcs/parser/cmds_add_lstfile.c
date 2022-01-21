@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 11:26:35 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/21 08:26:34 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*get_heredoc_string(char *file)
 	i = 0;
 	res = NULL;
 	line_read = readline("heredoc> ");
-	while (ft_strcmp(line_read, file) != 0 && line_read)
+	while (line_read && ft_strcmp(line_read, file) != 0)
 	{
 		if (i++ == 0)
 			res = ft_strjoinfree(line_read, "\n");
@@ -44,6 +44,8 @@ static int	ft_heredoc(char *file, t_cmdline *cmdline)
 	char	*res;
 	int		fd;
 
+	if (!file || !*file)
+		return (-1);
 	res = get_heredoc_string(file);
 	if (res)
 		res = heredoc_expand(res, cmdline);
