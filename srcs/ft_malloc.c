@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 13:57:15 by tamighi           #+#    #+#             */
-/*   Updated: 2021/12/23 10:16:34 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:42:30 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ void	*ft_allocs(t_list *allocated, int size)
 	while (tmp->next)
 		tmp = tmp->next;
 	new = malloc(sizeof(t_list));
+	ft_bzero(new, sizeof(t_list));
 	if (!new)
 	{
 		ft_free_all(allocated);
 		exit(EXIT_FAILURE);
 	}
 	new->content = malloc(size);
+	ft_bzero(new->content, size);
 	if (!new->content)
 	{
 		ft_free_all(allocated);

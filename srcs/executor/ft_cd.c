@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 12:44:58 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 16:07:54 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,37 +62,38 @@ int	cd_error(t_args *args)
 	return (EXIT_FAILURE);
 }
 
+int	update_pwd(t_cmdline *cmdline, char *pwd, t_cmds cmd)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		cwd = ft_strjoinfree(pwd, "/");
+		cwd = ft_strjoinfree(cwd, cmd.args->content);
+	}
+	env_set(cmdline, "PWD", cwd);
+	free (cwd);
+	return (EXIT_SUCCESS);
+}
+
 int	ft_cd(t_cmdline *cmdline)
 {
 	char	*pwd;
 	char	*cwd;
-	int		pwd_index;
 	t_cmds	cmd;
 
 	cmd = *cmdline->cmds;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
-	{
-		pwd_index = env_find(cmdline, "PWD");
-		pwd = ft_strtrim(cmdline->env[pwd_index], "PWD=");
-	}
+		pwd = get_pwd(cmdline);
 	if (!cmd.args)
 	{
 		free(pwd);
 		pwd = cd_to_home(cmdline->env);
 	}
 	else if (chdir(cmd.args->content) != -1)
-	{
-		cwd = getcwd(NULL, 0);
-		if (!cwd)
-		{
-			cwd = ft_strjoinfree(pwd, "/");
-			cwd = ft_strjoinfree(cwd, cmd.args->content);
-		}
-		env_set(cmdline, "PWD", cwd);
-		free (cwd);
-		return (EXIT_SUCCESS);
-	}
+		return (update_pwd(cmdline, pwd, cmd));
 	cwd = ft_pathjoin(pwd, cmd.args->content);
 	free(pwd);
 	if (!cwd || chdir(cwd) == -1)
