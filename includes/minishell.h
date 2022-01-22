@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/21 14:56:06 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:02:05 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_cmdline
 	pid_t				shellpid;
 	char				*prompt;
 	int					is_forked;
+	int					fds[6];
 }			t_cmdline;
 
 typedef struct s_builtins
@@ -161,6 +162,9 @@ int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
 int			miscarriage(t_cmdline *cmdline);
 char		**ms_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
+void		close_fds(int *fds);
+void		restore_stds(int *fds);
+void		free_all_and_exit(t_cmdline *cmdline, int num);
 
 char		*ms_strtrim(char const *s1, char const *set);
 int			ft_srch(char *envp, char *var);

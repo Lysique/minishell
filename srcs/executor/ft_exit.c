@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 11:16:30 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:02:18 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,7 @@ int	ft_exit(t_cmdline *cmdline)
 	if (cmd.args && is_number(cmd.args->content) && cmd.args->next)
 		return (exit_error(cmdline));
 	if (is_not_numeric(cmdline, cmd))
-	{
-		free_env(cmdline->env);
-		free(cmdline->prompt);
-		ft_malloc(-2, 0);
-		exit(cmdline->exit);
-	}
+		free_all_and_exit(cmdline, -1);
 	if (cmd.args)
 		num = ft_num_exit(cmd.args->content);
 	else
@@ -98,9 +93,6 @@ int	ft_exit(t_cmdline *cmdline)
 	if (cmdline->cmds->exitok == 0)
 		exit(num);
 	ft_putstr2("exit\n");
-	ft_malloc(-2, 0);
-	free_env(cmdline->env);
-	free(cmdline->prompt);
-	exit(num);
+	free_all_and_exit(cmdline, num);
 	return (num);
 }
