@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:27:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/22 15:01:56 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 16:05:36 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ void	free_all_and_exit(t_cmdline *cmdline, int num)
 	if (num == -1)
 		exit(cmdline->exit);
 	exit(num);
+}
+
+char	*get_pwd(t_cmdline *cmdline)
+{
+	char	*pwd;
+	int		pwd_index;
+
+	pwd_index = env_find(cmdline, "PWD");
+	pwd = ft_strtrim(cmdline->env[pwd_index], "PWD=");
+	return (pwd);
 }
