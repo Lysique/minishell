@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:30:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/19 09:11:50 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/22 15:30:59 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	expander(t_cmdline *cmdline)
 	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline, 1);
 	while (tmp)
 	{
+		if (!tmp->content)
+			break ;
 		tmp->content = expand(tmp->content, cmdline, 0);
 		tmp = tmp->next;
 	}
