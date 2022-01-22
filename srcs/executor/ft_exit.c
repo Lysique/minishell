@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:00:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/22 15:02:18 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:16:43 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_exit(t_cmdline *cmdline)
 	else
 		num = 0;
 	if (cmdline->cmds->exitok == 0)
-		exit(num);
+		free_all_and_exit(cmdline, num);
 	ft_putstr2("exit\n");
 	free_all_and_exit(cmdline, num);
 	return (num);
