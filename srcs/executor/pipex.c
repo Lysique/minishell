@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/21 16:09:24 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/22 14:54:24 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	switch_pipes_close_files(int *fds, t_cmds *cmd)
 	}
 }
 
-static void	wait_if_conditional(t_cmdline *cmdline, t_cmds * current)
+static void	wait_if_conditional(t_cmdline *cmdline, t_cmds *current)
 {
 	if (current->pipetype != 1)
 	{
@@ -51,48 +51,43 @@ static void	wait_if_conditional(t_cmdline *cmdline, t_cmds * current)
 	cmdline->is_forked = 0;
 }
 
-static void	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *current)
+static void	
+	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *current)
 {
-		int	i;
-
-		if (current->infiles)
-				dup2(current->infiles->fd, 0);
-		if (current->outfiles)
-				dup2(current->outfiles->fd, 1);
-		if (miscarriage(cmdline)) //TODO: dup2 in and out files to stdin and stdout AND RESET THEM AFTERWARDS
-		{
-			dup2(fds[4], 0);
-			dup2(fds[5], 1);
-			cmdline->cmds->exitok = 1;
-			check_exit_status(cmdline);
-			return ;
-		}
-		cmdline->is_forked = fork();
-		if (cmdline->is_forked == 0)
-		{
-			if (flag_in_out[0] && !current->infiles)
-				dup2(fds[0], 0);
-			if (flag_in_out[1] && !current->outfiles)
-				dup2(fds[3], 1);
-			i = -1;
-			while (++i < 6)
-				close(fds[i]);
-			redir_exec(cmdline);
-		}
-		dup2(fds[4], 0);
-		dup2(fds[5], 1);
+	if (current->infiles)
+		dup2(current->infiles->fd, 0);
+	if (current->outfiles)
+		dup2(current->outfiles->fd, 1);
+	if (miscarriage(cmdline))
+	{
+		restore_stds(fds);
+		cmdline->cmds->exitok = 1;
+		check_exit_status(cmdline);
+		return ;
+	}
+	cmdline->is_forked = fork();
+	if (cmdline->is_forked == 0)
+	{
+		if (flag_in_out[0] && !current->infiles)
+			dup2(fds[0], 0);
+		if (flag_in_out[1] && !current->outfiles)
+			dup2(fds[3], 1);
+		close_fds(fds);
+		redir_exec(cmdline);
+	}
+	restore_stds(fds);
 }
 
-void	execute_pipex(t_cmdline *cmdline) //TODO: copy to executor.c
+void	execute_pipex(t_cmdline *cmdline)
 {	
-	int			fds[6];
-	int			i;
+	int			*fds;
 	int			flags_in_out[2];
 	t_cmds		*current;
 
 	flags_in_out[0] = 0;
 	flags_in_out[1] = 0;
 	current = cmdline->cmds;
+	fds = cmdline->fds;
 	set_up_pipes(fds);
 	while (current->cmd)
 	{
@@ -108,9 +103,6 @@ void	execute_pipex(t_cmdline *cmdline) //TODO: copy to executor.c
 		flags_in_out[1] = 0;
 		current++;
 	}
-	dup2(fds[4], 0);
-	dup2(fds[5], 1);
-	i = -1;
-	while(++i < 6)
-		close(fds[i]);
+	restore_stds(fds);
+	close_fds(fds);
 }
