@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 14:29:33 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:17:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	set_exit_status(t_cmdline *cl)
 	}
 }
 
-void	check_exit_status(t_cmdline *cmdline)
+void	check_exit_status(t_cmdline *cmdline, t_cmds **currentptr)
 {
 	int		parentheses;
 	t_cmds	*cmds;
@@ -48,4 +48,5 @@ void	check_exit_status(t_cmdline *cmdline)
 			parentheses += cmdline->cmds->parentheses;
 		}
 	}
+	*currentptr = cmdline->cmds;
 }

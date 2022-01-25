@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 12:52:03 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:22:41 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ static void	switch_pipes_close_files(int *fds, t_cmds *cmd)
 	}
 }
 
-static void	wait_if_conditional(t_cmdline *cmdline, t_cmds *current)
+static void	wait_if_conditional(t_cmdline *cmdline, t_cmds **currentptr)
 {
+	const t_cmds	*current = *currentptr;
+
 	if (current->pipetype != 1)
 	{
 		waitpid(cmdline->is_forked, &cmdline->cmds->exitstatus, 0);
 		while (wait(0) != -1)
 			;
-		check_exit_status(cmdline);
+		check_exit_status(cmdline, currentptr);
 	}
 	cmdline->is_forked = 0;
 }
@@ -61,7 +63,6 @@ static void
 	if (miscarriage(cmdline, flag_in_out))
 	{
 		restore_stds(fds);
-		check_exit_status(cmdline);
 		return ;
 	}
 	cmdline->is_forked = fork();
@@ -99,12 +100,11 @@ void	execute_pipex(t_cmdline *cmdline)
 		cmdline->cmds = current;
 		expander(cmdline);
 		pipex(cmdline, fds, flags_in_out, current);
-		wait_if_conditional(cmdline, current);
-		if (!pipe_continues(cmdline, current))
-			break ;
+		wait_if_conditional(cmdline, &current);
 		flags_in_out[0] = flags_in_out[1];
 		flags_in_out[1] = 0;
-		current++;
+		if (current->cmd)
+			current++;
 	}
 	restore_stds(fds);
 	close_fds(fds);
