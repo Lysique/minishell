@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 13:17:41 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:39:04 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ static void	set_exit_status(t_cmdline *cl)
 	}
 }
 
+static void	close_files(t_cmds *cmd)
+{
+	while (cmd->outfiles && cmd->outfiles->fd > 2)
+	{
+		close(cmd->outfiles->fd);
+		cmd->outfiles = cmd->outfiles->next;
+	}
+	while (cmd->infiles && cmd->infiles->fd > 2)
+	{
+		close(cmd->infiles->fd);
+		cmd->infiles = cmd->infiles->next;
+	}
+}
+
 void	check_exit_status(t_cmdline *cmdline, t_cmds **currentptr)
 {
 	int		parentheses;
@@ -40,10 +54,12 @@ void	check_exit_status(t_cmdline *cmdline, t_cmds **currentptr)
 		|| (cmds->pipetype == 2 && cmdline->exit == 0))
 	{
 		pipe = cmds->pipetype;
+		close_files(cmdline->cmds);
 		cmdline->cmds++;
 		parentheses = cmdline->cmds->parentheses;
 		while (parentheses || cmdline->cmds->pipetype == pipe)
 		{
+			close_files(cmdline->cmds);
 			cmdline->cmds++;
 			parentheses += cmdline->cmds->parentheses;
 		}
