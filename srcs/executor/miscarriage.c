@@ -6,18 +6,11 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:03:25 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 12:23:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:28:00 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	is_last_child(t_cmdline *cmdline)
-{
-	if (!(cmdline->cmds + 1)->command || cmdline->cmds->pipetype != 1)
-		return (1);
-	return (0);
-}
 
 int	miscarriage(t_cmdline *cmdline, int flag_in_out[2])
 {
