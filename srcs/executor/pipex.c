@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/22 14:54:24 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:21:21 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ static void
 		dup2(current->infiles->fd, 0);
 	if (current->outfiles)
 		dup2(current->outfiles->fd, 1);
-	if (miscarriage(cmdline))
+	if (miscarriage(cmdline, flag_in_out))
 	{
 		restore_stds(fds);
-		cmdline->cmds->exitok = 1;
 		check_exit_status(cmdline);
 		return ;
 	}
@@ -73,6 +72,8 @@ static void
 		if (flag_in_out[1] && !current->outfiles)
 			dup2(fds[3], 1);
 		close_fds(fds);
+		if (check_if_builtin(cmdline, cmdline->builtins))
+			exit(cmdline->exit);
 		redir_exec(cmdline);
 	}
 	restore_stds(fds);
