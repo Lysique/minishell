@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdline_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 09:45:34 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/18 09:57:48 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:31:35 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,8 @@ void	ft_ptrdel(void *ptr)
 
 void	prompt(t_cmdline *cmdline)
 {
-	char	*tmp;
-	char	*new_prompt;
-	char	*exit_status;
-
 	ft_ptrdel(cmdline->prompt);
-	if (cmdline->exit == 0)
-		cmdline->prompt = ft_strdup(BMAG "🤪 minishell 👉 " RESET);
-	else
-	{
-		exit_status = ft_itoa(cmdline->exit);
-		tmp = ft_strjoin(BRED, exit_status);
-		ft_ptrdel(exit_status);
-		new_prompt = ft_strjoin(tmp, "?>" BMAG "🤪 minishell 👉 " RESET);
-		ft_ptrdel(tmp);
-		cmdline->prompt = new_prompt;
-	}
+	cmdline->prompt = ft_strdup(BMAG "minishell 👉 " RESET);
 }
 
 t_cmdline	*cl_ptr(t_cmdline *cl)
