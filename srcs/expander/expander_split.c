@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 11:04:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/24 08:29:14 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/25 13:45:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**expander_split(char *var)
 	char	**new;
 
 	j = 0;
-	new = ft_malloc(sizeof(char *) * expander_count(var) + 1, 0);
+	new = ft_malloc(sizeof(char *) * (expander_count(var) + 1), 0);
 	if (!*var)
 		new[j++] = add_expander_word(&var);
 	while (*var)

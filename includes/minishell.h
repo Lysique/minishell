@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/25 14:30:59 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/25 14:39:27 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void		execute_pipex(t_cmdline *cmdline);
 void		redir_exec(t_cmdline *cmdline);
 int			check_if_builtin(t_cmdline *cmdline, t_builtins *builtins);
 int			miscarriage(t_cmdline *cmdline, int flag_in_out[2]);
+int			has_piped_conditional(t_cmdline *cmdline);
 
 char		**ms_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);

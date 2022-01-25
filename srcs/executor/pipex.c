@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 14:30:38 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/25 14:54:57 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	execute_pipex(t_cmdline *cmdline)
 	set_up_pipes(fds);
 	while (current->cmd)
 	{
-		if (current->pipetype == 1)
-			flags_in_out[1] = 1;
 		cmdline->cmds = current;
+		if (current->pipetype == 1 || has_piped_conditional(cmdline))
+			flags_in_out[1] = 1;
 		expander(cmdline);
 		pipex(cmdline, fds, flags_in_out, current);
 		wait_if_conditional(cmdline, &current);

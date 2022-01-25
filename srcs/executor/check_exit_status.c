@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 12:46:07 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 13:57:02 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/25 14:38:29 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ static void	set_exit_status(t_cmdline *cl)
 	}
 }
 
+static void	close_files(t_cmds *cmd)
+{
+	while (cmd->outfiles && cmd->outfiles->fd > 2)
+	{
+		close(cmd->outfiles->fd);
+		cmd->outfiles = cmd->outfiles->next;
+	}
+	while (cmd->infiles && cmd->infiles->fd > 2)
+	{
+		close(cmd->infiles->fd);
+		cmd->infiles = cmd->infiles->next;
+	}
+}
+
 void	check_exit_status(t_cmdline *cmdline, t_cmds **currentptr)
 {
 	int		parentheses;
@@ -40,11 +54,15 @@ void	check_exit_status(t_cmdline *cmdline, t_cmds **currentptr)
 		|| (cmds->pipetype == 2 && cmdline->exit == 0))
 	{
 		pipe = cmds->pipetype;
+		close_files(cmdline->cmds);
 		cmdline->cmds++;
 		parentheses = cmdline->cmds->parentheses;
-		while (parentheses > 0 || cmdline->cmds->pipetype == pipe
-			|| cmdline->cmds->pipetype == 1)
+		while ((parentheses || cmdline->cmds->pipetype == pipe
+				|| cmdline->cmds->pipetype == 1) && cmdline->cmds->command)
 		{
+			if (parentheses < 0)
+				break ;
+			close_files(cmdline->cmds);
 			cmdline->cmds++;
 			parentheses += cmdline->cmds->parentheses;
 		}
