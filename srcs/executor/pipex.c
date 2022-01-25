@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 12:42:44 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:52:03 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static void
 		redir_exec(cmdline);
 	}
 	restore_stds(fds);
+	check_for_minishell(current->cmd);
+	switch_pipes_close_files(fds, current);
 }
 
 void	execute_pipex(t_cmdline *cmdline)
@@ -97,11 +99,8 @@ void	execute_pipex(t_cmdline *cmdline)
 		cmdline->cmds = current;
 		expander(cmdline);
 		pipex(cmdline, fds, flags_in_out, current);
-		check_for_minishell(current->cmd);
-		switch_pipes_close_files(fds, current);
 		wait_if_conditional(cmdline, current);
-		if ((current->pipetype == 2 && cmdline->exit == 0) 
-			|| (current->pipetype == 3 && cmdline->exit != 0))
+		if (!pipe_continues(cmdline, current))
 			break ;
 		flags_in_out[0] = flags_in_out[1];
 		flags_in_out[1] = 0;
