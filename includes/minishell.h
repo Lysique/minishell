@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/26 12:40:33 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:22:22 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,11 @@ void		close_fds(int *fds);
 void		restore_stds(int *fds);
 void		free_all_and_exit(t_cmdline *cmdline, int num);
 char		*get_pwd(t_cmdline *cmdline);
+char		*get_cwd(char *pwd, t_cmds *cmd);
+char		*ft_pathjoin(char *pwd, char *cd);
 
 char		*ms_strtrim(char const *s1, char const *set);
+char		*ms_strdup(char	*s);
 int			ft_srch(char *envp, char *var);
 int			ft_strequ(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);
