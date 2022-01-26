@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:27:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/22 16:05:36 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:51:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,6 @@ void	close_fds(int *fds)
 	i = -1;
 	while (++i < 6)
 		close(fds[i]);
-}
-
-void	free_all_and_exit(t_cmdline *cmdline, int num)
-{
-	close_fds(cmdline->fds);
-	free_env(cmdline->env);
-	free(cmdline->prompt);
-	ft_malloc(-2, 0);
-	if (num == -1)
-		exit(cmdline->exit);
-	exit(num);
 }
 
 char	*get_pwd(t_cmdline *cmdline)

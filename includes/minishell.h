@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/25 14:39:27 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/26 12:40:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ int			ft_cd(t_cmdline *cmdline);
 int			ft_env(t_cmdline *cmdline);
 int			ft_export(t_cmdline *cmdline);
 int			ft_unset(t_cmdline *cmdline);
+long long	ft_atoll_overflow(const char *str, int i, int *flag);
+
 
 	/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);

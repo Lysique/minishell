@@ -6,7 +6,7 @@
 #    By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/06 14:26:03 by slathouw          #+#    #+#              #
-#    Updated: 2022/01/25 14:39:48 by tamighi          ###   ########.fr        #
+#    Updated: 2022/01/26 12:52:09 by slathouw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,8 @@ EXECUTOR		= 	pipex.c utils.c redir_exec.c builtin_management.c \
 					ft_split.c find_path.c ft_exit.c ft_echo.c ft_pwd.c \
 					ft_cd.c executor.c check_exit_status.c \
 					ft_env.c env_utils.c env_utils2.c ft_export.c \
-					ft_unset.c miscarriage.c has_piped_conditional.c
+					ft_unset.c miscarriage.c has_piped_conditional.c \
+					ft_exit_utils.c
 EXECUTOR_DIR 	= srcs/executor
 EXECUTOR_SRCS = ${addprefix $(EXECUTOR_DIR)/, $(EXECUTOR)}
 EXECUTOR_OBJS	= ${addprefix $(OBJDIR)/exec_, $(EXECUTOR:.c=.o)}
