@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:47:11 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/20 15:43:31 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 10:33:13 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@ static void	child_handler(t_cmdline *cl, int sig)
 		}
 		if (sig == SIGQUIT)
 		{
-			ft_printf("\n");
+			ft_printf("Quit: 3\n");
 			cl->exit = 131;
 		}
 	}
 	else if (sig == SIGINT)
 	{
-		ft_printf("\n");
-		cl->exit = 1;
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
 		cl->quit = 1;
 	}
 }
