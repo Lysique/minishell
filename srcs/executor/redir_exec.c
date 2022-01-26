@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 11:02:07 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/26 13:31:48 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ void	redir_exec(t_cmdline *cmdline)
 		exit(EXIT_CMD_NOT_FOUND_ERR);
 	}
 	execve(path, act, cmdline->env);
-	ft_fdprintf(2, "minishell : %s : is a directory\n", cmdline->cmds->cmd);
+	if (!access(act[0], F_OK) && access(act[0], X_OK))
+		ft_fdprintf(2, "minishell : %s : Permission denied\n",
+			cmdline->cmds->cmd);
+	else
+		ft_fdprintf(2, "minishell : %s : is a directory\n", cmdline->cmds->cmd);
 	cmdline->exit = 126;
 	exit(126);
 }
