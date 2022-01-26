@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:30:26 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:11:01 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ static char	*arg_line(char **line)
 			quote = **line;
 			new[i++] = **line;
 			while (++(*line) && **line && **line != quote)
-			{
 				new[i++] = **line;
-			}
+			if (**line)
+				new[i++] = *(*line)++;
 			continue ;
 		}
 		new[i++] = **line;
