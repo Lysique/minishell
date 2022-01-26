@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 15:12:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 11:31:31 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/26 13:42:59 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,14 @@ int	cd_error(t_args *args)
 	if (!args)
 		ft_fdprintf(2, "minishell : You unsetted home :(\n");
 	else
-		ft_fdprintf(2, "minishell: cd: %s: No such directory\n",
-			(char *) args->content);
+	{
+		if (!access(args->content, F_OK))
+			ft_fdprintf(2, "minishell: cd: %s: No such directory\n",
+				(char *) args->content);
+		else
+			ft_fdprintf(2, "minishell: cd: %s: No such file or directory\n",
+				(char *) args->content);
+	}
 	return (EXIT_FAILURE);
 }
 
