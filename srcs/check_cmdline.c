@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 17:20:08 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/21 08:22:38 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 10:46:14 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*check_cmdline(char **arr)
 
 	if (check_parentheses_count(arr))
 		return (check_parentheses_count(arr));
+	if (**arr == '|' || **arr == '&')
+		return (*arr);
 	while (*arr)
 	{
 		checkptr = check_redir(arr);
