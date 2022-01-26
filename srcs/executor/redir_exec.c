@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/22 14:49:53 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 11:02:07 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,7 @@ void	redir_exec(t_cmdline *cmdline)
 		exit(EXIT_CMD_NOT_FOUND_ERR);
 	}
 	execve(path, act, cmdline->env);
+	ft_fdprintf(2, "minishell : %s : is a directory\n", cmdline->cmds->cmd);
+	cmdline->exit = 126;
+	exit(126);
 }
