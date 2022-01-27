@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 13:24:40 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/27 10:44:31 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,17 @@ char	*find_path(char *cmd, char **envp)
 		return (cmd);
 	while (ft_strlen(envp[i]) > 5 && ft_srch(envp[i], "PATH=") == 0)
 		i++;
+	if (!envp[i])
+	{
+		ft_fdprintf(2, "minishell: %s: No such file or directory\n", cmd);
+		return (0);
+	}
 	path = ms_strtrim(envp[i], "PATH=");
 	tab = ms_split(path, ':');
 	ft_malloc(-1, path);
 	if (find_path2(tab, cmd, &cmd1) == 0 && access(cmd, F_OK))
 	{
-		ft_fdprintf(2, "minishell : %s : command not found\n", cmd);
+		ft_fdprintf(2, "minishell: %s: command not found\n", cmd);
 		return (0);
 	}
 	ft_malloc(-1, tab);
