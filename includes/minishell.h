@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/26 14:22:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:08:39 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ int			ft_export(t_cmdline *cmdline);
 int			ft_unset(t_cmdline *cmdline);
 long long	ft_atoll_overflow(const char *str, int i, int *flag);
 
-
 	/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);
 int			has_valid_identifier(char *line);
@@ -182,6 +181,7 @@ void		ft_putstr2(char *str);
 
 	/*TERMIOS*/
 void		setup_term(void);
+void		reset_term(void);
 
 	/*CMDLINE UTILS*/
 void		ft_ptrdel(void *ptr);
