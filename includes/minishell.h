@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/26 12:40:33 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:18:40 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ int			nb_cmds(char **arr);
 	/*EXPANDER*/
 
 void		expander(t_cmdline *cmdline);
-char		*expand(char *var, t_cmdline *cmdline, int x);
+char		*expand_dollar(char *var, t_cmdline *cmdline, int index);
+char		*special_expand(char *var, int exitstatus, int index);
+
 char		*expand_wildcard(char *pattern);
-int			env_index(char **env, char *var);
-char		*expand_to_env(char *var, char **env, int ix, int i);
 char		*fk_quotes(char *var);
 char		**expander_split(char *var);
 
@@ -132,7 +132,6 @@ int			ft_env(t_cmdline *cmdline);
 int			ft_export(t_cmdline *cmdline);
 int			ft_unset(t_cmdline *cmdline);
 long long	ft_atoll_overflow(const char *str, int i, int *flag);
-
 
 	/*ENV FUNCTIONS*/
 void		env_init(char **envp, t_cmdline *cmdline);

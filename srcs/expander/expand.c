@@ -5,66 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 08:36:08 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 12:14:23 by tamighi          ###   ########.fr       */
+/*   Created: 2022/01/27 15:39:25 by tamighi           #+#    #+#             */
+/*   Updated: 2022/01/27 18:17:50 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*split_cmd_to_args(char *cmd, t_args **args)
+int	env_index(char **env, char *var)
 {
-	char	**arr;
-	int		i;
-	t_args	*tmp;
-	t_args	*tmp2;
-	t_args	*tmp3;
+	int	i;
+	int	j;
 
-	arr = expander_split(cmd);
-	i = 1;
-	while (arr[i])
+	i = 0;
+	j = 0;
+	while (env[i])
 	{
-		tmp = ft_malloc(sizeof(t_args), 0);
-		tmp->next = *args;
-		tmp->content = arr[i];
-		if (i++ == 1)
-			tmp3 = tmp;
-		else
-			tmp2->next = tmp;
-		tmp2 = tmp;
-	}
-	if (i != 1)
-		*args = tmp3;
-	return (arr[0]);
-}
-
-static char	*split_content_to_args(char *content, t_args **argss)
-{
-	char	**arr;
-	int		i;
-	t_args	*tmp;
-	t_args	*args;
-
-	arr = expander_split(content);
-	args = *argss;
-	i = 1;
-	while (arr[i])
-	{
-		tmp = ft_malloc(sizeof(t_args), 0);
-		tmp->next = args->next;
-		args->next = tmp;
-		args = args->next;
-		tmp->content = arr[i];
-		tmp = tmp->next;
+		while (env[i][j] == var[j])
+		{
+			j++;
+			if (env[i][j] == '=' && (var[j] == ' ' || var[j] == 34 || !var[j]
+					|| var[j] == '$' || var[j] == 39 || var[j] == '*'))
+				return (i);
+		}
 		i++;
+		j = 0;
 	}
-	return (arr[0]);
+	return (i);
 }
 
-static char	*special_expand(char *var, int exitstatus)
+char	*special_expand(char *var, int exitstatus, int index)
 {
 	int		i;
 	int		j;
+	int		k;
 	char	*new;
 	char	*nb;
 
@@ -72,59 +46,75 @@ static char	*special_expand(char *var, int exitstatus)
 	new = ft_malloc(ft_strlen(var) + ft_strlen(nb) + 1, 0);
 	i = 0;
 	j = 0;
-	while (*var != '$')
-	{
-		new[i++] = *var;
-		var++;
-	}
-	var += 2;
+	k = 0;
+	while (k < index)
+		new[i++] = var[k++];
+	k += 2;
 	while (nb[j])
 		new[i++] = nb[j++];
-	while (*var)
-	{
-		new[i++] = *var;
-		var++;
-	}
+	while (var[k])
+		new[i++] = var[k++];
 	new[i] = '\0';
 	free(nb);
+	ft_malloc(-1, var);
 	return (new);
 }
 
-static char	*expand_return(char *var, t_args **args, int x)
+char	*nb_expand(char *var, int index)
 {
-	var = expand_wildcard(var);
-	if (x)
-		var = split_cmd_to_args(var, args);
-	else
-		var = split_content_to_args(var, args);
-	return (var);
+	int		i;
+	char	*new;
+
+	i = 0;
+	new = ft_malloc(ft_strlen(var) - 1, 0);
+	while (i < index)
+	{
+		new[i] = var[i];
+		i++;
+	}
+	while (var[i + 2])
+	{
+		new[i] = var[i + 2];
+		i++;
+	}
+	ft_malloc(-1, var);
+	return (new);
 }
 
-char	*expand(char *var, t_cmdline *cmdline, int x)
+char	*envir_expand(char *var, char **env, int index, int i)
 {
-	int	i;
-	int	double_quote;
+	char	*new;
+	int		j;
+	int		k;
+	int		i_env;
 
-	i = -1;
-	double_quote = -1;
-	while (var[++i])
-	{
-		if (var[i] == 39 && double_quote == -1 && ++i)
-		{
-			while (var[i] && var[i] != 39)
-				i++;
-		}
-		if (var[i] == 34)
-			double_quote = double_quote * -1;
-		else if (var[i] == '$' && var[i + 1])
-		{
-			if (var[i + 1] == '?')
-				var = special_expand(var, cmdline->exit);
-			else
-				var = expand_to_env(var, cmdline->env,
-						env_index(cmdline->env, &var[i + 1]), 0);
-			i = -1;
-		}
-	}
-	return (expand_return(var, &cmdline->cmds->args, x));
+	i_env = env_index(env, &var[index + 1]);
+	new = ft_malloc(ft_strlen(var) + ft_strlen(env[i_env]) + 1, 0);
+	j = 0;
+	k = 0;
+	while (i < index)
+		new[k++] = var[i++];
+	i += 1;
+	while (env[i_env] && env[i_env][j - 1] != '=')
+		j++;
+	while (env[i_env] && env[i_env][j])
+		new[k++] = env[i_env][j++];
+	while (var[i] && var[i] != ' ' && var[i] != 34
+		&& var[i] != 39 && var[i] != '$' && var[i] != '*')
+		i++;
+	while (var[i])
+		new[k++] = var[i++];
+	new[k] = '\0';
+	ft_malloc(-1, var);
+	return (new);
+}
+
+char	*expand_dollar(char *var, t_cmdline *cmdline, int index)
+{
+	if (var[index + 1] == '?')
+		return (special_expand(var, cmdline->exit, index));
+	else if (var[index + 1] >= 0 && var[index + 1] <= 9)
+		return (nb_expand(var, index));
+	else
+		return (envir_expand(var, cmdline->env, index, 0));
 }

@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:18:31 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 14:06:02 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:19:09 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	cmdline_init(char **arr, t_cmdline *cmdline)
 	int			i;
 
 	i = nb_cmds(arr);
-	cmdline->cmds = ft_malloc(sizeof(t_cmds) * (nb_cmds(arr) +1), 0);
+	cmdline->cmds = ft_malloc(sizeof(t_cmds) * (nb_cmds(arr) + 1), 0);
 	cmdline->cmds[i].command = 0;
 	while (i != -1)
 	{

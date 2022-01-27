@@ -6,17 +6,24 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 11:04:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/25 13:45:23 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:16:28 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	expander_count(char *var)
+int	skip_quote(char *var, int i, int quote)
+{
+	i++;
+	while (var[i] != quote && var[i])
+		i++;
+	return (i);
+}
+
+int	expander_count(char *var)
 {
 	int	i;
 	int	nb;
-	int	quote;
 
 	nb = 1;
 	i = 0;
@@ -29,80 +36,72 @@ static int	expander_count(char *var)
 				i++;
 		}
 		if (var[i] == 39 || var[i] == 34)
-		{
-			quote = var[i];
-			while (var[i] && var[i] != quote)
-				i++;
-		}
+			i = skip_quote(var, i, var[i]);
 		if (var[i])
 			i++;
 	}
 	return (nb);
 }
 
-static int	ft_countlength(char *var)
+int	ft_countlength(char *var)
 {
 	int	i;
-	int	quote;
 
 	i = 0;
-	while (var[i] != ' ' && var[i])
+	while (!ft_isspace(var[i]) && var[i])
 	{
 		if (var[i] == 39 || var[i] == 34)
-		{
-			quote = var[i];
-			while (var[i] && var[i] != quote)
-				i++;
-		}
+			i = skip_quote(var, i, var[i]);
 		if (var[i])
 			i++;
 	}
 	return (i);
 }
 
-static char	*add_expander_word(char **var)
+char	*add_expander_word(char *var, int *i)
 {
 	char	*new;
 	int		quote;
-	int		i;
 	int		j;
 
-	new = ft_malloc(ft_countlength(*var) + 1, 0);
-	i = 0;
+	new = ft_malloc(ft_countlength(var) + 1, 0);
 	j = 0;
-	while (*(*var + j) != ' ' && *(*var + j))
+	while (!ft_isspace(var[*i]) && var[*i])
 	{
-		if (*(*var + j) == 39 || *(*var + j) == 34)
+		if (var[*i] == 39 || var[*i] == 34)
 		{
-			quote = *(*var + j++);
-			while (*(*var + j) && *(*var + j) != quote)
-				new[i++] = *(*var + j++);
-			if (*(*var + j))
-				j++;
+			quote = var[(*i)++];
+			while (var[*i] && var[*i] != quote)
+				new[j++] = var[(*i)++];
+			if (var[*i])
+				*i += 1;
 			continue ;
 		}
-		if (*(*var + j))
-			new[i++] = *(*var + j++);
+		if (var[*i])
+			new[j++] = var[(*i)++];
 	}
-	new[i] = '\0';
-	*var += j;
+	new[j] = '\0';
 	return (new);
 }
 
 char	**expander_split(char *var)
 {
 	int		j;
+	int		i;
 	char	**new;
 
 	j = 0;
+	i = 0;
 	new = ft_malloc(sizeof(char *) * (expander_count(var) + 1), 0);
-	if (!*var)
-		new[j++] = add_expander_word(&var);
-	while (*var)
+	if (!var[i])
+		new[j++] = add_expander_word(var, &i);
+	while (var[i])
 	{
-		new[j++] = add_expander_word(&var);
-		if (*var)
-			var++;
+		new[j++] = add_expander_word(var, &i);
+		if (var[i])
+			i++;
+		while (ft_isspace(var[i]))
+			i++;
 	}
 	new[j] = 0;
 	return (new);
