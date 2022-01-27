@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/27 18:18:40 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/27 18:20:06 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,11 @@ void		close_fds(int *fds);
 void		restore_stds(int *fds);
 void		free_all_and_exit(t_cmdline *cmdline, int num);
 char		*get_pwd(t_cmdline *cmdline);
+char		*get_cwd(char *pwd, t_cmds *cmd);
+char		*ft_pathjoin(char *pwd, char *cd);
 
 char		*ms_strtrim(char const *s1, char const *set);
+char		*ms_strdup(char	*s);
 int			ft_srch(char *envp, char *var);
 int			ft_strequ(char *s1, char *s2);
 char		*ms_strjoin(char const *s1, char const *s2);
@@ -178,6 +181,7 @@ void		ft_putstr2(char *str);
 
 	/*TERMIOS*/
 void		setup_term(void);
+void		reset_term(void);
 
 	/*CMDLINE UTILS*/
 void		ft_ptrdel(void *ptr);

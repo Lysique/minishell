@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:27:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 12:51:33 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:20:05 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,17 @@ void	close_fds(int *fds)
 		close(fds[i]);
 }
 
-char	*get_pwd(t_cmdline *cmdline)
+char	*ms_strdup(char	*s)
 {
-	char	*pwd;
-	int		pwd_index;
+	char	*dup;
+	size_t	len;
 
-	pwd_index = env_find(cmdline, "PWD");
-	pwd = ft_strtrim(cmdline->env[pwd_index], "PWD=");
-	return (pwd);
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	dup = ft_malloc(sizeof(char) * (len + 1), 0);
+	if (!dup)
+		return (NULL);
+	ft_strlcpy(dup, s, len + 1);
+	return (dup);
 }

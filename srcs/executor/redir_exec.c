@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 13:31:48 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/27 10:44:47 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	redir_exec(t_cmdline *cmdline)
 	}
 	execve(path, act, cmdline->env);
 	if (!access(act[0], F_OK) && access(act[0], X_OK))
-		ft_fdprintf(2, "minishell : %s : Permission denied\n",
+		ft_fdprintf(2, "minishell: %s: Permission denied\n",
 			cmdline->cmds->cmd);
 	else
-		ft_fdprintf(2, "minishell : %s : is a directory\n", cmdline->cmds->cmd);
+		ft_fdprintf(2, "minishell: %s: is a directory\n", cmdline->cmds->cmd);
 	cmdline->exit = 126;
 	exit(126);
 }

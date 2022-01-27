@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 13:32:18 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/20 14:44:13 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:43:38 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strjoinfree(char *dest, const char *str)
 	char	*tmp;
 
 	tmp = ft_strjoin(dest, str);
-	free(dest);
+	ft_ptrdel(dest);
 	dest = tmp;
 	return (dest);
 }

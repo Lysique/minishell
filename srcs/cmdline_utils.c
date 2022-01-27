@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdline_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 09:45:34 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/25 15:31:35 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:08:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,13 @@ void	minishell_init(t_cmdline *cmdline, char **env)
 	cmdline->shellpid = getpid();
 	cl_ptr(cmdline);
 	signal_management();
+}
+
+void	reset_term(void)
+{
+	struct termios	t;
+
+	tcgetattr(0, &t);
+	t.c_lflag |= ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
 }

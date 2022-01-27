@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 11:03:42 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/06 04:39:19 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:16:05 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_echo(t_cmdline *cmdline)
 
 	tmp = cmdline->cmds->args;
 	nb = 0;
-	if (tmp && check_n_arg(tmp->content))
+	while (tmp && check_n_arg(tmp->content))
 	{
 		tmp = tmp->next;
 		nb = 1;

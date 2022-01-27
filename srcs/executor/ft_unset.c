@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/28 15:06:38 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/04 14:42:37 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/27 10:21:24 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_unset(t_cmdline *cmdline)
 			ft_fdprintf(2, "minishell: export: '%s': not a valid identifier\n",
 				argline);
 			fail = 1;
+			args = args->next;
 			continue ;
 		}
 		env_unset(cmdline, argline);
