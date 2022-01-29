@@ -6,7 +6,7 @@
 /*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:18:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/27 18:16:31 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/29 09:00:43 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,18 @@ void	expander(t_cmdline *cmdline)
 	t_args	*tmp;
 
 	tmp = cmdline->cmds->args;
+//	printf("CMD : |%s| -->", cmdline->cmds->cmd);
 	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline);
-	cmdline->cmds->cmd = expand_wildcard(cmdline->cmds->cmd);
 	cmdline->cmds->cmd = split_cmd_to_args(cmdline->cmds->cmd, cmdline);
+	cmdline->cmds->cmd = expand_wildcard(cmdline->cmds->cmd);
+//	printf(" |%s|\n", cmdline->cmds->cmd);
 	while (tmp)
 	{
+//		printf("CONTENT : |%s|", tmp->content);
 		tmp->content = expand(tmp->content, cmdline);
-		tmp->content = expand_wildcard(tmp->content);
 		tmp->content = split_content_to_args(tmp->content, cmdline);
+		tmp->content = expand_wildcard(tmp->content);
+//		printf("--> |%s|\n", tmp->content);
 		tmp = tmp->next;
 	}
 }
