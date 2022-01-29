@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:50:40 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/18 09:29:10 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/29 15:33:37 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static char	*handle_parentheses(char *line)
 {
 	line++;
-	while (ft_isspace(*line == ' '))
-		line++;
 	return (line);
 }
 
@@ -26,8 +24,6 @@ static char	*handle_pipe_redir(char *line)
 
 	redir_or_pipe = *line;
 	while (*line == redir_or_pipe)
-		line++;
-	while (ft_isspace(*line))
 		line++;
 	return (line);
 }
@@ -42,8 +38,6 @@ static char	*handle_quotes(char *line)
 		line++;
 	if (*line == quote)
 		line++;
-	while (ft_isspace(*line))
-		line++;
 	return (line);
 }
 
@@ -55,10 +49,9 @@ static char	*handle_arg(char *line)
 	{
 		if (*line == 34 || *line == 39)
 			line = handle_quotes(line);
-		line++;
+		else
+			line++;
 	}
-	while (ft_isspace(*line))
-		line++;
 	return (line);
 }
 
@@ -81,6 +74,8 @@ int	nb_tokens(char *line)
 			line = handle_parentheses(line);
 		else
 			line = handle_arg(line);
+		while (ft_isspace(*line))
+			line++;
 		count++;
 	}
 	return (count);

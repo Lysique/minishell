@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 14:03:06 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/29 09:09:36 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/29 15:34:18 by tamighi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,8 @@ char	**tokens_in_arr(char *line, char **arr)
 			arr[j] = arg_line(&line);
 		while (ft_isspace(*line))
 			line++;
-//		printf("ARR[%d] = %s\n", j, arr[j]);
 		j++;
 	}
 	arr[j] = 0;
-//	printf("ARR[0] = %s\n", arr[0]);
 	return (arr);
 }
