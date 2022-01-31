@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/29 09:30:23 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/31 13:15:32 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	executor(t_cmdline *cmdline)
 	reset_term();
 	builtins_init(cmdline);
 	expander(cmdline);
-	cmdline->exit = 0;
 	execute_pipex(cmdline);
 	setup_term();
 }
