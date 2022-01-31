@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:27:27 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 14:20:05 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/31 08:07:53 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	close_fds(int *fds)
 
 	i = -1;
 	while (++i < 6)
-		close(fds[i]);
+		if (fds[i])
+			close(fds[i]);
 }
 
 char	*ms_strdup(char	*s)

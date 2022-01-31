@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:11:29 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/27 10:44:47 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/31 08:11:54 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	redir_exec(t_cmdline *cmdline)
 	else
 		ft_fdprintf(2, "minishell: %s: is a directory\n", cmdline->cmds->cmd);
 	cmdline->exit = 126;
-	exit(126);
+	free_all_and_exit(cmdline, 126);
 }
