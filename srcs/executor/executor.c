@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:06:56 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/27 10:09:37 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/29 09:30:23 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*builtin_name(char *builtin)
 	i = 0;
 	while (builtin[i])
 		i++;
-	new = ft_malloc(i + 1, 0);
+	new = ft_malloc(sizeof(char) * (i + 1), 0);
 	i = 0;
 	while (builtin[i])
 	{

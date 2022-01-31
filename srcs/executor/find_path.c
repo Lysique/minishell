@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 11:18:38 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/27 10:44:31 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/29 09:30:53 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ms_strjoin(char const *s1, char const *s2)
 		i++;
 	while (s2[j])
 		j++;
-	res = ft_malloc(i + j + 1, 0);
+	res = ft_malloc(sizeof(char) * (i + j + 1), 0);
 	rres = res;
 	while (*s1)
 		*res++ = *s1++;

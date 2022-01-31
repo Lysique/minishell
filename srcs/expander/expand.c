@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:39:25 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/29 08:41:03 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/31 08:09:35 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*nb_expand(char *var, int index)
 	char	*new;
 
 	i = 0;
-	new = ft_malloc(ft_strlen(var) - 1, 0);
+	new = ft_malloc(ft_strlen(var) + 1, 0);
 	while (i < index)
 	{
 		new[i] = var[i];
@@ -97,8 +97,8 @@ char	*envir_expand(char *var, char **env, int index, int i)
 	while (i < index)
 		new[k++] = var[i++];
 	i += 1;
-	while (env[i_env] && env[i_env][j - 1] != '=')
-		j++;
+	while (env[i_env] && env[i_env][++j - 1] != '=')
+		;
 	while (env[i_env] && env[i_env][j])
 		new[k++] = env[i_env][j++];
 	while (var[i] && var[i] != ' ' && var[i] != 34
