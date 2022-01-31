@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds_add_lstfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 14:14:49 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/21 08:26:34 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/31 12:55:59 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static t_cmds	add_lst_outfile(t_cmds cmds, char *redirection, char *file)
 		new->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		new->fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (new->fd == -1)
+		ft_fdprintf(2, "minishell: %s: Nosuch file or directory\n", file);
 	new->next = listptr;
 	cmds.outfiles = new;
 	return (cmds);
@@ -99,6 +101,8 @@ static t_cmds	add_lst_infile(t_cmds cmds, char *redirection, char *file,
 		new->fd = open(file, O_RDONLY);
 	else
 		new->fd = ft_heredoc(file, cmdline);
+	if (new->fd == -1)
+		ft_fdprintf(2, "minishell: %s: Nosuch file or directory\n", file);
 	new->next = listptr;
 	cmds.infiles = new;
 	return (cmds);

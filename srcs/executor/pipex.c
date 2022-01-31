@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 10:20:52 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/26 13:28:20 by slathouw         ###   ########.fr       */
+/*   Updated: 2022/01/31 12:53:00 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	set_up_pipes(int *fds)
 	fds[5] = dup(1);
 }
 
-static void	switch_pipes_close_files(int *fds, t_cmds *cmd)
+void	switch_pipes_close_files(int *fds, t_cmds *cmd)
 {
 	close(fds[0]);
 	close(fds[1]);
@@ -56,10 +56,11 @@ static void	wait_if_conditional(t_cmdline *cmdline, t_cmds **currentptr)
 static void	
 	pipex(t_cmdline *cmdline, int *fds, int flag_in_out[2], t_cmds *current)
 {
-	if (current->infiles)
-		dup2(current->infiles->fd, 0);
-	if (current->outfiles)
-		dup2(current->outfiles->fd, 1);
+	if (!inf_outf_set(current, fds))
+	{
+		cmdline->exit = 1;
+		return ;
+	}
 	if (miscarriage(cmdline, flag_in_out))
 	{
 		restore_stds(fds);
@@ -74,7 +75,7 @@ static void
 			dup2(fds[3], 1);
 		close_fds(fds);
 		if (check_if_builtin(cmdline, cmdline->builtins))
-			exit(cmdline->exit);
+			free_all_and_exit(cmdline, cmdline->exit);
 		redir_exec(cmdline);
 	}
 	restore_stds(fds);

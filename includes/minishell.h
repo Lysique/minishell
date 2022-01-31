@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 10:03:16 by slathouw          #+#    #+#             */
-/*   Updated: 2022/01/27 18:20:06 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:52:43 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ char		**ms_split(char const *s, char c);
 char		*find_path(char *cmd, char **envp);
 void		close_fds(int *fds);
 void		restore_stds(int *fds);
+int			inf_outf_set(t_cmds *current, int *fds);
+void		switch_pipes_close_files(int *fds, t_cmds *cmd);
 void		free_all_and_exit(t_cmdline *cmdline, int num);
 char		*get_pwd(t_cmdline *cmdline);
 char		*get_cwd(char *pwd, t_cmds *cmd);
