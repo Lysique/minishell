@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamighi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:18:28 by tamighi           #+#    #+#             */
-/*   Updated: 2022/01/29 15:34:52 by tamighi          ###   ########.fr       */
+/*   Updated: 2022/02/01 11:39:46 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*expand(char *var, t_cmdline *cmdline)
 
 	i = -1;
 	double_quote = -1;
+	if (!var)
+		return (NULL);
 	while (var[++i])
 	{
 		if (var[i] == 39 && double_quote == -1 && ++i)
@@ -86,6 +88,8 @@ void	expander(t_cmdline *cmdline)
 {
 	t_args	*tmp;
 
+	if (!cmdline->cmds->cmd)
+		return ;
 	tmp = cmdline->cmds->args;
 	cmdline->cmds->cmd = expand(cmdline->cmds->cmd, cmdline);
 	cmdline->cmds->cmd = split_cmd_to_args(cmdline->cmds->cmd, cmdline);
